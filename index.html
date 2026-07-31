@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consulta de Recibos</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>AGROINDUSTRIAS CAYO BLANCO</h1>
+
+        <h2>Consulta de Recibo de Pago</h2>
+
+        <input
+            type="text"
+            id="codigo"
+            placeholder="Ingrese su código de empleado"
+            autocomplete="off">
+
+        <button id="buscar">
+            Buscar Recibo
+        </button>
+
+        <div id="mensaje"></div>
+
+        <canvas id="visorPDF"></canvas>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
