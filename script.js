@@ -63,6 +63,9 @@ async function buscarRecibo() {
         for (let pagina = 1; pagina <= pdf.numPages; pagina++) {
 
             const page = await pdf.getPage(pagina);
+            const texto = contenido.items.map(item => item.str).join(" ");
+
+console.log(texto);
 
             const contenido = await page.getTextContent();
 
