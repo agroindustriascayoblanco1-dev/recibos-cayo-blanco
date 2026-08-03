@@ -10,7 +10,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 const boton = document.getElementById("buscar");
 const botonDescargar = document.getElementById("descargar");
 const mensaje = document.getElementById("mensaje");
-const nombreColaborador = document.getElementById("nombreColaborador");
 const canvas = document.getElementById("visorPDF");
 const ctx = canvas.getContext("2d");
 
@@ -33,11 +32,10 @@ if (botonDescargar) {
 // ===============================
 async function buscarRecibo() {
 
-    mensaje.style.color = "#ffee00";
-    mensaje.innerHTML = "🔎 Buscando recibo...";
+mensaje.style.color = "#ffee00";
+mensaje.innerHTML = "🔎 Buscando recibo...";
 
     canvas.style.display = "none";
-    nombreColaborador.style.display = "none";
 
     if (botonDescargar) {
         botonDescargar.style.display = "none";
@@ -63,48 +61,32 @@ async function buscarRecibo() {
         for (let pagina = 1; pagina <= pdf.numPages; pagina++) {
 
             const page = await pdf.getPage(pagina);
-            const texto = contenido.items.map(item => item.str).join(" ");
-
-console.log(texto);
 
             const contenido = await page.getTextContent();
 
-            const texto = contenido.items.map(item => item.str).join(" ");
+            for (const item of contenido.items) {
 
-            // Buscar el código
-            if (texto.toUpperCase().includes(codigo)) {
+                if (item.str.toUpperCase().includes(codigo)) {
 
-                // Extraer el nombre del colaborador
-                const expresion = new RegExp(
-                    codigo + "\\s*--\\s*(.*?)\\s*Identidad",
-                    "i"
-                );
+                    mensaje.style.color = "#198754";
+mensaje.innerHTML = "✔ Recibo encontrado correctamente.";
 
-                const resultado = texto.match(expresion);
+                    await mostrarPagina(pdf, pagina);
 
-                if (resultado) {
-                    nombreColaborador.style.display = "block";
-                    nombreColaborador.innerHTML =
-                        "👤 " + resultado[1];
+                    if (botonDescargar) {
+                        botonDescargar.style.display = "block";
+                    }
+
+                    return;
+
                 }
-
-                mensaje.style.color = "#198754";
-                mensaje.innerHTML = "✔ Recibo encontrado correctamente.";
-
-                await mostrarPagina(pdf, pagina);
-
-                if (botonDescargar) {
-                    botonDescargar.style.display = "block";
-                }
-
-                return;
 
             }
 
         }
 
         mensaje.style.color = "#dc3545";
-        mensaje.innerHTML = "✖ Recibo no encontrado.";
+mensaje.innerHTML = "✖ Recibo no encontrado.";
 
     } catch (error) {
 
