@@ -32,7 +32,8 @@ if (botonDescargar) {
 // ===============================
 async function buscarRecibo() {
 
-    mensaje.innerHTML = "🔍 Buscando...";
+    mensaje.style.color = "#ffee00";
+mensaje.innerHTML = "🔎 Buscando recibo...";
 
     canvas.style.display = "none";
 
@@ -67,8 +68,8 @@ async function buscarRecibo() {
 
                 if (item.str.toUpperCase().includes(codigo)) {
 
-                    mensaje.innerHTML =
-                        "✔ Recibo encontrado correctamente.";
+                    mensaje.style.color = "#198754";
+mensaje.innerHTML = "✔ Recibo encontrado correctamente.";
 
                     await mostrarPagina(pdf, pagina);
 
