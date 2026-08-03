@@ -3,48 +3,75 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Consulta de Recibos</title>
+<title>Consulta de Recibos</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
-    <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 </head>
 
 <body>
 
-    <div class="contenedor">
+<div class="contenedor">
 
-        <h1>AGROINDUSTRIAS CAYO BLANCO</h1>
+<img src="logo.png" class="logo">
 
-        <h2>Consulta de Recibo de Pago</h2>
+<h1>AGROINDUSTRIAS</h1>
 
-        <input
-            type="text"
-            id="codigo"
-            placeholder="Ingrese su código de empleado"
-            autocomplete="off">
+<h1>CAYO BLANCO</h1>
 
-        <button id="buscar">
-    Buscar Recibo
+<p class="subtitulo">
+
+Consulta de Recibo de Pago
+
+</p>
+
+<div class="campo">
+
+<label>
+
+👤 Código de empleado
+
+</label>
+
+<input
+type="text"
+id="codigo"
+placeholder="Ejemplo: CBEP0572"
+autocomplete="off">
+
+</div>
+
+<button id="buscar">
+
+Buscar Recibo
+
 </button>
 
+<div id="mensaje"></div>
+
+<canvas id="visorPDF"></canvas>
+
 <button id="descargar">
-    📥 Descargar Recibo
-        </button>
 
-        <div id="mensaje"></div>
+📥 Guardar Recibo
 
-        <canvas id="visorPDF"></canvas>
+</button>
 
-    </div>
+<p class="pie">
 
-    <script src="script.js"></script>
+© 2026 Agroindustrias Cayo Blanco
+
+</p>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
 
