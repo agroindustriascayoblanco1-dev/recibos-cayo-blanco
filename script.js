@@ -13,6 +13,7 @@ const mensaje = document.getElementById("mensaje");
 const canvas = document.getElementById("visorPDF");
 const ctx = canvas.getContext("2d");
 let reciboCargado = false;
+botonDescargar.style.display = "none";
 
 // ===============================
 // EVENTOS
@@ -63,9 +64,12 @@ async function buscarRecibo() {
     "✅ Recibo encontrado correctamente.";
 
                     await mostrarPagina(pdf, pagina);
-                    botonDescargar.style.display = "block";
-                    
-                    return;
+
+reciboCargado = true;
+
+botonDescargar.style.display = "block";
+
+return;
 
                 }
 
@@ -141,8 +145,4 @@ function descargarRecibo() {
 
     enlace.click();
 
-}
-#descargar{
-    display:none;
-    margin-top:20px;
 }
