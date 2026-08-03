@@ -33,7 +33,7 @@ body{
 
 h1{
 
-    color:#146c2e;
+    color:#15993d;
     font-size:42px;
     font-weight:bold;
     margin-bottom:8px;
@@ -67,7 +67,7 @@ input:focus{
 
     outline:none;
 
-    border-color:#146c2e;
+    border-color:#15993d;
 
     box-shadow:0 0 8px rgba(20,108,46,.20);
 
@@ -85,7 +85,7 @@ button{
 
     border-radius:12px;
 
-    background:#146c2e;
+    background:#15993d;
 
     color:white;
 
@@ -101,7 +101,7 @@ button{
 
 button:hover{
 
-    background:#0f5423;
+    background:#15993d;
 
 }
 
@@ -113,7 +113,7 @@ button:hover{
 
     font-weight:bold;
 
-    color:#146c2e;
+    color:#15993d;
 
 }
 
