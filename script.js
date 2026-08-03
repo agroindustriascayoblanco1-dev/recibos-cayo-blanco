@@ -27,6 +27,7 @@ botonDescargar.addEventListener("click", descargarRecibo);
 async function buscarRecibo() {
 
     mensaje.innerHTML = "🔍 Buscando...";
+    botonDescargar.style.display = "none";
     reciboCargado = false;
 
     canvas.style.display = "none";
@@ -62,8 +63,8 @@ async function buscarRecibo() {
     "✅ Recibo encontrado correctamente.";
 
                     await mostrarPagina(pdf, pagina);
-                    reciboCargado = true;
-
+                    botonDescargar.style.display = "block";
+                    
                     return;
 
                 }
@@ -73,6 +74,7 @@ async function buscarRecibo() {
         }
 
         mensaje.innerHTML = "❌ Recibo no encontrado.";
+        botonDescargar.style.display = "none";
 
     } catch (error) {
 
@@ -139,4 +141,8 @@ function descargarRecibo() {
 
     enlace.click();
 
+}
+#descargar{
+    display:none;
+    margin-top:20px;
 }
