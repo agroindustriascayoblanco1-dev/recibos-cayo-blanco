@@ -3,74 +3,96 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Consulta de Recibos</title>
+    <title>Consulta de Recibos</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 </head>
 
 <body>
 
-<div class="contenedor">
+    <header class="encabezado">
 
+        <h1>AGROINDUSTRIAS CAYO BLANCO</h1>
 
-<h1>AGROINDUSTRIAS</h1>
+        <p>🔒 Sistema seguro de consulta de recibos</p>
 
-<h1>CAYO BLANCO</h1>
+    </header>
 
-<p class="subtitulo">
+    <main class="contenedor">
 
-<strong>CONSULTA TU RECIBO DE PAGO</strong>
+        <div class="tarjeta">
 
-</p>
+            <h2>Consulta de Recibo de Pago</h2>
 
-<div class="campo">
+            <p class="descripcion">
+                Consulte y descargue su recibo de pago de forma rápida y segura.
+            </p>
 
-<label>
+            <div class="campo">
 
-Ingresa tu código de empleado
+                <label for="codigo">
+                    Código de empleado
+                </label>
 
-</label>
+                <input
+                    type="text"
+                    id="codigo"
+                    placeholder="Ejemplo: CBEP0572"
+                    autocomplete="off">
 
-<input
-type="text"
-id="codigo"
-placeholder="Ejemplo: CBEP0000"
-autocomplete="off">
+            </div>
 
-</div>
+            <button id="buscar">
 
-<button id="buscar">
+                🔎 Buscar Recibo
 
-Buscar Recibo
+            </button>
 
-</button>
+            <div id="mensaje"></div>
 
-<div id="mensaje"></div>
+        </div>
 
-<canvas id="visorPDF"></canvas>
+        <div class="tarjeta">
 
-<button id="descargar">
+            <canvas id="visorPDF"></canvas>
 
-📥 Guardar Recibo
+            <button id="descargar">
 
-</button>
+                💾 Guardar Recibo
 
-<p class="pie">
+            </button>
 
-<em>⚠️ No compartas tu recibo de pago. La información que contiene es confidencial y de uso personal.</em>
+        </div>
 
-</p>
+        <div class="confidencial">
 
-</div>
+            <h3>🔒 Información confidencial</h3>
 
-<script src="script.js"></script>
+            <p>
+
+                No compartas la información de tu recibo de pago.
+                Recuerda que es totalmente confidencial y de uso exclusivo del colaborador.
+
+            </p>
+
+        </div>
+
+    </main>
+
+    <footer>
+
+        Sistema seguro • Agroindustrias Cayo Blanco
+
+    </footer>
+
+    <script src="script.js"></script>
 
 </body>
 

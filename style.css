@@ -1,3 +1,7 @@
+/* ===========================
+   ESTILOS GENERALES
+=========================== */
+
 *{
     margin:0;
     padding:0;
@@ -6,58 +10,136 @@
 }
 
 body{
-    background:#f4f7fb;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-    padding:20px;
+
+    background:#eef3f8;
+
 }
+
+/* ===========================
+   ENCABEZADO
+=========================== */
+
+.encabezado{
+
+    background:#0d6b3b;
+
+    color:white;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+
+}
+
+.encabezado h1{
+
+    font-size:34px;
+
+    margin-bottom:8px;
+
+}
+
+.encabezado p{
+
+    font-size:18px;
+
+    opacity:.95;
+
+}
+
+/* ===========================
+   CONTENEDOR
+=========================== */
 
 .contenedor{
 
     width:95%;
-    max-width:850px;
 
-    background:#ffffff;
+    max-width:900px;
 
-    border-radius:20px;
+    margin:35px auto;
+
+}
+
+/* ===========================
+   TARJETAS
+=========================== */
+
+.tarjeta{
+
+    background:white;
+
+    border-radius:18px;
 
     padding:30px;
 
-    box-shadow:0 10px 35px rgba(0,0,0,.10);
+    margin-bottom:25px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+/* ===========================
+   TITULOS
+=========================== */
+
+h2{
+
+    color:#0d6b3b;
+
+    margin-bottom:10px;
 
     text-align:center;
 
 }
 
-h1{
+.descripcion{
 
-    color:#15993d;
-    font-size:42px;
-    font-weight:bold;
-    margin-bottom:8px;
+    color:#666;
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    line-height:1.6;
 
 }
 
-h2{
+/* ===========================
+   INPUT
+=========================== */
 
-    color:#666;
-    font-size:22px;
-    margin-bottom:25px;
+.campo{
+
+    margin-bottom:20px;
+
+}
+
+.campo label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+    color:#444;
 
 }
 
 input{
 
     width:100%;
-    padding:15px;
 
-    border:2px solid #d7d7d7;
+    padding:16px;
+
+    border:2px solid #d8d8d8;
 
     border-radius:12px;
 
-    font-size:20px;
+    font-size:18px;
 
     transition:.3s;
 
@@ -67,11 +149,15 @@ input:focus{
 
     outline:none;
 
-    border-color:#15993d;
+    border-color:#0d6b3b;
 
-    box-shadow:0 0 8px rgba(20,108,46,.20);
+    box-shadow:0 0 10px rgba(13,107,59,.20);
 
 }
+
+/* ===========================
+   BOTONES
+=========================== */
 
 button{
 
@@ -79,17 +165,17 @@ button{
 
     padding:16px;
 
-    margin-top:15px;
+    margin-top:10px;
+
+    background:#0d6b3b;
+
+    color:white;
 
     border:none;
 
     border-radius:12px;
 
-    background:#15993d;
-
-    color:white;
-
-    font-size:20px;
+    font-size:18px;
 
     font-weight:bold;
 
@@ -101,21 +187,31 @@ button{
 
 button:hover{
 
-    background:#15993d;
+    background:#09562f;
+
+    transform:translateY(-2px);
 
 }
+
+/* ===========================
+   MENSAJES
+=========================== */
 
 #mensaje{
 
     margin-top:20px;
 
-    font-size:20px;
+    font-size:18px;
 
     font-weight:bold;
 
-    color:#15993d;
+    text-align:center;
 
 }
+
+/* ===========================
+   PDF
+=========================== */
 
 #visorPDF{
 
@@ -123,67 +219,109 @@ button:hover{
 
     width:100%;
 
-    margin-top:25px;
-
-    border-radius:15px;
+    border-radius:12px;
 
     box-shadow:0 5px 20px rgba(0,0,0,.15);
 
 }
 
-/* CELULARES */
+/* ===========================
+   CONFIDENCIAL
+=========================== */
+
+.confidencial{
+
+    background:#e8f5ed;
+
+    border-left:6px solid #0d6b3b;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    color:#2d2d2d;
+
+    line-height:1.7;
+
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+
+}
+
+.confidencial h3{
+
+    color:#0d6b3b;
+
+    margin-bottom:10px;
+
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+footer{
+
+    background:#0d6b3b;
+
+    color:white;
+
+    text-align:center;
+
+    padding:18px;
+
+    margin-top:40px;
+
+    font-size:15px;
+
+}
+
+/* ===========================
+   CELULARES
+=========================== */
 
 @media(max-width:768px){
 
-    body{
+    .encabezado{
 
-        padding:12px;
+        padding:22px;
 
     }
 
-    .contenedor{
+    .encabezado h1{
 
-        width:100%;
+        font-size:24px;
+
+    }
+
+    .encabezado p{
+
+        font-size:15px;
+
+    }
+
+    .tarjeta{
 
         padding:20px;
 
-        border-radius:18px;
-
-    }
-
-    h1{
-
-        font-size:30px;
-
-        line-height:36px;
+        border-radius:15px;
 
     }
 
     h2{
 
-        font-size:18px;
+        font-size:24px;
 
     }
 
     input{
 
-        font-size:18px;
-
-        padding:14px;
+        font-size:17px;
 
     }
 
     button{
 
-        font-size:18px;
-
-        padding:15px;
-
-    }
-
-    #mensaje{
-
-        font-size:18px;
+        font-size:17px;
 
     }
 
