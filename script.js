@@ -109,11 +109,29 @@ async function mostrarPagina(pdf, numeroPagina) {
 // ===============================
 // DESCARGAR IMAGEN DEL RECIBO
 // ===============================
+// ===============================
+// DESCARGAR RECIBO
+// ===============================
 function descargarRecibo() {
+
+    // Verifica que exista un recibo cargado
+    if (canvas.style.display === "none") {
+
+        alert("Primero busque un recibo.");
+
+        return;
+
+    }
+
+    const codigo = document
+        .getElementById("codigo")
+        .value
+        .trim()
+        .toUpperCase();
 
     const enlace = document.createElement("a");
 
-    enlace.download = "Recibo.png";
+    enlace.download = "Recibo_" + codigo + ".png";
 
     enlace.href = canvas.toDataURL("image/png");
 
