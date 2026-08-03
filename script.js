@@ -68,7 +68,7 @@ async function buscarRecibo() {
                 if (item.str.toUpperCase().includes(codigo)) {
 
                     mensaje.innerHTML =
-                        "✅ Recibo encontrado correctamente.";
+                        "✔ Recibo encontrado correctamente.";
 
                     await mostrarPagina(pdf, pagina);
 
@@ -84,7 +84,8 @@ async function buscarRecibo() {
 
         }
 
-        mensaje.innerHTML = "❌ Recibo no encontrado.";
+        mensaje.style.color = "#dc3545";
+mensaje.innerHTML = "✖ Recibo no encontrado.";
 
     } catch (error) {
 
