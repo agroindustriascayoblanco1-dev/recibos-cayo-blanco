@@ -1,47 +1,51 @@
-/* ===========================
-   ESTILOS GENERALES
-=========================== */
+/*=============================
+RESET
+==============================*/
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:"Segoe UI",Arial,sans-serif;
 }
 
 body{
 
-    background:#eef3f8;
+    background:#eef3ef;
+
+    color:#333;
 
 }
 
-/* ===========================
-   ENCABEZADO
-=========================== */
+/*=============================
+ENCABEZADO
+==============================*/
 
-.encabezado{
+.hero{
 
-    background:#0d6b3b;
+    background:linear-gradient(135deg,#0c6d39,#36a564);
+
+    padding:60px 20px;
 
     color:white;
 
-    padding:30px;
-
     text-align:center;
 
-    box-shadow:0 4px 15px rgba(0,0,0,.15);
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
 
 }
 
-.encabezado h1{
+.hero h1{
 
-    font-size:34px;
+    font-size:38px;
 
-    margin-bottom:8px;
+    letter-spacing:1px;
+
+    margin-bottom:10px;
 
 }
 
-.encabezado p{
+.hero p{
 
     font-size:18px;
 
@@ -49,71 +53,73 @@ body{
 
 }
 
-/* ===========================
-   CONTENEDOR
-=========================== */
+/*=============================
+CONTENEDOR
+==============================*/
 
 .contenedor{
 
     width:95%;
 
-    max-width:900px;
+    max-width:1100px;
 
-    margin:35px auto;
+    margin:40px auto;
 
 }
 
-/* ===========================
-   TARJETAS
-=========================== */
+/*=============================
+TARJETAS
+==============================*/
 
-.tarjeta{
+.card{
 
     background:white;
 
-    border-radius:18px;
+    border-radius:20px;
 
-    padding:30px;
+    padding:35px;
 
-    margin-bottom:25px;
+    margin-bottom:30px;
 
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 
 }
 
-/* ===========================
-   TITULOS
-=========================== */
+.titulo{
 
-h2{
+    text-align:center;
 
-    color:#0d6b3b;
+    margin-bottom:30px;
+
+}
+
+.titulo h2{
+
+    color:#0c6d39;
+
+    font-size:34px;
 
     margin-bottom:10px;
 
-    text-align:center;
-
 }
 
-.descripcion{
+.titulo p{
 
     color:#666;
 
-    text-align:center;
-
-    margin-bottom:25px;
-
     line-height:1.6;
+
+    font-size:18px;
 
 }
 
-/* ===========================
-   INPUT
-=========================== */
+/*=============================
+INPUT
+==============================*/
 
 .campo{
 
-    margin-bottom:20px;
+    margin-bottom:25px;
 
 }
 
@@ -121,9 +127,9 @@ h2{
 
     display:block;
 
-    margin-bottom:8px;
-
     font-weight:bold;
+
+    margin-bottom:10px;
 
     color:#444;
 
@@ -135,7 +141,7 @@ input{
 
     padding:16px;
 
-    border:2px solid #d8d8d8;
+    border:2px solid #dcdcdc;
 
     border-radius:12px;
 
@@ -149,15 +155,15 @@ input:focus{
 
     outline:none;
 
-    border-color:#0d6b3b;
+    border-color:#0c6d39;
 
-    box-shadow:0 0 10px rgba(13,107,59,.20);
+    box-shadow:0 0 12px rgba(12,109,57,.20);
 
 }
 
-/* ===========================
-   BOTONES
-=========================== */
+/*=============================
+BOTONES
+==============================*/
 
 button{
 
@@ -165,9 +171,7 @@ button{
 
     padding:16px;
 
-    margin-top:10px;
-
-    background:#0d6b3b;
+    background:#0c6d39;
 
     color:white;
 
@@ -175,43 +179,51 @@ button{
 
     border-radius:12px;
 
-    font-size:18px;
+    font-size:19px;
 
     font-weight:bold;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.30s;
 
 }
 
 button:hover{
 
-    background:#09562f;
+    background:#09542d;
 
     transform:translateY(-2px);
 
+    box-shadow:0 8px 18px rgba(0,0,0,.18);
+
 }
 
-/* ===========================
-   MENSAJES
-=========================== */
+/*=============================
+MENSAJE
+==============================*/
 
 #mensaje{
 
-    margin-top:20px;
+    text-align:center;
 
-    font-size:18px;
+    margin-top:25px;
+
+    font-size:20px;
 
     font-weight:bold;
+
+}
+
+/*=============================
+RECIBO
+==============================*/
+
+.visor{
 
     text-align:center;
 
 }
-
-/* ===========================
-   PDF
-=========================== */
 
 #visorPDF{
 
@@ -219,110 +231,140 @@ button:hover{
 
     width:100%;
 
-    border-radius:12px;
+    border-radius:15px;
 
     box-shadow:0 5px 20px rgba(0,0,0,.15);
 
 }
 
-/* ===========================
-   CONFIDENCIAL
-=========================== */
+/*=============================
+CONFIDENCIAL
+==============================*/
 
 .confidencial{
 
-    background:#e8f5ed;
+    display:flex;
 
-    border-left:6px solid #0d6b3b;
+    gap:20px;
 
-    border-radius:15px;
+    align-items:flex-start;
+
+    background:#edf8ef;
+
+    border-left:8px solid #0c6d39;
 
     padding:25px;
 
-    color:#2d2d2d;
+    border-radius:18px;
 
-    line-height:1.7;
+    margin-bottom:35px;
 
-    box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.icono{
+
+    font-size:42px;
 
 }
 
 .confidencial h3{
 
-    color:#0d6b3b;
+    color:#0c6d39;
 
-    margin-bottom:10px;
+    margin-bottom:8px;
 
 }
 
-/* ===========================
-   FOOTER
-=========================== */
+.confidencial p{
+
+    line-height:1.7;
+
+}
+
+/*=============================
+FOOTER
+==============================*/
 
 footer{
 
-    background:#0d6b3b;
+    background:#0c6d39;
 
     color:white;
 
     text-align:center;
 
-    padding:18px;
+    padding:22px;
 
     margin-top:40px;
+
+}
+
+/*=============================
+CELULAR
+==============================*/
+
+@media(max-width:768px){
+
+.hero{
+
+    padding:35px 15px;
+
+}
+
+.hero h1{
+
+    font-size:28px;
+
+}
+
+.hero p{
 
     font-size:15px;
 
 }
 
-/* ===========================
-   CELULARES
-=========================== */
+.card{
 
-@media(max-width:768px){
+    padding:22px;
 
-    .encabezado{
+}
 
-        padding:22px;
+.titulo h2{
 
-    }
+    font-size:28px;
 
-    .encabezado h1{
+}
 
-        font-size:24px;
+.titulo p{
 
-    }
+    font-size:16px;
 
-    .encabezado p{
+}
 
-        font-size:15px;
+input{
 
-    }
+    font-size:17px;
 
-    .tarjeta{
+}
 
-        padding:20px;
+button{
 
-        border-radius:15px;
+    font-size:18px;
 
-    }
+}
 
-    h2{
+.confidencial{
 
-        font-size:24px;
+    flex-direction:column;
 
-    }
+    text-align:center;
 
-    input{
+}
 
-        font-size:17px;
+.icono{
 
-    }
+    font-size:36px;
 
-    button{
-
-        font-size:17px;
-
-    }
+}
 
 }

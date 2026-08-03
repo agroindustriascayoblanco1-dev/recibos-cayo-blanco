@@ -7,45 +7,71 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Consulta de Recibos</title>
+    <title>Consulta de Recibo de Pago</title>
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 </head>
 
 <body>
 
-    <header class="encabezado">
+    <!-- ENCABEZADO -->
 
-        <h1>AGROINDUSTRIAS CAYO BLANCO</h1>
+    <header class="hero">
+
+        <div class="hero-overlay">
+
+            <h1>AGROINDUSTRIAS CAYO BLANCO</h1>
+
+            <p>Sistema Seguro de Consulta de Recibos de Pago</p>
+
+        </div>
 
     </header>
 
+
+    <!-- CONTENIDO -->
+
     <main class="contenedor">
 
-        <div class="tarjeta">
 
-            <h2>CONSULTA TU RECIBO DE PAGO</h2>
+        <!-- TARJETA PRINCIPAL -->
 
-            <p class="descripcion">
-                Ingrese su código de empleado para consultar y descargar su recibo de pago.
-            </p>
+        <section class="card">
+
+            <div class="titulo">
+
+                <h2>Consulta de Recibo de Pago</h2>
+
+                <p>
+
+                    Acceda a su recibo de pago de manera rápida,
+                    segura y confidencial.
+
+                </p>
+
+            </div>
+
 
             <div class="campo">
 
-                <label for="codigo">
+                <label>
+
                     Código de empleado
+
                 </label>
 
                 <input
                     type="text"
                     id="codigo"
-                    placeholder="Ejemplo: CBEP0000"
+                    placeholder="Ejemplo: CBEP0572"
                     autocomplete="off">
 
             </div>
+
 
             <button id="buscar">
 
@@ -55,11 +81,19 @@
 
             <div id="mensaje"></div>
 
-        </div>
+        </section>
 
-        <div class="tarjeta">
 
-            <canvas id="visorPDF"></canvas>
+
+        <!-- RECIBO -->
+
+        <section class="card">
+
+            <div class="visor">
+
+                <canvas id="visorPDF"></canvas>
+
+            </div>
 
             <button id="descargar">
 
@@ -67,26 +101,49 @@
 
             </button>
 
-        </div>
+        </section>
 
-        <div class="confidencial">
 
-            <h3>🔒 Información confidencial</h3>
 
-            <p>
+        <!-- CONFIDENCIALIDAD -->
 
-                No compartas la información de tu recibo de pago.
-                Recuerda que es totalmente confidencial y de uso exclusivo del colaborador.
+        <section class="confidencial">
 
-            </p>
+            <div class="icono">
 
-        </div>
+                🔒
+
+            </div>
+
+            <div>
+
+                <h3>Información Confidencial</h3>
+
+                <p>
+
+                    No compartas la información de tu recibo de pago.
+                    Recuerda que es totalmente confidencial y de uso exclusivo del colaborador.
+
+                </p>
+
+            </div>
+
+        </section>
+
 
     </main>
 
+
+
+    <!-- PIE -->
+
     <footer>
 
-        RRHH • Agroindustrias Cayo Blanco
+        <p>
+
+            Agroindustrias Cayo Blanco · Sistema Seguro de Consulta de Recibos
+
+        </p>
 
     </footer>
 
