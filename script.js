@@ -9,6 +9,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 // ===============================
 const boton = document.getElementById("buscar");
 const botonDescargar = document.getElementById("descargar");
+const botonImprimir = document.getElementById("imprimir");
 const mensaje = document.getElementById("mensaje");
 const canvas = document.getElementById("visorPDF");
 const ctx = canvas.getContext("2d");
@@ -19,6 +20,7 @@ const ctx = canvas.getContext("2d");
 boton.addEventListener("click", buscarRecibo);
 
 botonDescargar.addEventListener("click", descargarRecibo);
+botonImprimir.addEventListener("click", imprimirRecibo);
 
 // ===============================
 // BUSCAR RECIBO
@@ -57,7 +59,7 @@ async function buscarRecibo() {
                 if (item.str.toUpperCase().includes(codigo)) {
 
                     mensaje.innerHTML =
-                        "✅ Código encontrado<br>Página " + pagina;
+    "✅ Recibo encontrado correctamente.";
 
                     await mostrarPagina(pdf, pagina);
 
@@ -69,7 +71,7 @@ async function buscarRecibo() {
 
         }
 
-        mensaje.innerHTML = "❌ Código no encontrado.";
+        mensaje.innerHTML = "❌ Recibo no encontrado.";
 
     } catch (error) {
 
