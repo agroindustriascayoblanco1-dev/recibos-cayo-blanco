@@ -12,15 +12,20 @@ const botonDescargar = document.getElementById("descargar");
 const mensaje = document.getElementById("mensaje");
 const canvas = document.getElementById("visorPDF");
 const ctx = canvas.getContext("2d");
-let reciboCargado = false;
-botonDescargar.style.display = "none";
+
+// Ocultar botón al iniciar
+if (botonDescargar) {
+    botonDescargar.style.display = "none";
+}
 
 // ===============================
 // EVENTOS
 // ===============================
 boton.addEventListener("click", buscarRecibo);
 
-botonDescargar.addEventListener("click", descargarRecibo);
+if (botonDescargar) {
+    botonDescargar.addEventListener("click", descargarRecibo);
+}
 
 // ===============================
 // BUSCAR RECIBO
@@ -28,10 +33,12 @@ botonDescargar.addEventListener("click", descargarRecibo);
 async function buscarRecibo() {
 
     mensaje.innerHTML = "🔍 Buscando...";
-    botonDescargar.style.display = "none";
-    reciboCargado = false;
 
     canvas.style.display = "none";
+
+    if (botonDescargar) {
+        botonDescargar.style.display = "none";
+    }
 
     const codigo = document
         .getElementById("codigo")
@@ -61,15 +68,15 @@ async function buscarRecibo() {
                 if (item.str.toUpperCase().includes(codigo)) {
 
                     mensaje.innerHTML =
-    "✅ Recibo encontrado correctamente.";
+                        "✅ Recibo encontrado correctamente.";
 
                     await mostrarPagina(pdf, pagina);
 
-reciboCargado = true;
+                    if (botonDescargar) {
+                        botonDescargar.style.display = "block";
+                    }
 
-botonDescargar.style.display = "block";
-
-return;
+                    return;
 
                 }
 
@@ -78,7 +85,6 @@ return;
         }
 
         mensaje.innerHTML = "❌ Recibo no encontrado.";
-        botonDescargar.style.display = "none";
 
     } catch (error) {
 
@@ -107,23 +113,18 @@ async function mostrarPagina(pdf, numeroPagina) {
     canvas.style.display = "block";
 
     await page.render({
-
         canvasContext: ctx,
         viewport: viewport
-
     }).promise;
 
 }
 
 // ===============================
-// DESCARGAR IMAGEN DEL RECIBO
-// ===============================
-// ===============================
 // DESCARGAR RECIBO
 // ===============================
 function descargarRecibo() {
 
-    if (!reciboCargado) {
+    if (canvas.style.display === "none") {
 
         alert("Primero busque un recibo.");
 
