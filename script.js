@@ -12,6 +12,7 @@ const botonDescargar = document.getElementById("descargar");
 const mensaje = document.getElementById("mensaje");
 const canvas = document.getElementById("visorPDF");
 const ctx = canvas.getContext("2d");
+let reciboCargado = false;
 
 // ===============================
 // EVENTOS
@@ -26,6 +27,7 @@ botonDescargar.addEventListener("click", descargarRecibo);
 async function buscarRecibo() {
 
     mensaje.innerHTML = "🔍 Buscando...";
+    reciboCargado = false;
 
     canvas.style.display = "none";
 
@@ -60,6 +62,7 @@ async function buscarRecibo() {
     "✅ Recibo encontrado correctamente.";
 
                     await mostrarPagina(pdf, pagina);
+                    reciboCargado = true;
 
                     return;
 
@@ -114,8 +117,7 @@ async function mostrarPagina(pdf, numeroPagina) {
 // ===============================
 function descargarRecibo() {
 
-    // Verifica que exista un recibo cargado
-    if (canvas.style.display === "none") {
+    if (!reciboCargado) {
 
         alert("Primero busque un recibo.");
 
