@@ -77,3 +77,54 @@ button:hover{
     border:1px solid #ccc;
     box-shadow:0 0 10px rgba(0,0,0,.15);
 }
+
+/* ======================================
+   DISEÑO PARA CELULARES
+====================================== */
+
+@media screen and (max-width:768px){
+
+    body{
+        padding:15px;
+    }
+
+    .contenedor{
+        width:100%;
+        padding:20px;
+        border-radius:15px;
+    }
+
+    h1{
+        font-size:28px;
+        line-height:34px;
+        margin-bottom:8px;
+    }
+
+    h2{
+        font-size:18px;
+        margin-bottom:20px;
+    }
+
+    input{
+        font-size:18px;
+        padding:14px;
+    }
+
+    button{
+        font-size:18px;
+        padding:15px;
+        margin-top:10px;
+    }
+
+    #mensaje{
+        font-size:18px;
+    }
+
+    #visorPDF{
+        width:100%;
+        height:auto;
+        border-radius:10px;
+        margin-top:20px;
+    }
+
+}
