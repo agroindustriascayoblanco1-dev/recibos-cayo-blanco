@@ -66,7 +66,7 @@ mensaje.innerHTML = "🔎 Buscando recibo...";
 
             for (const item of contenido.items) {
 
-                if (item.str.toUpperCase().includes(codigo)) {
+                if (item.str.trim().toUpperCase() === codigo) {
 
                     mensaje.style.color = "#198754";
 mensaje.innerHTML = "✔ Recibo encontrado correctamente.";
