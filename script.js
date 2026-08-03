@@ -32,7 +32,7 @@ if (botonDescargar) {
 // ===============================
 async function buscarRecibo() {
 
-    mensaje.style.color = "#ffee00";
+mensaje.style.color = "#ffee00";
 mensaje.innerHTML = "🔎 Buscando recibo...";
 
     canvas.style.display = "none";
