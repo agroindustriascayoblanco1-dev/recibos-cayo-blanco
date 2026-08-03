@@ -86,7 +86,7 @@ mensaje.innerHTML = "✔ Recibo encontrado correctamente.";
         }
 
         mensaje.style.color = "#dc3545";
-mensaje.innerHTML = "✖ Recibo no encontrado.";
+mensaje.innerHTML = "📄 No hay un recibo de pago disponible para el código de empleado ingresado.";
 
     } catch (error) {
 
