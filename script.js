@@ -754,11 +754,11 @@ mostrarMensaje(
             // COINCIDENCIA EXACTA DEL CÓDIGO
             // ==================================================
             // PDF.js puede separar CBEP y los números con espacios.
-            // Permitimos esos espacios, pero exigimos exactamente 8 dígitos.
+            // Permitimos esos espacios, pero exigimos exactamente 4 dígitos.
 
             const codigosEnPagina =
                 texto.match(
-                    /CBEP\s*([0-9]{8})/gi
+                    /CBEP\s*([0-9]{4})/gi
                 ) || [];
 
             const coincidenciaExacta =
