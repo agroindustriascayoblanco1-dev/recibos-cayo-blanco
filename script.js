@@ -621,7 +621,7 @@ async function consultarEmpleado() {
     if (!periodo) {
 
         mostrarMensaje(
-            "❌ No se encontró la quincena.",
+            "⚠️ No se encontró la quincena.",
             true
         );
 
@@ -770,7 +770,7 @@ async function consultarEmpleado() {
 
             mostrarMensaje(
 
-                "❌ El código " +
+                "⚠️ El código " +
                 codigo +
                 " no fue encontrado en " +
                 periodo.nombre +
@@ -927,7 +927,7 @@ async function consultarEmpleado() {
 
         mostrarMensaje(
 
-            "❌ No se pudo cargar el recibo. Verifica que el PDF esté disponible.",
+            "⚠️ No se pudo cargar el recibo. Verifica que el PDF esté disponible.",
 
             true
 
