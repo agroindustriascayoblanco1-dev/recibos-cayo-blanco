@@ -738,11 +738,19 @@ async function consultarEmpleado() {
             // COINCIDENCIA
             // ==================================================
 
-            if (
-                textoNormalizado.includes(
-                    codigoBuscado
-                )
-            ) {
+           const codigosEncontrados =
+    textoNormalizado.match(
+        /CBEP\d+/g
+    ) || [];
+
+const coincidenciaExacta =
+    codigosEncontrados.some(
+        function(codigoPDF) {
+            return codigoPDF === codigoBuscado;
+        }
+    );
+
+if (coincidenciaExacta) {
 
                 encontrado = {
 
