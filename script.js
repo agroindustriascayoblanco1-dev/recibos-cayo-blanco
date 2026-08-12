@@ -606,7 +606,7 @@ mostrarMensaje(
         reproducirSonidoError();
 
         mostrarMensaje(
-            "⚠️ Ingresa tu código completo de 8 caracteres. Ejemplo: CBEP1272.",
+            "⚠️ Ingresa tu código completo de 8 caracteres. Ejemplo: CBEP0000.",
             true
         );
 
@@ -754,11 +754,11 @@ mostrarMensaje(
             // COINCIDENCIA EXACTA DEL CÓDIGO
             // ==================================================
             // PDF.js puede separar CBEP y los números con espacios.
-            // Permitimos esos espacios, pero exigimos exactamente 4 dígitos.
+            // Permitimos esos espacios, pero exigimos exactamente 8 dígitos.
 
             const codigosEnPagina =
                 texto.match(
-                    /CBEP\s*([0-9]{4})/gi
+                    /CBEP\s*([0-9]{8})/gi
                 ) || [];
 
             const coincidenciaExacta =
