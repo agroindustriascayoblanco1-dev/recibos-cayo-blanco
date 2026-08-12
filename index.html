@@ -5,148 +5,1352 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Consulta de Recibo de Pago</title>
+    <title>
+        Recibos de Pago | Agroindustrias Cayo Blanco
+    </title>
 
-    <link rel="stylesheet" href="style.css">
 
-    <!-- PDF.js -->
+    <!-- PDF.JS -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+
+    <!-- jsPDF -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+    <!-- ESTILOS -->
+
+    <link
+        rel="stylesheet"
+        href="style.css?v=22"
+    >
+
+    <style>
+        .telefono-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+
+        .telefono-info strong {
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .telefono-info small {
+            color: var(--text-soft);
+            font-size: 10px;
+        }
+
+        .telefono-info .telefono-numero {
+            color: var(--green-dark);
+            font-size: 11px;
+            font-weight: 900;
+        }
+    </style>
 
 </head>
 
+
 <body>
 
-    <!-- ENCABEZADO -->
 
-    <header class="hero">
+    <!-- ==================================================
+         ENCABEZADO
+    =================================================== -->
 
-        <div class="hero-overlay">
+    <header class="encabezado">
 
-            <h1>AGROINDUSTRIAS 
-                CAYO BLANCO</h1>
+        <div class="marca">
+
+            <div class="empresa">
+
+                <h1>
+                    AGROINDUSTRIAS CAYO BLANCO
+                </h1>
+
+                <p>
+                    Portal de Recibos de Pago
+                </p>
+
+            </div>
 
         </div>
 
     </header>
 
 
-    <!-- CONTENIDO -->
+
+    <!-- ==================================================
+         CONTENIDO
+    =================================================== -->
 
     <main class="contenedor">
 
 
-        <!-- TARJETA PRINCIPAL -->
+        <!-- ==================================================
+             BUSCADOR
+        =================================================== -->
 
-        <section class="card">
+        <section class="bienvenida">
 
-            <div class="titulo">
 
-                <h2>CONSULTA DE RECIBO DE PAGO</h2>
+            <div class="bienvenida-texto">
+
+                <span class="etiqueta">
+                    RECURSOS HUMANOS
+                </span>
+
+
+                <h2>
+                    Consulta tus<br>
+                    recibos de pago
+                </h2>
+
 
                 <p>
-
-                    Acceda a su recibo de pago de manera rápida,
-                    segura y confidencial.
-
+                    Selecciona la quincena e ingresa
+                    tu código completo de empleado
+                    para consultar tu recibo de forma
+                    rápida y confidencial.
                 </p>
 
+
             </div>
 
 
-            <div class="campo">
 
-                <label>
+            <div class="buscador">
 
+
+                <!-- QUINCENA -->
+
+                <div class="selector-quincena">
+
+                    <label class="titulo-selector">
+                        Selecciona la quincena
+                    </label>
+
+
+                    <div class="opciones-quincena">
+
+
+                        <label class="opcion-quincena">
+
+                            <input
+                                type="radio"
+                                name="quincena"
+                                value="q1"
+                                checked
+                            >
+
+                            <span>
+
+                                <strong id="nombreQ1">
+                                    Quincena 1
+                                </strong>
+
+                                <small id="mesQ1"></small>
+
+                            </span>
+
+                        </label>
+
+
+
+                        <label class="opcion-quincena">
+
+                            <input
+                                type="radio"
+                                name="quincena"
+                                value="q2"
+                            >
+
+                            <span>
+
+                                <strong id="nombreQ2">
+                                    Quincena 2
+                                </strong>
+
+                                <small id="mesQ2"></small>
+
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CÓDIGO -->
+
+                <label
+                    for="codigo"
+                    class="label-codigo"
+                >
                     Código de empleado
-
                 </label>
 
-                <input
-                    type="text"
-                    id="codigo"
-                    placeholder="Ejemplo: CBEP0000"
-                    autocomplete="off">
+
+                <div class="fila-busqueda">
+
+
+                    <input
+                        type="text"
+                        id="codigo"
+                        placeholder="Ejemplo: CBEP0000"
+                        autocomplete="off"
+                        autocapitalize="characters"
+                        spellcheck="false"
+                    >
+
+
+                    <button
+                        id="buscar"
+                        type="button"
+                    >
+                        🔎 Consultar
+                    </button>
+
+
+                </div>
+
+
+                <p class="ayuda">
+                    Escribe tu código de empleado.
+                </p>
+
+
+                <div id="mensaje"></div>
+
 
             </div>
-
-
-            <button id="buscar">
-
-                🔎 Buscar Recibo
-
-            </button>
-
-            <div id="mensaje"></div>
 
         </section>
 
 
 
-        <!-- RECIBO -->
+        <!-- ==================================================
+             RESULTADO DEL COLABORADOR
+        =================================================== -->
 
-        <section class="card">
+        <section
+            id="resultado"
+            class="resultado oculto"
+        >
 
-            <div class="visor">
 
-                <canvas id="visorPDF"></canvas>
+            <div class="empleado">
+
+
+                <div class="avatar">
+                    👤
+                </div>
+
+
+                <div class="datos-empleado">
+
+                    <span>
+                        COLABORADOR ENCONTRADO
+                    </span>
+
+
+                    <h2 id="nombreEmpleado">
+                        —
+                    </h2>
+
+
+                    <p>
+                        Código de empleado:
+                        <strong id="codigoEmpleado">
+                            —
+                        </strong>
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="nuevaConsulta"
+                    class="boton-secundario"
+                    type="button"
+                >
+                    Nueva consulta
+                </button>
+
 
             </div>
 
-            <button id="descargar">
 
-                💾 Guardar Recibo
 
-            </button>
+            <!-- RECIBO -->
+
+            <div class="titulo-seccion">
+
+                <div>
+
+                    <span class="etiqueta">
+                        DOCUMENTO DISPONIBLE
+                    </span>
+
+                    <h2>
+                        ¡Lo encontramos!
+                    </h2>
+
+                </div>
+
+
+                <span
+                    id="periodoSeleccionado"
+                    class="periodo"
+                ></span>
+
+                <small
+                    id="periodoPago"
+                    class="periodo-pago"
+                ></small>
+
+            </div>
+
+
+
+            <div class="recibos">
+
+
+                <article class="recibo">
+
+
+                    <div class="icono-recibo">
+                        👍
+                    </div>
+
+
+                    <div class="informacion-recibo">
+
+                        <span id="textoQuincena"></span>
+
+                        <h3>
+                            Recibo de pago
+                        </h3>
+
+                        <p>
+                            Consulta el detalle de tu recibo
+                            correspondiente al período seleccionado.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="verRecibo"
+                        class="ver-recibo"
+                        type="button"
+                    >
+                        Ver recibo
+                    </button>
+
+
+                </article>
+
+            </div>
+
 
         </section>
 
 
 
-        <!-- CONFIDENCIALIDAD -->
+        <!-- ==================================================
+             VISOR PDF
+        =================================================== -->
 
-        <section class="confidencial">
+        <section
+            id="visor"
+            class="visor oculto"
+        >
 
-            <div class="icono">
 
-                🔒
+            <div class="cabecera-visor">
+
+
+                <div>
+
+                    <span class="etiqueta">
+                        RECIBO DE PAGO
+                    </span>
+
+                    <h2 id="visorTitulo">
+                        Recibo
+                    </h2>
+
+                </div>
+
+
+                <div class="acciones-visor">
+
+
+                    <button
+                        id="guardarRecibo"
+                        class="boton-secundario"
+                        type="button"
+                    >
+                        Guardar recibo
+                    </button>
+
+
+                    <button
+                        id="cerrarVisor"
+                        class="boton-secundario"
+                        type="button"
+                    >
+                        Cerrar
+                    </button>
+
+
+                </div>
 
             </div>
+
+
+            <div class="visor-pdf">
+
+                <div class="visor-mensaje">
+                    Selecciona tu recibo para visualizarlo.
+                </div>
+
+            </div>
+
+
+        </section>
+                <!-- ==================================================
+             AVISO DE SEGURIDAD
+        =================================================== -->
+
+        <section class="aviso">
+
+
+            <div class="aviso-icono">
+                🔐
+            </div>
+
 
             <div>
 
-                <h3>Información Confidencial</h3>
+                <h3>
+                    Tu información es confidencial
+                </h3>
+
 
                 <p>
-
-                    No compartas la información de tu recibo de pago.
-                    Recuerda que es totalmente confidencial y de uso exclusivo del colaborador.
-
+                    Los recibos de pago contienen información
+                    personal. Consulta únicamente tu propio
+                    recibo y no compartas tu código de empleado.
                 </p>
 
             </div>
 
+
         </section>
 
 
-    </main>
+
+        <!-- ==================================================
+             CENTRO DE INFORMACIÓN
+        =================================================== -->
+
+        <section class="centro-informacion">
+
+
+            <div class="centro-titulo">
+
+                <span class="etiqueta">
+                    CENTRO DE INFORMACIÓN
+                </span>
+
+
+                <h2>
+                    Información, seguridad y ayuda.  
+                </h2>
+
+
+                <p>
+                    Encuentra información útil para consultar
+                    y proteger tu recibo de pago.
+                </p>
+
+            </div>
 
 
 
-    <!-- PIE -->
+            <!-- ==================================================
+                 TARJETAS
+            =================================================== -->
+
+            <div class="centro-opciones">
+
+
+                <!-- ==================================================
+                     INFORMACIÓN
+                =================================================== -->
+
+                <button
+                    type="button"
+                    class="centro-card tarjeta-informacion"
+                    data-modal="modalInformacion"
+                >
+
+                    <span class="centro-texto">
+
+                        <strong>
+                            Información
+                        </strong>
+
+                        <small>
+                            Conoce cómo funciona el portal
+                        </small>
+
+                    </span>
+
+
+                    <span class="centro-flecha">
+                        →
+                    </span>
+
+
+                    <span class="centro-onda">
+                    </span>
+
+                </button>
+
+
+
+                <!-- ==================================================
+                     SEGURIDAD
+                =================================================== -->
+
+                <button
+                    type="button"
+                    class="centro-card tarjeta-seguridad"
+                    data-modal="modalSeguridad"
+                >
+
+                    <span class="centro-texto">
+
+                        <strong>
+                            Seguridad
+                        </strong>
+
+                        <small>
+                            Protege tu información personal
+                        </small>
+
+                    </span>
+
+
+                    <span class="centro-flecha">
+                        →
+                    </span>
+
+
+                    <span class="centro-onda">
+                    </span>
+
+                </button>
+
+
+
+                <!-- ==================================================
+                     AYUDA
+                =================================================== -->
+
+                <button
+                    type="button"
+                    class="centro-card tarjeta-ayuda"
+                    data-modal="modalAyuda"
+                >
+
+                    <span class="centro-texto">
+
+                        <strong>
+                            Ayuda
+                        </strong>
+
+                        <small>
+                            Resuelve tus dudas
+                        </small>
+
+                    </span>
+
+
+                    <span class="centro-flecha">
+                        →
+                    </span>
+
+
+                    <span class="centro-onda">
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+                <!-- ==================================================
+             MODAL — INFORMACIÓN
+        =================================================== -->
+
+        <div
+            id="modalInformacion"
+            class="centro-modal oculto"
+        >
+
+            <div class="centro-modal-ventana">
+
+
+                <button
+                    type="button"
+                    class="centro-modal-cerrar"
+                    data-cerrar-modal
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+
+                <div class="centro-modal-icono verde">
+                    💡
+                </div>
+
+
+                <span class="centro-modal-etiqueta">
+                    CENTRO DE INFORMACIÓN
+                </span>
+
+
+                <h2>
+                    Información
+                </h2>
+
+
+                <p class="centro-modal-intro">
+                    Conoce cómo utilizar correctamente el portal
+                    de recibos de pago.
+                </p>
+
+
+                <div class="centro-modal-seccion">
+
+                    <h3>
+                        ¿Cómo consultar mi recibo?
+                    </h3>
+
+
+                    <div class="centro-paso">
+
+                        <span>
+                            1️⃣
+                        </span>
+
+                        <p>
+                            Selecciona la quincena que deseas consultar.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-paso">
+
+                        <span>
+                            2️⃣
+                        </span>
+
+                        <p>
+                            Ingresa tu código completo de empleado.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-paso">
+
+                        <span>
+                            3️⃣
+                        </span>
+
+                        <p>
+                            Presiona el botón <strong>Consultar</strong>.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-paso">
+
+                        <span>
+                            4️⃣
+                        </span>
+
+                        <p>
+                            Visualiza tu recibo y, si lo necesitas,
+                            puedes guardarlo.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             MODAL — SEGURIDAD
+        =================================================== -->
+
+        <div
+            id="modalSeguridad"
+            class="centro-modal oculto"
+        >
+
+            <div class="centro-modal-ventana">
+
+
+                <button
+                    type="button"
+                    class="centro-modal-cerrar"
+                    data-cerrar-modal
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+
+                <div class="centro-modal-icono azul">
+                    🔑
+                </div>
+
+
+                <span class="centro-modal-etiqueta">
+                    PROTECCIÓN DE INFORMACIÓN
+                </span>
+
+
+                <h2>
+                    Seguridad
+                </h2>
+
+
+                <p class="centro-modal-intro">
+                    Tu recibo contiene información personal.
+                    Utiliza el portal de forma responsable.
+                </p>
+
+
+                <div class="centro-modal-seccion">
+
+
+                    <div class="centro-seguridad">
+
+                        <span>
+                            🔐
+                        </span>
+
+                        <p>
+                            Utiliza únicamente tu propio código
+                            de empleado.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-seguridad">
+
+                        <span>
+                            🚫
+                        </span>
+
+                        <p>
+                            No compartas tu código de empleado
+                            con otras personas.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-seguridad">
+
+                        <span>
+                            📄
+                        </span>
+
+                        <p>
+                            Evita compartir públicamente tu
+                            recibo de pago.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-seguridad">
+
+                        <span>
+                            🔒
+                        </span>
+
+                        <p>
+                            Cuando termines tu consulta,
+                            puedes cerrar la página.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             MODAL — AYUDA
+        =================================================== -->
+
+        <div
+            id="modalAyuda"
+            class="centro-modal oculto"
+        >
+
+            <div class="centro-modal-ventana">
+
+
+                <button
+                    type="button"
+                    class="centro-modal-cerrar"
+                    data-cerrar-modal
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+
+                <div class="centro-modal-icono amarillo">
+                    💬
+                </div>
+
+
+                <span class="centro-modal-etiqueta">
+                    ASISTENCIA
+                </span>
+
+
+                <h2>
+                    Ayuda
+                </h2>
+
+
+                <p class="centro-modal-intro">
+                    Si tienes problemas para consultar tu recibo,
+                    revisa estas recomendaciones o comunícate
+                    con Recursos Humanos.
+                </p>
+
+
+                <div class="centro-modal-seccion">
+
+
+                    <div class="centro-ayuda">
+
+                        <strong>
+                            ¿No encuentra mi recibo?
+                        </strong>
+
+                        <p>
+                            Comprueba que seleccionaste la quincena
+                            correcta y que tu código está completo.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-ayuda">
+
+                        <strong>
+                            ¿El código no funciona?
+                        </strong>
+
+                        <p>
+                            Escribe el código exactamente como aparece
+                            en tu documentación de empleado.
+                        </p>
+
+                    </div>
+
+
+                    <div class="centro-ayuda">
+
+                        <strong>
+                            ¿El problema continúa?
+                        </strong>
+
+                        <p>
+                            Comunícate con Recursos Humanos para
+                            recibir asistencia.
+                        </p>
+
+                    </div>
+                    <div class="centro-ayuda">
+
+                        <strong>
+                            ¿Qué hago si mi pago está incompleto?
+                        </strong>
+
+                        <p>
+                            Comuníquese con Recursos Humanos inmediatamente para presentar su reclamo. 
+                            Recuerde que tiene un plazo máximo de 3 días después de recibir su recibo 
+                            de pago para realizar el reclamo.
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- CONTACTO -->
+
+                    <div class="centro-contacto">
+
+
+                        <div class="contacto-cabecera">
+
+                            <div class="contacto-icono">
+                                👤
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Contacto con Recursos Humanos
+                                </strong>
+
+                                <p>
+                                    Para recibir asistencia puedes comunicarte
+                                    a cualquiera de los siguientes números:
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="contacto-telefonos">
+
+
+                            <a
+
+
+
+                                href="tel:+50488633324"
+
+
+
+                                class="contacto-telefono"
+
+
+
+                            >
+
+
+
+
+                                <span class="telefono-icono">
+
+
+
+                                    📞
+
+
+
+                                </span>
+
+
+
+
+                                <span class="telefono-info">
+
+
+
+                                    <strong>Tirsa Liseth Paz</strong>
+
+
+
+                                    <small>Coordinadora de RRHH</small>
+
+
+
+                                    <span class="telefono-numero">
+                                    +504 8863-3324
+
+
+
+                                    </span>
+
+
+
+                                </span>
+
+
+
+
+                                <span class="telefono-llamar">
+
+
+
+                                    👤
+
+
+
+                                </span>
+
+
+
+
+                            </a>
+
+
+
+                            <a
+
+
+
+
+                                href="tel:+50432258230"
+
+
+
+
+                                class="contacto-telefono"
+
+
+
+
+                            >
+
+
+
+
+
+                                <span class="telefono-icono">
+
+
+
+
+                                    📞
+
+
+
+
+                                </span>
+
+
+
+
+
+                                <span class="telefono-info">
+
+
+
+
+                                    <strong>Cristhian Osorio Acosta</strong>
+
+
+
+
+                                    <small>Auxiliar de RRHH</small>
+
+
+
+
+                                    <span class="telefono-numero">
+                                    +504 3225-8230
+
+
+
+
+                                    </span>
+
+
+
+
+                                </span>
+
+
+
+
+
+                                <span class="telefono-llamar">
+
+
+
+
+                                    👤
+
+
+
+
+                                </span>
+
+
+
+
+
+                            </a>
+
+
+
+                            <a
+
+
+
+
+                                href="tel:+50431623652"
+
+
+
+
+                                class="contacto-telefono"
+
+
+
+
+                            >
+
+
+
+
+
+                                <span class="telefono-icono">
+
+
+
+
+                                    📞
+
+
+
+
+                                </span>
+
+
+
+
+
+                                <span class="telefono-info">
+
+
+
+
+                                    <strong>Mayda Yanely Palma</strong>
+
+
+
+
+                                    <small>Auxiliar de RRHH</small>
+
+
+
+
+                                    <span class="telefono-numero">
+                                    +504 3162-3652
+
+
+
+
+                                    </span>
+
+
+
+
+                                </span>
+
+
+
+
+
+                                <span class="telefono-llamar">
+
+
+
+
+                                    👤
+
+
+
+
+                                </span>
+
+
+
+
+
+                            </a>
+
+
+
+                            <a
+
+
+
+
+                                href="tel:+50432857896"
+
+
+
+
+                                class="contacto-telefono"
+
+
+
+
+                            >
+
+
+
+
+
+                                <span class="telefono-icono">
+
+
+
+
+                                    📞
+
+
+
+
+                                </span>
+
+
+
+
+
+                                <span class="telefono-info">
+
+
+
+
+                                    <strong>Maiano Alejandro Perez</strong>
+
+
+
+
+                                    <small>Auxiliar de RRHH</small>
+
+
+
+
+                                    <span class="telefono-numero">
+                                    +504 3285-7896
+
+
+
+
+                                    </span>
+
+
+
+
+                                </span>
+
+
+
+
+
+                                <span class="telefono-llamar">
+
+
+
+
+                                    👤
+
+
+
+
+                                </span>
+
+
+
+
+
+                            </a>
+
+
+                        </div>
+
+
+
+                        <div class="contacto-nota">
+
+                            <span>
+                                ✓
+                            </span>
+
+                            <p>
+                                Nuestro equipo de Recursos Humanos está
+                                disponible para ayudarte en lo que necesites.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+            </main>
+
+
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
 
     <footer>
 
-        <p>
-
-            RRHH · Agroindustrias Cayo Blanco · COA
-
-        </p>
+        RRHH · Agroindustrias Cayo Blanco · COA
 
     </footer>
 
-    <script src="script.js"></script>
+
+
+    <!-- ==================================================
+         SCRIPT
+    =================================================== -->
+
+    <script src="script.js?v=23"></script>
+
 
 </body>
 
