@@ -160,7 +160,9 @@ function iniciarSistema() {
 
         console.error(
             "PDF.js no está cargado."
-        );
+        );        reproducirSonidoError();
+
+
 
 
         mostrarMensaje(
@@ -519,6 +521,13 @@ async function obtenerPDF(
 
 async function consultarEmpleado() {
 
+    // ==================================================
+    // 🔊 PREPARAR AUDIO DESDE LA ACCIÓN DEL USUARIO
+    // ==================================================
+
+    prepararAudio();
+
+
     console.log(
         "================================"
     );
@@ -576,7 +585,9 @@ async function consultarEmpleado() {
 
     if (!codigo) {
 
-        mostrarMensaje(
+                reproducirSonidoError();
+
+mostrarMensaje(
             "⚠️ Escribe tu código completo.",
             true
         );
@@ -590,12 +601,12 @@ async function consultarEmpleado() {
     }
 
 
-    if (
-        codigo.length < 6
-    ) {
+    if (!/^CBEP\d{4}$/.test(codigo)) {
+
+        reproducirSonidoError();
 
         mostrarMensaje(
-            "⚠️ Debes escribir el código completo.",
+            "⚠️ Ingresa tu código completo de 8 caracteres. Ejemplo: CBEP1272.",
             true
         );
 
@@ -620,8 +631,12 @@ async function consultarEmpleado() {
 
     if (!periodo) {
 
-        mostrarMensaje(
-            "⚠️ No se encontró la quincena.",
+        
+
+            reproducirSonidoError();
+
+mostrarMensaje(
+            "❌ No se encontró la quincena.",
             true
         );
 
@@ -735,22 +750,30 @@ async function consultarEmpleado() {
 
 
             // ==================================================
-            // COINCIDENCIA
             // ==================================================
+            // COINCIDENCIA EXACTA DEL CÓDIGO
+            // ==================================================
+            // PDF.js puede separar CBEP y los números con espacios.
+            // Permitimos esos espacios, pero exigimos exactamente 4 dígitos.
 
-           const codigosEncontrados =
-    textoNormalizado.match(
-        /CBEP\d+/g
-    ) || [];
+            const codigosEnPagina =
+                texto.match(
+                    /CBEP\s*([0-9]{4})/gi
+                ) || [];
 
-const coincidenciaExacta =
-    codigosEncontrados.some(
-        function(codigoPDF) {
-            return codigoPDF === codigoBuscado;
-        }
-    );
+            const coincidenciaExacta =
+                codigosEnPagina.some(
+                    function(codigoPDF) {
 
-if (coincidenciaExacta) {
+                        return (
+                            normalizar(codigoPDF) ===
+                            codigoBuscado
+                        );
+
+                    }
+                );
+
+            if (coincidenciaExacta) {
 
                 encontrado = {
 
@@ -762,9 +785,7 @@ if (coincidenciaExacta) {
 
                 };
 
-
                 break;
-
             }
 
         }
@@ -776,9 +797,11 @@ if (coincidenciaExacta) {
 
         if (!encontrado) {
 
-            mostrarMensaje(
+                    reproducirSonidoError();
 
-                "⚠️ El código " +
+mostrarMensaje(
+
+                "❌ El código " +
                 codigo +
                 " no fue encontrado en " +
                 periodo.nombre +
@@ -913,6 +936,9 @@ if (coincidenciaExacta) {
             "✓ Colaborador encontrado correctamente."
         );
 
+        // 🔊 SONIDO DE RECIBO ENCONTRADO
+        reproducirSonidoEncontrado();
+
 
         resultado.scrollIntoView({
 
@@ -933,9 +959,11 @@ if (coincidenciaExacta) {
         );
 
 
-        mostrarMensaje(
+                reproducirSonidoError();
 
-            "⚠️ No se pudo cargar el recibo. Verifica que el PDF esté disponible.",
+mostrarMensaje(
+
+            "❌ No se pudo cargar el recibo. Verifica que el PDF esté disponible.",
 
             true
 
@@ -958,6 +986,152 @@ if (coincidenciaExacta) {
     }
 
 }
+// ======================================================
+// 🔊 AUDIO DE CONFIRMACIÓN
+// ======================================================
+
+let audioContextCOA = null;
+
+function prepararAudio() {
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioContext) {
+            return;
+        }
+
+        if (!audioContextCOA) {
+            audioContextCOA =
+                new AudioContext();
+        }
+
+        if (
+            audioContextCOA.state ===
+            "suspended"
+        ) {
+            audioContextCOA.resume();
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "No se pudo preparar el audio:",
+            error
+        );
+
+    }
+
+}
+
+
+function reproducirSonidoEncontrado() {
+
+    try {
+
+        if (!audioContextCOA) {
+            return;
+        }
+
+        if (
+            audioContextCOA.state ===
+            "suspended"
+        ) {
+            audioContextCOA.resume();
+        }
+
+        const tiempo =
+            audioContextCOA.currentTime;
+
+        // ==================================================
+        // 📄 SONIDO DE CONFIRMACIÓN DE DOCUMENTO
+        // Dos tonos suaves: "tin... ding"
+        // ==================================================
+
+        const notas = [
+            {
+                frecuencia: 660,
+                inicio: 0,
+                duracion: 0.22
+            },
+            {
+                frecuencia: 990,
+                inicio: 0.16,
+                duracion: 0.48
+            }
+        ];
+
+        notas.forEach(function(nota) {
+
+            const oscillator =
+                audioContextCOA.createOscillator();
+
+            const gainNode =
+                audioContextCOA.createGain();
+
+            oscillator.type =
+                "sine";
+
+            const inicio =
+                tiempo + nota.inicio;
+
+            const final =
+                inicio + nota.duracion;
+
+            oscillator.frequency.setValueAtTime(
+                nota.frecuencia,
+                inicio
+            );
+
+            // Entrada suave
+            gainNode.gain.setValueAtTime(
+                0.0001,
+                inicio
+            );
+
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.12,
+                inicio + 0.025
+            );
+
+            // Salida suave
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.0001,
+                final
+            );
+
+            oscillator.connect(
+                gainNode
+            );
+
+            gainNode.connect(
+                audioContextCOA.destination
+            );
+
+            oscillator.start(
+                inicio
+            );
+
+            oscillator.stop(
+                final
+            );
+
+        });
+
+    } catch (error) {
+
+        console.warn(
+            "No se pudo reproducir el sonido de confirmación:",
+            error
+        );
+
+    }
+
+}
+
 // ======================================================
 // OBTENER NOMBRE
 // ======================================================
@@ -1226,7 +1400,9 @@ async function mostrarRecibo() {
         );
 
 
-        visorPDF.innerHTML = `
+                reproducirSonidoError();
+
+visorPDF.innerHTML = `
 
             <div
                 class="visor-mensaje"
@@ -1819,3 +1995,69 @@ function cerrarCentroModal(
     );
 
 }
+
+// ======================================================
+// 🔊 SONIDO DE ERROR - RECIBO NO ENCONTRADO
+// ======================================================
+
+function reproducirSonidoError() {
+
+    try {
+
+        if (!audioContextCOA) {
+            return;
+        }
+
+        if (audioContextCOA.state === "suspended") {
+            audioContextCOA.resume();
+        }
+
+        const tiempo = audioContextCOA.currentTime;
+
+        const oscillator = audioContextCOA.createOscillator();
+        const gainNode = audioContextCOA.createGain();
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.setValueAtTime(440, tiempo);
+        oscillator.frequency.setValueAtTime(330, tiempo + 0.16);
+
+        gainNode.gain.setValueAtTime(0.0001, tiempo);
+
+        gainNode.gain.exponentialRampToValueAtTime(
+            0.16,
+            tiempo + 0.02
+        );
+
+        gainNode.gain.exponentialRampToValueAtTime(
+            0.0001,
+            tiempo + 0.14
+        );
+
+        gainNode.gain.exponentialRampToValueAtTime(
+            0.16,
+            tiempo + 0.17
+        );
+
+        gainNode.gain.exponentialRampToValueAtTime(
+            0.0001,
+            tiempo + 0.32
+        );
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContextCOA.destination);
+
+        oscillator.start(tiempo);
+        oscillator.stop(tiempo + 0.35);
+
+    } catch (error) {
+
+        console.warn(
+            "No se pudo reproducir el sonido de error:",
+            error
+        );
+
+    }
+
+}
+
