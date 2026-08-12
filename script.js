@@ -636,7 +636,7 @@ mostrarMensaje(
             reproducirSonidoError();
 
 mostrarMensaje(
-            "❌ No se encontró la quincena.",
+            "⚠️No se encontró la quincena.",
             true
         );
 
@@ -801,7 +801,7 @@ mostrarMensaje(
 
 mostrarMensaje(
 
-                "❌ El código " +
+                "⚠️ El código " +
                 codigo +
                 " no fue encontrado en " +
                 periodo.nombre +
