@@ -2061,3 +2061,60 @@ function reproducirSonidoError() {
 
 }
 
+
+/* =========================================================
+   BLOQUEOS BÁSICOS CONTRA INSPECCIÓN ACCIDENTAL
+   No afectan el funcionamiento normal del portal.
+   ========================================================= */
+
+document.addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+});
+
+document.addEventListener("keydown", function (event) {
+    const key = (event.key || "").toLowerCase();
+
+    // F12
+    if (event.key === "F12") {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    }
+
+    // Ctrl+Shift+I / J / C / K
+    if (
+        event.ctrlKey &&
+        event.shiftKey &&
+        ["i", "j", "c", "k"].includes(key)
+    ) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    }
+
+    // Ctrl+U — ver código fuente
+    if (event.ctrlKey && key === "u") {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    }
+
+    // Ctrl+S — guardar página
+    if (event.ctrlKey && key === "s") {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    }
+
+    // Ctrl+Shift+U — variantes de herramientas/inspección en algunos entornos
+    if (
+        event.ctrlKey &&
+        event.shiftKey &&
+        key === "u"
+    ) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    }
+}, true);
+
