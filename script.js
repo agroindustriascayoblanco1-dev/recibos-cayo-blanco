@@ -17,7 +17,7 @@ const PERIODOS = {
         mes: "Agosto 2026",
 
         periodoPago:
-            "11 de Junio al 25 de Junio de 2026",
+            "11 de Julio al 25 de Julio de 2026",
 
         archivo:
             "RECIBOS QUINCENA 1.pdf"
