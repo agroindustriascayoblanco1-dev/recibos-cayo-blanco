@@ -1,1 +1,14 @@
-
+[
+  {
+    "nombre": "Reglamento Interno de Trabajo",
+    "archivo": "reglamento-interno.pdf",
+    "descripcion": "Normas y disposiciones aplicables al personal.",
+    "icono": "📕"
+  },
+  {
+    "nombre": "Código de Trabajo",
+    "archivo": "codigo-trabajo.pdf",
+    "descripcion": "Información relacionada con el Código de Trabajo.",
+    "icono": "📘"
+  }
+]
