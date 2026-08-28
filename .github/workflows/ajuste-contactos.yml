@@ -1,0 +1,83 @@
+name: Ajuste visual contactos
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aplicar CSS
+        run: |
+          cat >> style.css <<'EOF'
+
+/* CONTACTOS: llamada y WhatsApp apilados en la columna derecha */
+.contacto-telefonos {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 132px;
+    column-gap: 10px;
+    row-gap: 8px;
+    align-items: stretch;
+}
+
+.contacto-telefono {
+    min-height: 92px;
+    width: 100%;
+}
+
+.telefono-llamar {
+    width: 112px;
+    height: 38px;
+    flex: 0 0 112px;
+    border-radius: 10px;
+    font-size: 0;
+}
+
+.telefono-llamar::after {
+    content: 'Llamar';
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.contacto-whatsapp {
+    align-self: end;
+    width: 132px !important;
+    min-height: 38px;
+    margin-left: 0 !important;
+    padding: 8px 10px !important;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: var(--green-soft);
+    color: var(--green-dark) !important;
+    text-decoration: none !important;
+}
+
+@media (max-width: 700px) {
+    .contacto-telefonos {
+        grid-template-columns: minmax(0, 1fr) 112px;
+        column-gap: 8px;
+    }
+
+    .contacto-telefono {
+        min-height: 86px;
+    }
+
+    .telefono-llamar {
+        width: 102px;
+        flex-basis: 102px;
+    }
+
+    .contacto-whatsapp {
+        width: 112px !important;
+    }
+}
+EOF
+          sed -i 's/style.css?v=22/style.css?v=24/' index.html
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html style.css
+          git commit -m 'Mejora botones de contacto'
+          git push
