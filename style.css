@@ -4629,6 +4629,20 @@ button:active .icono {
 
 @media (max-width: 700px) {
 
+    .carnet-contenido {
+        grid-template-columns:
+            1fr;
+
+        justify-items:
+            center;
+    }
+
+
+    .carnet-datos {
+        width:
+            100%;
+    }
+
     .centro-informacion {
 
         margin-top:
@@ -5003,6 +5017,294 @@ button:active .icono {
 
     font-size:
         14px;
+
+}
+
+
+/* =========================================================
+   CARNET DE EMPLEADO
+========================================================= */
+
+.carnet-acceso p,
+.estado-carnet {
+
+    color:
+        var(--text-soft);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.boton-carnet {
+
+    margin-top:
+        13px;
+
+    padding:
+        10px 14px;
+
+    border:
+        0;
+
+    border-radius:
+        10px;
+
+    background:
+        var(--green-dark);
+
+    color:
+        var(--white);
+
+    font: inherit;
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    cursor:
+        pointer;
+
+}
+
+
+.estado-carnet {
+
+    display:
+        block;
+
+    margin-top:
+        8px;
+
+}
+
+
+.ventana-carnet {
+
+    width:
+        min(620px, 100%);
+
+}
+
+
+.carnet-empleado {
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        16px;
+
+    background:
+        var(--white);
+
+}
+
+
+.carnet-encabezado {
+
+    padding:
+        20px;
+
+    background:
+        var(--navy);
+
+    color:
+        var(--white);
+
+}
+
+
+.carnet-encabezado span,
+.carnet-encabezado strong,
+.carnet-etiqueta,
+.carnet-datos dt {
+
+    display:
+        block;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .8px;
+
+}
+
+
+.carnet-encabezado strong {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--yellow);
+
+    font-size:
+        16px;
+
+}
+
+
+.carnet-contenido {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        145px 1fr;
+
+    gap:
+        22px;
+
+    padding:
+        22px;
+
+}
+
+
+.foto-carnet,
+.foto-carnet img,
+.foto-no-disponible {
+
+    width:
+        145px;
+
+    height:
+        180px;
+
+}
+
+
+.foto-carnet {
+
+    overflow:
+        hidden;
+
+    border-radius:
+        12px;
+
+    background:
+        var(--background);
+
+}
+
+
+.foto-carnet img {
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+}
+
+
+.foto-no-disponible {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        var(--text-soft);
+
+}
+
+
+.foto-no-disponible span {
+
+    font-size:
+        34px;
+
+}
+
+
+.foto-no-disponible small {
+
+    font-size:
+        10px;
+
+}
+
+
+.carnet-etiqueta {
+
+    color:
+        var(--green-dark);
+
+}
+
+
+.carnet-datos h2 {
+
+    margin:
+        6px 0 18px;
+
+    padding: 0;
+
+    font-size:
+        22px;
+
+}
+
+
+.carnet-datos dl {
+
+    display:
+        grid;
+
+    gap:
+        11px;
+
+}
+
+
+.carnet-datos dt {
+
+    color:
+        var(--text-soft);
+
+}
+
+
+.carnet-datos dd {
+
+    margin:
+        3px 0 0;
+
+    color:
+        var(--navy);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
 
 }
 

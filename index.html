@@ -713,6 +713,132 @@
 
                 </div>
 
+
+                <div class="centro-modal-seccion carnet-acceso">
+
+                    <h3>
+                        Carnet de empleado
+                    </h3>
+
+
+                    <p>
+                        Consulta tu carnet después de encontrar tu recibo.
+                    </p>
+
+
+                    <button
+                        id="verCarnet"
+                        class="boton-carnet"
+                        type="button"
+                    >
+                        Ver mi carnet
+                    </button>
+
+
+                    <small
+                        id="estadoCarnet"
+                        class="estado-carnet"
+                    ></small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             MODAL — CARNET DE EMPLEADO
+        =================================================== -->
+
+        <div
+            id="modalCarnet"
+            class="centro-modal oculto"
+        >
+
+            <div class="centro-modal-ventana ventana-carnet">
+
+                <button
+                    type="button"
+                    class="centro-modal-cerrar"
+                    data-cerrar-modal
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+
+                <article class="carnet-empleado">
+
+                    <div class="carnet-encabezado">
+
+                        <span>
+                            AGROINDUSTRIAS CAYO BLANCO
+                        </span>
+
+                        <strong>
+                            CARNET DE EMPLEADO
+                        </strong>
+
+                    </div>
+
+
+                    <div class="carnet-contenido">
+
+                        <div class="foto-carnet">
+
+                            <img
+                                id="fotoCarnet"
+                                alt="Fotografía del empleado"
+                            >
+
+
+                            <div
+                                id="fotoNoDisponible"
+                                class="foto-no-disponible"
+                            >
+                                <span>👤</span>
+                                <small>Foto no disponible</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="carnet-datos">
+
+                            <span class="carnet-etiqueta">
+                                NOMBRE COMPLETO
+                            </span>
+
+                            <h2 id="carnetNombre">—</h2>
+
+
+                            <dl>
+
+                                <div>
+                                    <dt>Código</dt>
+                                    <dd id="carnetCodigo">—</dd>
+                                </div>
+
+                                <div>
+                                    <dt>Departamento</dt>
+                                    <dd id="carnetDepartamento">—</dd>
+                                </div>
+
+                                <div>
+                                    <dt>Puesto</dt>
+                                    <dd id="carnetPuesto">—</dd>
+                                </div>
+
+                            </dl>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
             </div>
 
         </div>
