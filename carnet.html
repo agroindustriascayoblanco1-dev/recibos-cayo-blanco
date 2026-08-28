@@ -44,7 +44,20 @@ function obtenerDatos(texto){
  return {nombre:nombre.trim(),departamento,puesto};
 }
 async function buscarEnPdf(pdf,codigo){for(let n=1;n<=pdf.numPages;n++){const page=await pdf.getPage(n);const content=await page.getTextContent();const texto=content.items.map(i=>i.str||"").join(" ");const encontrados=texto.match(/CBEP\s*([0-9]{4})/gi)||[];if(encontrados.some(x=>normalizar(x)===codigo))return obtenerDatos(texto)}return null}
-async function consultar(){const boton=$("consultarCarnet"),input=$("codigoCarnet"),mensaje=$("mensaje"),resultado=$("resultadoCarnet");const codigo=input.value.trim().toUpperCase();resultado.classList.add("oculto");mensaje.classList.remove("error");if(!/^CBEP\d{4}$/.test(codigo)){mensaje.textContent="Ingresa un código válido. Ejemplo: CBEP0016.";mensaje.classList.add("error");input.focus();return}boton.disabled=true;boton.textContent="Buscando...";mensaje.textContent="Consultando información...";try{let datos=null;for(const archivo of ARCHIVOS){const pdf=await pdfjsLib.getDocument({url:archivo}).promise;datos=await buscarEnPdf(pdf,codigo);if(datos)break}if(!datos){mensaje.textContent="No se encontró un empleado con el código "+codigo+".";mensaje.classList.add("error");return}$("nombreCarnet").textContent=datos.nombre;$("codigoResultado").textContent=codigo;$("departamentoCarnet").textContent=datos.departamento;$("puestoCarnet").textContent=datos.puesto;const foto=$("fotoCarnet");const silueta='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145 180"><rect width="145" height="180" rx="12" fill="#eef3f5"/><circle cx="72.5" cy="62" r="31" fill="#9aa8ae"/><path d="M28 158c2-38 22-57 45-57s43 19 45 57" fill="#9aa8ae"/></svg>');foto.onerror=()=>{foto.onerror=null;foto.src=silueta};foto.src="fotos/"+encodeURIComponent(codigo)+".jpg";resultado.classList.remove("oculto");mensaje.textContent="✓ Carnet encontrado correctamente.";resultado.scrollIntoView({behavior:"smooth",block:"start"})}catch(e){console.error(e);mensaje.textContent="No se pudo consultar el carnet. Intenta nuevamente.";mensaje.classList.add("error")}finally{boton.disabled=false;boton.textContent="🔎 Ver carnet"}}
+function cargarFoto(codigo){
+ const foto=$("fotoCarnet");
+ const silueta='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145 180"><rect width="145" height="180" rx="12" fill="#eef3f5"/><circle cx="72.5" cy="62" r="31" fill="#9aa8ae"/><path d="M28 158c2-38 22-57 45-57s43 19 45 57" fill="#9aa8ae"/></svg>');
+ const extensiones=["jpg","jpeg","png"];
+ let indice=0;
+ function siguiente(){
+   if(indice>=extensiones.length){foto.onerror=null;foto.src=silueta;return}
+   const extension=extensiones[indice++];
+   foto.src="fotos/"+encodeURIComponent(codigo)+"."+extension;
+ }
+ foto.onerror=siguiente;
+ siguiente();
+}
+async function consultar(){const boton=$("consultarCarnet"),input=$("codigoCarnet"),mensaje=$("mensaje"),resultado=$("resultadoCarnet");const codigo=input.value.trim().toUpperCase();resultado.classList.add("oculto");mensaje.classList.remove("error");if(!/^CBEP\d{4}$/.test(codigo)){mensaje.textContent="Ingresa un código válido. Ejemplo: CBEP0016.";mensaje.classList.add("error");input.focus();return}boton.disabled=true;boton.textContent="Buscando...";mensaje.textContent="Consultando información...";try{let datos=null;for(const archivo of ARCHIVOS){const pdf=await pdfjsLib.getDocument({url:archivo}).promise;datos=await buscarEnPdf(pdf,codigo);if(datos)break}if(!datos){mensaje.textContent="No se encontró un empleado con el código "+codigo+".";mensaje.classList.add("error");return}$("nombreCarnet").textContent=datos.nombre;$("codigoResultado").textContent=codigo;$("departamentoCarnet").textContent=datos.departamento;$("puestoCarnet").textContent=datos.puesto;cargarFoto(codigo);resultado.classList.remove("oculto");mensaje.textContent="✓ Carnet encontrado correctamente.";resultado.scrollIntoView({behavior:"smooth",block:"start"})}catch(e){console.error(e);mensaje.textContent="No se pudo consultar el carnet. Intenta nuevamente.";mensaje.classList.add("error")}finally{boton.disabled=false;boton.textContent="🔎 Ver carnet"}}
 $("consultarCarnet").addEventListener("click",consultar);$("codigoCarnet").addEventListener("keydown",e=>{if(e.key==="Enter")consultar()});
 </script>
 </body>
