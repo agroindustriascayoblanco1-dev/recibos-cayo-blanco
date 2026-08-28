@@ -5043,7 +5043,7 @@ button:active .icono {
 .boton-carnet {
 
     margin-top:
-        25px;
+        40px;
 
     padding:
         10px 14px;
@@ -6687,6 +6687,6 @@ body.centro-modal-abierto {
 }
 .carnet-acceso .boton-carnet {
     display: block;
-    margin-top: 30px !important;
+    margin-top: 40px !important;
     text-decoration: none !important;
 }
