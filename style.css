@@ -287,3 +287,25 @@
         700;
 
 }
+/* AJUSTE FINAL — BOTÓN VER MI CARNET */
+
+.carnet-acceso {
+    margin-top: 35px;
+}
+
+.carnet-acceso p {
+    margin-bottom: 22px;
+}
+
+.carnet-acceso .boton-carnet {
+    display: inline-block;
+    margin-top: 0;
+    text-decoration: none !important;
+}
+
+.carnet-acceso .boton-carnet,
+.carnet-acceso .boton-carnet:hover,
+.carnet-acceso .boton-carnet:focus,
+.carnet-acceso .boton-carnet:active {
+    text-decoration: none !important;
+}
