@@ -6685,3 +6685,8 @@ body.centro-modal-abierto {
         flex-basis: 33px;
     }
 }
+.carnet-acceso .boton-carnet {
+    display: block;
+    margin-top: 30px !important;
+    text-decoration: none !important;
+}
