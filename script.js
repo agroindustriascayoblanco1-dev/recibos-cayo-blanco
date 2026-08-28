@@ -80,9 +80,24 @@ async function renderPage(pdf,n){
  await p.render({canvasContext:c.getContext("2d"),viewport:vp}).promise
 }
 async function guardarRecibo(){
- if(!pdfActual||!paginaEncontrada||!empleadoActual)return;
- try{const p=await pdfActual.getPage(paginaEncontrada),vp=p.getViewport({scale:2}),c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;await p.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;const a=document.createElement("a");a.href=c.toDataURL("image/jpeg",.95);a.download=`${empleadoActual.codigo}_${quincenaActual}.jpg`;a.click()}
- catch(e){alert("No fue posible guardar el recibo.")}
+  if(!pdfActual||!paginaEncontrada||!empleadoActual)return;
+  try{
+    const periodo=PERIODOS[quincenaActual];
+    if(!periodo?.archivo)throw new Error("No se encontró el PDF");
+    const respuesta=await fetch(periodo.archivo,{cache:"no-store"});
+    if(!respuesta.ok)throw new Error("No se pudo descargar el PDF");
+    const blob=await respuesta.blob();
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=`${empleadoActual.codigo}_${quincenaActual}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  }catch(e){
+    console.error(e);
+    alert("No fue posible guardar el recibo en PDF.");
+  }
 }
 
 function cargarCarnet(){
