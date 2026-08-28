@@ -1,0 +1,890 @@
+/* Cayo Blanco — Mobile Experience / Responsive */
+:root{
+  --mobile-navy:#08384a;
+  --mobile-blue:#0b5870;
+  --mobile-green:#12a879;
+  --mobile-mint:#e7f8f2;
+  --mobile-ink:#123b4a;
+}
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  -webkit-tap-highlight-color:transparent;
+  overscroll-behavior-x:none;
+}
+
+button,a,input{
+  -webkit-tap-highlight-color:transparent;
+}
+
+button{
+  touch-action:manipulation;
+}
+
+.topbar{
+  background:linear-gradient(135deg,#062f40 0%,#0a4b60 58%,#0c6b70 100%);
+}
+
+.brand img{
+  box-shadow:0 5px 18px rgba(0,0,0,.12);
+}
+
+.menu-card,.period-card,.doc-card,.guide,.info-panel,.login-card,.profile{
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+
+.menu-card:active,.period-card:active,.doc-card:active,.guide:active,.info-panel:active{
+  transform:scale(.985);
+}
+
+.primary,.login-row button,.more,.outline,.secondary,.back,.sheet-close{
+  transition:transform .16s ease,filter .16s ease,box-shadow .16s ease;
+}
+
+.primary:active,.login-row button:active,.more:active,.outline:active,
+.secondary:active,.back:active,.sheet-close:active{
+  transform:scale(.96);
+}
+
+.menu-card:hover{
+  border-color:#b9ddd5;
+}
+
+.menu-card>span{
+  transition:transform .25s ease;
+}
+
+.menu-card:hover>span{
+  transform:scale(1.05) rotate(-2deg);
+}
+
+.screen.active{
+  animation:screenIn .28s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes screenIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Bottom sheets / information */
+.sheet-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(4,25,34,.42);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .24s ease,visibility .24s ease;
+}
+
+.sheet-overlay.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.info-sheet{
+  width:min(760px,100%);
+  max-height:min(88vh,760px);
+  overflow:hidden;
+  background:rgba(250,253,253,.97);
+  border:1px solid rgba(255,255,255,.72);
+  border-bottom:0;
+  border-radius:28px 28px 0 0;
+  box-shadow:0 -20px 70px rgba(3,34,45,.28);
+  transform:translateY(100%);
+  transition:transform .34s cubic-bezier(.2,.8,.2,1);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+.sheet-overlay.open .info-sheet{
+  transform:translateY(0);
+}
+
+.sheet-handle{
+  width:42px;
+  height:5px;
+  border-radius:99px;
+  background:#b7c9cd;
+  margin:10px auto 4px;
+}
+
+.sheet-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 18px 12px;
+  border-bottom:1px solid #dfeaec;
+}
+
+.sheet-title-kicker{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.2px;
+  color:var(--mobile-green);
+}
+
+.sheet-title{
+  margin:3px 0 0;
+  font-size:22px;
+  letter-spacing:-.5px;
+  color:var(--mobile-ink);
+}
+
+.sheet-close{
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
+  border:0;
+  border-radius:50%;
+  background:#edf4f5;
+  color:#163f4d;
+  font-size:27px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.sheet-content{
+  overflow:auto;
+  max-height:calc(min(88vh,760px) - 90px);
+  padding:18px 20px 28px;
+  -webkit-overflow-scrolling:touch;
+}
+
+.sheet-content h4{
+  margin:20px 0 8px;
+  color:#123e50;
+  font-size:15px;
+}
+
+.sheet-content p,
+.sheet-content li{
+  font-size:12px;
+  line-height:1.65;
+  color:#536a73;
+}
+
+.sheet-content ul,
+.sheet-content ol{
+  padding-left:21px;
+}
+
+/* Contact cards */
+.contact-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  margin:10px 0;
+  background:#fff;
+  border:1px solid #dce8ea;
+  border-radius:17px;
+  box-shadow:0 6px 18px rgba(15,59,72,.06);
+}
+
+.contact-avatar{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:var(--mobile-mint);
+  font-size:20px;
+}
+
+.contact-main{
+  min-width:0;
+  flex:1;
+}
+
+.contact-main strong,
+.contact-main small{
+  display:block;
+}
+
+.contact-main strong{
+  font-size:12px;
+  color:#123e50;
+}
+
+.contact-main small{
+  font-size:10px;
+  color:#6c8088;
+  margin-top:3px;
+}
+
+.contact-actions{
+  display:flex;
+  gap:7px;
+}
+
+.contact-actions a{
+  text-decoration:none;
+  font-size:10px;
+  font-weight:800;
+  padding:9px 10px;
+  border-radius:10px;
+  white-space:nowrap;
+}
+
+.contact-call{
+  background:#e8f6ef;
+  color:#087b56;
+}
+
+.contact-wa,
+.contact-whatsapp{
+  background:#e7f7f0;
+  color:#087b56;
+}
+
+/* Documents inside information */
+.sheet-document{
+  width:100%;
+  border:0;
+  border-radius:16px;
+  overflow:hidden;
+  background:#e8eff1;
+  margin-top:8px;
+}
+
+.sheet-document iframe{
+  display:block;
+  width:100%;
+  height:62vh;
+  border:0;
+  background:white;
+}
+
+.sheet-open-link,
+.sheet-action{
+  display:inline-flex;
+  margin-top:12px;
+  text-decoration:none;
+  background:#0a5064;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:12px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.mobile-hint{
+  padding:11px 13px;
+  border-radius:13px;
+  background:#eef8f5;
+  border:1px solid #d3ece3;
+  color:#4d686f;
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* Tablets and small laptops */
+@media (max-width:850px){
+  .access{
+    grid-template-columns:1fr;
+    padding:30px;
+  }
+
+  .menu-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .subhead{
+    grid-template-columns:auto 1fr;
+  }
+
+  .subhead .primary{
+    grid-column:2;
+  }
+
+  .guide-grid,
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .period-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* Phones */
+@media (max-width:600px){
+  html{
+    font-size:16px;
+  }
+
+  body{
+    overflow-x:hidden;
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    height:68px;
+    padding:8px 14px;
+  }
+
+  .container{
+    width:calc(100% - 24px);
+    max-width:none;
+    margin:16px auto 34px;
+  }
+
+  .brand{
+    gap:9px;
+    min-width:0;
+  }
+
+  .brand img{
+    width:44px;
+    height:44px;
+    flex:0 0 44px;
+  }
+
+  .brand strong{
+    font-size:11px;
+    line-height:1.15;
+  }
+
+  .brand span{
+    font-size:9px;
+    line-height:1.2;
+  }
+
+  .confidential{
+    display:none;
+  }
+
+  /* Login */
+  .access{
+    padding:22px;
+    border-radius:23px;
+    gap:18px;
+  }
+
+  .access h1{
+    font-size:clamp(37px,11vw,46px);
+    letter-spacing:-2px;
+    line-height:.98;
+  }
+
+  .access-copy p{
+    font-size:13px;
+    line-height:1.6;
+  }
+
+  .chips{
+    gap:6px;
+    margin-top:18px;
+  }
+
+  .chips span{
+    padding:7px 9px;
+    font-size:10px;
+  }
+
+  .login-card{
+    padding:22px;
+    border-radius:20px;
+  }
+
+  .login-card h2{
+    font-size:24px;
+  }
+
+  .login-card p{
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  .login-row{
+    flex-direction:column;
+    gap:9px;
+  }
+
+  .login-row input,
+  .login-row button{
+    width:100%;
+    min-height:50px;
+    font-size:15px;
+  }
+
+  .message{
+    font-size:11px;
+    line-height:1.4;
+  }
+
+  /* Employee profile */
+  .profile{
+    padding:10px 11px;
+    border-radius:17px;
+    margin-bottom:24px;
+    gap:9px;
+  }
+
+  .profile-main{
+    min-width:0;
+    gap:9px;
+  }
+
+  .profile-main h2{
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:55vw;
+  }
+
+  .profile-main small{
+    font-size:9px;
+  }
+
+  .profile .secondary{
+    padding:9px 10px;
+    font-size:10px;
+    white-space:nowrap;
+  }
+
+  .avatar{
+    width:46px;
+    height:46px;
+    flex:0 0 46px;
+    border-radius:14px;
+  }
+
+  /* Welcome */
+  .welcome{
+    margin-bottom:16px;
+  }
+
+  .welcome h1{
+    font-size:clamp(28px,8vw,34px);
+    letter-spacing:-1.2px;
+    line-height:1.02;
+  }
+
+  .welcome p,
+  .subhead p{
+    font-size:11px;
+    line-height:1.5;
+  }
+
+  /* Main menu */
+  .menu-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .menu-card{
+    min-height:96px;
+    padding:14px;
+    grid-template-columns:47px minmax(0,1fr) 27px;
+    gap:11px;
+    border-radius:17px;
+  }
+
+  .menu-card>span{
+    width:47px;
+    height:47px;
+    border-radius:14px;
+    font-size:20px;
+  }
+
+  .menu-card strong{
+    font-size:14px;
+    line-height:1.2;
+  }
+
+  .menu-card small{
+    font-size:10px;
+    line-height:1.4;
+    margin-top:4px;
+  }
+
+  .menu-card b{
+    width:27px;
+    height:27px;
+  }
+
+  /* Periods */
+  .period-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .period-card{
+    min-height:82px;
+    padding:14px;
+    gap:13px;
+    border-radius:17px;
+  }
+
+  .period-card>span{
+    width:48px;
+    height:48px;
+    flex:0 0 48px;
+    border-radius:14px;
+  }
+
+  .period-card strong{
+    font-size:15px;
+  }
+
+  .period-card small{
+    font-size:10px;
+    line-height:1.35;
+  }
+
+  /* Section headers */
+  .subhead{
+    grid-template-columns:1fr;
+    gap:9px;
+    margin-bottom:17px;
+  }
+
+  .subhead .back,
+  .subhead .primary{
+    grid-column:auto;
+    justify-self:start;
+  }
+
+  .subhead h2{
+    font-size:27px;
+    letter-spacing:-1px;
+    line-height:1.05;
+  }
+
+  .subhead .back,
+  .subhead .primary{
+    min-height:42px;
+    padding:10px 13px;
+    font-size:11px;
+  }
+
+  /* PDF viewer */
+  .pdf-viewer{
+    min-height:calc(100vh - 185px);
+    padding:7px;
+    border-radius:14px;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .pdf-viewer canvas{
+    width:100%;
+    height:auto;
+  }
+
+  .viewer-message,
+  .empty{
+    font-size:11px;
+    line-height:1.5;
+    padding:50px 15px;
+  }
+
+  /* Carnet */
+  .id-wrap{
+    width:100%;
+  }
+
+  .id-card{
+    width:100%;
+    border-radius:21px;
+  }
+
+  .id-body{
+    grid-template-columns:1fr;
+    padding:20px;
+    gap:17px;
+  }
+
+  .photo-box{
+    width:118px;
+    height:145px;
+    margin:0 auto;
+  }
+
+  .carnet-datos h3{
+    font-size:20px;
+    line-height:1.15;
+    margin:5px 0 18px;
+  }
+
+  .two{
+    grid-template-columns:1fr;
+    gap:13px;
+    margin-bottom:16px;
+  }
+
+  .label{
+    font-size:8px;
+  }
+
+  .carnet-datos strong{
+    font-size:12px;
+  }
+
+  /* Documents */
+  .section-title{
+    font-size:14px;
+    margin:13px 0 9px;
+  }
+
+  .section-title.spaced{
+    margin-top:24px;
+  }
+
+  .doc-card{
+    padding:11px;
+    gap:10px;
+    border-radius:15px;
+  }
+
+  .doc-card>span{
+    width:40px;
+    height:40px;
+    flex:0 0 40px;
+    border-radius:12px;
+    font-size:18px;
+  }
+
+  .doc-card strong{
+    font-size:12px;
+    line-height:1.25;
+  }
+
+  .doc-card small{
+    font-size:9px;
+    line-height:1.35;
+  }
+
+  .doc-card .outline,
+  .doc-card .link{
+    min-height:38px;
+    padding:9px 10px;
+    font-size:10px;
+  }
+
+  /* Guides / information */
+  .guide-grid,
+  .info-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .guide,
+  .info-panel{
+    padding:15px;
+    border-radius:16px;
+  }
+
+  .guide h3,
+  .info-panel h3{
+    font-size:15px;
+  }
+
+  .guide ol{
+    font-size:10px;
+    line-height:1.6;
+  }
+
+  .info-panel p{
+    font-size:10px;
+    line-height:1.5;
+    min-height:auto;
+  }
+
+  .more{
+    min-height:40px;
+    padding:9px 11px;
+    font-size:10px;
+  }
+
+  /* Bottom sheet */
+  .sheet-overlay{
+    align-items:flex-end;
+  }
+
+  .info-sheet{
+    width:100%;
+    max-height:91vh;
+    border-radius:25px 25px 0 0;
+  }
+
+  .sheet-head{
+    padding:9px 15px 11px;
+  }
+
+  .sheet-content{
+    max-height:calc(91vh - 88px);
+    padding:15px 16px 25px;
+  }
+
+  .sheet-title{
+    font-size:20px;
+    line-height:1.1;
+  }
+
+  .sheet-content h4{
+    font-size:14px;
+  }
+
+  .sheet-content p,
+  .sheet-content li{
+    font-size:11px;
+    line-height:1.65;
+  }
+
+  .sheet-content ul,
+  .sheet-content ol{
+    padding-left:19px;
+  }
+
+  .sheet-document iframe{
+    height:65vh;
+  }
+
+  /* Contacts */
+  .contact-card{
+    align-items:flex-start;
+    padding:12px;
+    gap:9px;
+  }
+
+  .contact-avatar{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+    border-radius:12px;
+    font-size:18px;
+  }
+
+  .contact-main strong{
+    font-size:11px;
+    line-height:1.25;
+  }
+
+  .contact-main small{
+    font-size:9px;
+    line-height:1.35;
+  }
+
+  .contact-actions{
+    flex-direction:column;
+    gap:5px;
+  }
+
+  .contact-actions a{
+    min-width:68px;
+    text-align:center;
+    padding:9px 7px;
+    font-size:9px;
+  }
+
+  footer{
+    font-size:8px;
+    padding:0 12px 20px;
+  }
+}
+
+/* Very small phones */
+@media (max-width:360px){
+  .container{
+    width:calc(100% - 18px);
+  }
+
+  .topbar{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .brand strong{
+    font-size:10px;
+  }
+
+  .brand span{
+    font-size:8px;
+  }
+
+  .access{
+    padding:18px;
+  }
+
+  .access h1{
+    font-size:35px;
+  }
+
+  .login-card{
+    padding:18px;
+  }
+
+  .menu-card{
+    min-height:92px;
+    padding:12px;
+    grid-template-columns:43px minmax(0,1fr) 25px;
+  }
+
+  .menu-card>span{
+    width:43px;
+    height:43px;
+  }
+
+  .profile-main h2{
+    max-width:48vw;
+    font-size:13px;
+  }
+
+  .profile .secondary{
+    padding:8px 8px;
+    font-size:9px;
+  }
+
+  .subhead h2{
+    font-size:25px;
+  }
+}
+
+/* Landscape phones */
+@media (max-height:500px) and (max-width:850px){
+  .topbar{
+    position:relative;
+  }
+
+  .info-sheet{
+    max-height:96vh;
+  }
+
+  .sheet-content{
+    max-height:calc(96vh - 88px);
+  }
+
+  .pdf-viewer{
+    min-height:420px;
+  }
+}
+
+/* Accessibility / reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
