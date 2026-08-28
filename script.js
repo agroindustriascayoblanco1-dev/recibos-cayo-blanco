@@ -827,6 +827,12 @@ mostrarMensaje(
             );
 
 
+        const datosCarnet =
+            obtenerDatosCarnet(
+                encontrado.texto
+            );
+
+
         // ==================================================
         // GUARDAR DATOS
         // ==================================================
@@ -838,6 +844,12 @@ mostrarMensaje(
 
             nombre:
                 nombre,
+
+            departamento:
+                datosCarnet.departamento,
+
+            puesto:
+                datosCarnet.puesto,
 
             periodo:
                 periodo.nombre,
@@ -877,6 +889,9 @@ mostrarMensaje(
             )
             .textContent =
                 codigo;
+
+
+        actualizarCarnetEmpleado();
 
 
         document
@@ -1186,6 +1201,166 @@ function obtenerNombre(
 
 
     return "Colaborador";
+
+}
+
+
+// ======================================================
+// OBTENER DATOS PARA CARNET
+// ======================================================
+
+function obtenerDatosCarnet(
+    texto
+) {
+
+    return {
+
+        departamento:
+            obtenerCampoCarnet(
+                texto,
+                "Departamento",
+                "Puesto|Sueldo\\s+Mensual|RFC|CURP|NSS"
+            ),
+
+        puesto:
+            obtenerCampoCarnet(
+                texto,
+                "Puesto",
+                "Sueldo\\s+Mensual|RFC|CURP|NSS|Fecha\\s+de\\s+Ingreso"
+            )
+
+    };
+
+}
+
+
+function obtenerCampoCarnet(
+    texto,
+    etiqueta,
+    siguienteEtiqueta
+) {
+
+    const expresion =
+        new RegExp(
+            etiqueta +
+            "\\s*:\\s*(.*?)(?=\\s+(?:" +
+            siguienteEtiqueta +
+            ")\\s*:?|$)",
+            "i"
+        );
+
+
+    const coincidencia =
+        texto.match(
+            expresion
+        );
+
+
+    return (
+        coincidencia &&
+        coincidencia[1]
+    )
+        ? coincidencia[1].trim()
+        : "No disponible";
+
+}
+
+
+// ======================================================
+// ACTUALIZAR CARNET
+// ======================================================
+
+function actualizarCarnetEmpleado() {
+
+    const datos = empleadoActual || {};
+
+
+    const campos = {
+
+        carnetNombre: datos.nombre || "—",
+
+        carnetCodigo: datos.codigo || "—",
+
+        carnetDepartamento: datos.departamento || "—",
+
+        carnetPuesto: datos.puesto || "—"
+
+    };
+
+
+    Object.keys(
+        campos
+    ).forEach(
+        function(id) {
+
+            const elemento =
+                document.getElementById(
+                    id
+                );
+
+
+            if (elemento) {
+
+                elemento.textContent =
+                    campos[id];
+
+            }
+
+        }
+    );
+
+
+    const foto =
+        document.getElementById(
+            "fotoCarnet"
+        );
+
+
+    const fotoNoDisponible =
+        document.getElementById(
+            "fotoNoDisponible"
+        );
+
+
+    if (
+        !foto ||
+        !fotoNoDisponible
+    ) {
+
+        return;
+
+    }
+
+
+    const codigo = datos.codigo || "";
+
+
+    foto.dataset.codigo =
+        codigo;
+
+
+    foto.hidden =
+        !codigo;
+
+
+    fotoNoDisponible.hidden =
+        Boolean(codigo);
+
+
+    if (codigo) {
+
+        foto.src =
+            "fotos/" +
+            encodeURIComponent(codigo) +
+            ".jpg";
+
+    } else {
+
+        foto.removeAttribute(
+            "src"
+        );
+
+    }
 
 }
 
@@ -1796,6 +1971,106 @@ function iniciarCentroInformacion() {
         );
 
 
+    const botonCarnet =
+        document.getElementById(
+            "verCarnet"
+        );
+
+
+    const fotoCarnet =
+        document.getElementById(
+            "fotoCarnet"
+        );
+
+
+    if (fotoCarnet) {
+
+        fotoCarnet.addEventListener(
+            "error",
+            function() {
+
+                if (
+                    fotoCarnet.dataset.codigo ===
+                    (empleadoActual || {}).codigo
+                ) {
+
+                    fotoCarnet.hidden = true;
+
+                    document
+                        .getElementById(
+                            "fotoNoDisponible"
+                        )
+                        .hidden = false;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (botonCarnet) {
+
+        botonCarnet.addEventListener(
+            "click",
+            function() {
+
+                const estado =
+                    document.getElementById(
+                        "estadoCarnet"
+                    );
+
+
+                if (!empleadoActual) {
+
+                    if (estado) {
+
+                        estado.textContent =
+                            "Consulta primero tu recibo para ver tu carnet.";
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                if (estado) {
+
+                    estado.textContent =
+                        "";
+
+                }
+
+
+                actualizarCarnetEmpleado();
+
+
+                document
+                    .getElementById(
+                        "modalInformacion"
+                    )
+                    .classList.add(
+                        "oculto"
+                    );
+
+
+                document
+                    .getElementById(
+                        "modalCarnet"
+                    )
+                    .classList.remove(
+                        "oculto"
+                    );
+
+            }
+        );
+
+    }
+
+
     // ==================================================
     // ABRIR VENTANA
     // ==================================================
@@ -2117,4 +2392,3 @@ document.addEventListener("keydown", function (event) {
         return false;
     }
 }, true);
-
