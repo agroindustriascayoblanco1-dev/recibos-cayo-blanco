@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded",init);
 function init(){
  if(window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
  $("mesQ1").textContent=PERIODOS.q1.mes;$("mesQ2").textContent=PERIODOS.q2.mes;
- $("buscar").onclick=acceder;$("codigo").onkeydown=e=>{if(e.key==="Enter")acceder()};
+ $("buscar").onclick=acceder;
+  $("codigo").addEventListener("input",e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"")});
+  $("codigo").onkeydown=e=>{if(e.key==="Enter")acceder()};
  document.querySelectorAll("[data-screen]").forEach(b=>b.onclick=()=>show(b.dataset.screen));
  document.querySelectorAll(".period-card").forEach(b=>b.onclick=()=>abrirRecibo(b.dataset.q));
  $("btnCarnet").onclick=()=>{cargarCarnet();show("pantallaCarnet")};
@@ -22,6 +24,23 @@ function init(){
  $("sheetOverlay").addEventListener("click",e=>{if(e.target===$("sheetOverlay"))closeSheet()});
  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
 }
+
+
+/* Protección básica de interfaz: evita clic derecho y atajos comunes de inspección.
+   Esto NO sustituye la seguridad del servidor. */
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{
+  const k=String(e.key||"").toLowerCase();
+  if(
+    e.key==="F12" ||
+    (e.ctrlKey && e.shiftKey && (k==="i" || k==="j" || k==="c")) ||
+    (e.ctrlKey && k==="u")
+  ){
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+});
 
 function show(id){
  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
