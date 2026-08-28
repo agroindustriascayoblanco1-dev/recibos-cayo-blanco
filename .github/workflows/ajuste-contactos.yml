@@ -1,0 +1,169 @@
+name: Ajustar contactos
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Ajustar contactos
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          index = Path('index.html')
+          html = index.read_text(encoding='utf-8')
+
+          pattern = re.compile(
+              r'(<a\s+href="(?P<tel>tel:[^"]+)"\s+class="contacto-telefono">)'
+              r'(?P<contenido>.*?)'
+              r'(</a>\s*)'
+              r'(<a\s+href="(?P<wa>https://wa\.me/[^"]+)"\s+class="contacto-whatsapp"(?P<wa_attrs>[^>]*)>\s*💬\s*WhatsApp\s*</a>)',
+              re.S
+          )
+
+          def reemplazar(m):
+              contenido = m.group('contenido')
+              contenido = re.sub(
+                  r'\s*<span\s+class="telefono-llamar">.*?</span>\s*',
+                  '\n',
+                  contenido,
+                  flags=re.S
+              )
+              return f'''<div class="contacto-persona">
+                  <div class="contacto-datos">
+                      {contenido.strip()}
+                  </div>
+                  <div class="contacto-acciones">
+                      <a href="{m.group('tel')}" class="contacto-llamar-boton">📞 Llamar</a>
+                      <a href="{m.group('wa')}" class="contacto-whatsapp"{m.group('wa_attrs')}>💬 WhatsApp</a>
+                  </div>
+              </div>'''
+
+          nuevo, cambios = pattern.subn(reemplazar, html)
+          if cambios:
+              nuevo = nuevo.replace('style.css?v=22', 'style.css?v=24')
+              index.write_text(nuevo, encoding='utf-8')
+              print(f'Contactos ajustados: {cambios}')
+          else:
+              print('No se encontraron pares de contacto; no se modifica index.html')
+
+          css = Path('style.css')
+          extra = r'''
+
+/* =========================================================
+   AJUSTE CONTACTOS — BOTONES APILADOS
+========================================================= */
+.contacto-persona {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #dce7e1;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.contacto-datos {
+    min-width: 0;
+}
+
+.contacto-datos .contacto-telefono {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.contacto-datos .contacto-telefono:hover {
+    transform: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.contacto-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 132px;
+    flex: 0 0 132px;
+}
+
+.contacto-llamar-boton,
+.contacto-whatsapp {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 38px;
+    margin: 0 !important;
+    padding: 8px 10px !important;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 10px;
+    background: var(--green-soft);
+    color: var(--green-dark) !important;
+    font-size: 11px;
+    font-weight: 800;
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+
+.contacto-llamar-boton:hover,
+.contacto-whatsapp:hover {
+    background: #dff3ea;
+    text-decoration: none !important;
+}
+
+@media (max-width: 700px) {
+    .contacto-persona {
+        grid-template-columns: minmax(0, 1fr) 112px;
+        gap: 9px;
+        padding: 9px;
+    }
+
+    .contacto-acciones {
+        width: 112px;
+        flex-basis: 112px;
+    }
+
+    .contacto-llamar-boton,
+    .contacto-whatsapp {
+        min-height: 36px;
+        font-size: 10px;
+    }
+}
+'''
+
+          current = css.read_text(encoding='utf-8')
+          marker = '/* AJUSTE CONTACTOS — BOTONES APILADOS */'
+          if marker not in current:
+              css.write_text(current.rstrip() + extra + '\n', encoding='utf-8')
+          PY
+
+      - name: Guardar cambios y eliminar workflow temporal
+        run: |
+          rm -f .github/workflows/ajuste-contactos.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html style.css .github/workflows/ajuste-contactos.yml
+          if git diff --cached --quiet; then
+            echo "Sin cambios que guardar"
+            exit 0
+          fi
+          git commit -m "Mejora botones de contacto"
+          git push
