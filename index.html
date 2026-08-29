@@ -213,6 +213,17 @@
   .portal-mobile-v2 .menu-card::after,
   .portal-mobile-v2 .menu-card > span{transition:none}
 }
+/* Cumpleañeros del mes */
+.portal-mobile-v2 .birthday-card{background:linear-gradient(135deg,#fff5e9,#fff)!important;border-color:#f2d5b2!important}
+.portal-mobile-v2 .birthday-card>span{background:#ffe8c9!important}.portal-mobile-v2 .birthday-card strong{color:#c96b10!important}
+.birthday-panel{max-width:760px;margin:0 auto}.birthday-list{display:grid;gap:10px}
+.birthday-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border:1px solid #eadfd3;border-radius:16px;box-shadow:0 6px 18px rgba(70,45,20,.06)}
+.birthday-day{flex:0 0 52px;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:#fff0dd;color:#c96b10;font-size:18px;font-weight:800}
+.birthday-item div{min-width:0;flex:1}.birthday-item strong{display:block;font-size:16px}.birthday-item small{display:block;margin-top:4px;color:#7b7771;font-size:12px}
+.birthday-item>span:last-child{font-size:20px}.birthday-empty{padding:24px;text-align:center;background:#fff;border:1px dashed #dfd4c7;border-radius:16px;color:#756f67}
+.birthday-message{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#fff8ef,#fff);border:1px solid #f0ddc6}
+.birthday-message>span{font-size:25px}.birthday-message strong{font-size:16px;color:#a85b0c}.birthday-message p{margin:5px 0 0;color:#6e6962;line-height:1.5;font-size:13px}
+@media(max-width:700px){.birthday-panel{width:100%}.birthday-item{padding:12px}.birthday-day{flex-basis:46px;width:46px;height:46px}}
 </style>
 </head>
 <body>
@@ -271,6 +282,7 @@
     <button class="menu-card orange" data-screen="pantallaComunicados"><span>📢</span><div><strong>Comunicados</strong><small>Avisos e información publicada por RRHH</small></div><b>→</b></button>
     <button class="menu-card teal" data-screen="pantallaProcedimientos"><span>📋</span><div><strong>Procedimientos</strong><small>Guías sencillas para realizar tus procesos</small></div><b>→</b></button>
     <button class="menu-card navy" data-screen="pantallaInformacion"><span>ℹ️</span><div><strong>Información para empleados</strong><small>RAP, IHSS y contactos de RRHH</small></div><b>→</b></button>
+    <button class="menu-card birthday-card" data-screen="pantallaCumpleaneros"><span>🎂</span><div><strong>Cumpleañeros del mes</strong><small>Celebramos a nuestros compañeros este mes</small></div><b>→</b></button>
   </div>
 </section>
 
@@ -307,6 +319,13 @@
   <div class="guide-grid"><article class="guide"><span>🏥</span><h3>Visitar enfermería</h3><ol><li>Informa a tu supervisor antes de retirarte de tu área.</li><li>Dirígete a enfermería y sigue las indicaciones del personal.</li><li>Presenta tu carné cuando sea requerido.</li><li>Entrega a RRHH la documentación correspondiente cuando aplique.</li></ol></article><article class="guide"><span>📝</span><h3>Solicitar un permiso</h3><ol><li>Comunica la necesidad a tu supervisor.</li><li>Utiliza el canal establecido por RRHH para realizar la solicitud.</li><li>Indica fecha, horario y motivo del permiso.</li><li>Espera la autorización correspondiente antes de retirarte.</li></ol></article><article class="guide"><span>💰</span><h3>Reclamo de pago</h3><ol><li>Revisa tu recibo y verifica el período.</li><li>Identifica la diferencia o concepto que deseas aclarar.</li><li>Comunícate con RRHH por los canales establecidos.</li><li>Proporciona la información necesaria para la revisión.</li></ol></article><article class="guide"><span>🏖️</span><h3>Permisos y vacaciones</h3><ol><li>Consulta con tu supervisor el proceso aplicable.</li><li>Realiza la solicitud por el medio autorizado.</li><li>Espera la aprobación correspondiente.</li><li>Conserva la constancia de autorización.</li></ol></article></div>
 </section>
 
+<section id="pantallaCumpleaneros" class="screen">
+  <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">RECURSOS HUMANOS</span><h2>🎂 Cumpleañeros del mes</h2><p>Celebramos a nuestros compañeros que cumplen años este mes.</p></div></div>
+  <div class="birthday-panel"><div class="birthday-list" id="listaCumpleaneros"></div>
+    <div class="birthday-message"><span>🎉</span><div><strong>¡Feliz cumpleaños!</strong><p>De parte de Agroindustrias Cayo Blanco, les deseamos mucha salud, alegría y éxitos. ¡Que disfruten mucho su día!</p></div></div>
+  </div>
+</section>
+
 <section id="pantallaInformacion" class="screen">
   <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">INFORMACIÓN PARA EMPLEADOS</span><h2>Información importante</h2><p>Conoce instituciones y canales que pueden ayudarte.</p></div></div>
   <div class="info-grid">
@@ -320,6 +339,22 @@
 <div id="sheetOverlay" class="sheet-overlay" aria-hidden="true"><div class="info-sheet" role="dialog" aria-modal="true"><div class="sheet-handle"></div><div class="sheet-head"><div id="sheetTitleWrap"></div><button id="sheetClose" class="sheet-close" aria-label="Cerrar">×</button></div><div id="sheetContent" class="sheet-content"></div></div></div>
 
 <footer>Agroindustrias Cayo Blanco · Recursos Humanos · COA SYSTEMS</footer>
+<script>
+/* CUMPLEAÑEROS — EDITA SOLO ESTA LISTA CADA MES. */
+const CUMPLEANEROS = {
+  enero: [], febrero: [], marzo: [], abril: [], mayo: [], junio: [],
+  julio: [], agosto: [], septiembre: [], octubre: [], noviembre: [], diciembre: []
+};
+(function(){
+  const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  const lista=document.getElementById("listaCumpleaneros"); if(!lista)return;
+  const mes=meses[new Date().getMonth()];
+  const personas=Array.isArray(CUMPLEANEROS[mes])?CUMPLEANEROS[mes]:[];
+  if(!personas.length){lista.innerHTML='<div class="birthday-empty">🎈 Aún no hay cumpleaños registrados para este mes.</div>';return;}
+  personas.sort((a,b)=>(Number(a.dia)||0)-(Number(b.dia)||0));
+  lista.innerHTML=personas.map(p=>'<div class="birthday-item"><span class="birthday-day">'+String(p.dia).padStart(2,"0")+'</span><div><strong>'+String(p.nombre||"").replace(/[<>&"]/g,m=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[m]))+'</strong><small>'+mes.charAt(0).toUpperCase()+mes.slice(1)+'</small></div><span>🎉</span></div>').join("");
+})();
+</script>
 <script src="script.js?v=61"></script>
 <script src="mobile-enhancements.js?v=2"></script>
 </body>
