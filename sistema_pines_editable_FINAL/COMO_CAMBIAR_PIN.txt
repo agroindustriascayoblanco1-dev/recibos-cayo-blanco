@@ -1,0 +1,18 @@
+INSTALACION DEL SISTEMA DE PIN EDITABLE
+
+1. Sube pines-admin.js a la misma carpeta donde está script.js.
+2. En index.html, carga pines-admin.js ANTES de script.js:
+   <script src="pines-admin.js"></script>
+   <script src="script.js"></script>
+
+PARA CAMBIAR UN PIN:
+- Abre pines-admin.js.
+- Busca el código del empleado.
+- El PIN NO se escribe directamente.
+- Para un nuevo PIN de 6 dígitos, suma 7 a cada dígito y conserva solo el último dígito.
+  Ejemplo: 741852 -> [4,1,8,5,2,9]
+- Guarda y vuelve a publicar pines-admin.js.
+
+IMPORTANTE:
+- El PIN nuevo se aplica en todos los dispositivos al cargar la nueva versión.
+- No subas un archivo con PINs reales en texto plano.
