@@ -49,6 +49,76 @@ function show(id){
 }
 function msg(t,error=false){$("mensajeAcceso").textContent=t;$("mensajeAcceso").className="message"+(error?" error":"")}
 
+/* ===== PROTECCION PIN ADMINISTRACION ===== */
+const PINES_ADMIN = {
+  "CBEP1392":[5,2,3,6,2,7],
+  "CBEP0288":[5,0,4,2,3,9],
+  "CBEP0025":[7,2,0,1,4,1],
+  "CBEP0143":[9,8,0,8,5,2],
+  "CBEP0124":[0,5,8,7,9,7],
+  "CBEP1437":[1,2,0,0,8,0],
+  "CBEP0422":[5,8,6,5,2,8],
+  "CBEP0096":[2,7,3,9,5,5],
+  "CBEP0542":[3,8,5,5,0,8],
+  "CBEP0108":[5,2,6,0,7,6],
+  "CBEP1404":[7,4,2,9,7,3],
+  "CBEP0664":[9,3,4,5,1,9],
+  "CBEP0088":[8,1,7,7,7,2],
+  "CBEP0607":[5,9,6,2,5,0],
+  "CBEP0528":[0,9,0,0,8,0],
+  "CBEP1315":[4,3,9,4,9,5],
+  "CBEP0055":[7,3,7,4,7,2],
+  "CBEP0457":[4,2,6,8,2,4],
+  "CBEP0679":[1,3,7,5,6,7],
+  "CBEP0910":[0,1,4,7,8,1],
+  "CBEP0016":[4,6,3,3,9,6],
+  "CBEP0524":[3,6,0,6,2,0],
+  "CBEP0986":[0,8,2,8,2,8],
+  "CBEP1371":[3,5,4,6,1,6],
+  "CBEP1144":[0,6,0,6,0,4],
+  "CBEP0112":[9,3,4,1,1,9],
+  "CBEP0081":[8,3,6,3,2,0],
+  "CBEP1454":[0,3,7,7,2,1],
+  "CBEP0109":[4,5,6,1,2,5],
+  "CBEP1090":[0,0,5,5,8,5],
+  "CBEP0741":[8,5,3,9,4,1],
+  "CBEP1486":[5,4,0,7,0,2],
+  "CBEP0635":[8,6,3,4,5,8],
+  "CBEP1395":[5,0,3,2,9,8],
+  "CBEP0740":[6,3,6,9,6,1],
+  "CBEP0984":[6,5,8,7,1,8],
+  "CBEP0105":[7,4,2,3,6,9],
+};
+
+function esAdministracion(empleado){
+  const departamento=String(empleado?.departamento||"")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toUpperCase()
+    .replace(/\s+/g,"")
+    .trim();
+  return departamento==="ADMINISTRACION";
+}
+
+function verificarPinAdministracion(empleado){
+  if(!esAdministracion(empleado)) return true;
+
+  const datos=PINES_ADMIN[empleado.codigo];
+  if(!datos){
+    alert("Este empleado no tiene un PIN administrativo configurado.");
+    return false;
+  }
+
+  const pinEsperado=datos.map(d=>String((Number(d)+3)%10)).join("");
+  const pin=window.prompt("🔐 ACCESO ADMINISTRATIVO\n\nIngresa tu PIN personal para continuar:");
+
+  if(pin===pinEsperado) return true;
+
+  alert("❌ PIN incorrecto. Acceso denegado.");
+  return false;
+}
+/* ===== FIN PROTECCION PIN ===== */
+
 async function acceder(){
  const codigo=normalizar($("codigo").value);
  if(!codigo){msg("Escribe tu código de empleado.",true);return}
@@ -58,6 +128,12 @@ async function acceder(){
   let r=await buscarEmpleado(PERIODOS.q1,codigo);if(!r)r=await buscarEmpleado(PERIODOS.q2,codigo);
   if(!r){msg("El código no fue encontrado en la información dispinible.",true);return}
   empleadoActual={codigo,nombre:obtenerNombre(r.texto),departamento:obtenerCampo(r.texto,"Departamento"),puesto:obtenerCampo(r.texto,"Puesto")};
+
+  if(!verificarPinAdministracion(empleadoActual)){
+   empleadoActual=null;
+   return;
+  }
+
   $("nombreEmpleado").textContent=empleadoActual.nombre;$("codigoEmpleado").textContent=codigo;
   cargarAvatar();cargarCarnet();show("pantallaPortal");
  }catch(e){console.error(e);msg("No se pudo consultar la información. Verifica que los PDF estén disponibles.",true)}
