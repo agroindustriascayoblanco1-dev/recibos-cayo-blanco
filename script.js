@@ -1,5 +1,5 @@
 const PERIODOS={
- q1:{nombre:"Quincena 1",mes:"Agosto del 11 de Julio al 25 de Julio del 2026",archivo:"RECIBOS QUINCENA 1.pdf"},
+ q1:{nombre:"Quincena 1",mes:"Septiembre del 10 de Agosto al 24 de Agosto del 2026",archivo:"RECIBOS QUINCENA 1.pdf"},
  q2:{nombre:"Quincena 2",mes:"Agosto del 26 de Julio al 9 de Agosto del 2026",archivo:"RECIBOS QUINCENA 2.pdf"}
 };
 let empleadoActual=null,pdfActual=null,paginaEncontrada=null,quincenaActual=null;
