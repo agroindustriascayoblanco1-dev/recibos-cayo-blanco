@@ -213,7 +213,7 @@ function abrirDocumentoGeneral(doc){
 async function cargarDocumentosPersonales(){
  const box=$("listaDocumentos");if(!box)return;
  box.innerHTML='<div class="empty">🔄 Buscando tus documentos...</div>';
- const tipos=[["constancia","📄","Constancia de trabajo"],["solicitud","📝","Solicitud"],["salario","💰","Constancia de salario"],["otros","📁","Otros documentos"]];
+ const tipos=[["constancia","📄","Constancia de trabajo"],["solicitud","📝","Solicitud"],["salario","💰","Constancia de salario"],["contrato","📑","Contrato de trabajo"],["otros","📁","Otros documentos"]];
  const found=[];
  for(const [key,icon,name] of tipos){for(const dir of ["documentos","Documentos"]){const path=`${dir}/${empleadoActual.codigo}_${key}.pdf`;try{const r=await fetch(path,{cache:"no-store"});if(r.ok){found.push({icon,name,path});break}}catch(e){}}}
  if(!found.length){box.innerHTML='<div class="empty">📂 No tienes documentos personales disponibles por ahora.</div>';return}
