@@ -110,47 +110,38 @@ const PINES_ADMIN = {
   "CBEP0583":[7,5,5,5,5,3]
 };
 
-function esAdministracion(empleado){
-  const departamento=String(empleado?.departamento||"")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .toUpperCase()
-    .replace(/\s+/g,"")
-    .trim();
-  return departamento==="ADMINISTRACION";
-}
-
 function verificarPinAdministracion(empleado){
-  const datos=PINES_ADMIN[empleado.codigo];
+  // El PIN se busca directamente por código de empleado.
+  // No depende del departamento.
+  const datos = PINES_ADMIN[empleado.codigo];
 
-  // Si el código no tiene PIN configurado, entra normalmente
+  // Si el código no tiene PIN configurado, entra normalmente.
   if(!datos) return true;
 
-  const pinEsperado=datos.map(d=>String((Number(d)+3)%10)).join("");
+  // Genera el PIN real a partir de los dígitos almacenados.
+  const pinEsperado = datos
+    .map(d => String((Number(d) + 3) % 10))
+    .join("");
 
-  const pin=window.prompt(
-    "🔐 ACCESO PERSONAL\n\n" +
+  const pin = window.prompt(
+    "🔐 ACCESO PERSONAL
+
+" +
     "Código: " + empleado.codigo +
-    "\n\nIngresa tu PIN para continuar:"
+    "
+
+" +
+    "Ingresa tu PIN personal para continuar:"
   );
 
-  if(pin===pinEsperado){
+  if(pin === pinEsperado){
     return true;
   }
 
   alert("❌ PIN incorrecto. Acceso denegado.");
   return false;
 }
-  }
 
-  const pinEsperado=datos.map(d=>String((Number(d)+3)%10)).join("");
-  const pin=window.prompt("🔐 ACCESO ADMINISTRATIVO\n\nIngresa tu PIN personal para continuar:");
-
-  if(pin===pinEsperado) return true;
-
-  alert("❌ PIN incorrecto. Acceso denegado.");
-  return false;
-}
 /* ===== FIN PROTECCION PIN ===== */
 
 async function acceder(){
