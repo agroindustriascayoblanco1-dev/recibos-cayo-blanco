@@ -118,19 +118,15 @@ function verificarPinAdministracion(empleado){
   // Si el código no tiene PIN configurado, entra normalmente.
   if(!datos) return true;
 
-  // Genera el PIN real a partir de los dígitos almacenados.
+  // Genera el PIN real.
   const pinEsperado = datos
     .map(d => String((Number(d) + 3) % 10))
     .join("");
 
   const pin = window.prompt(
-    "🔐 ACCESO PERSONAL
-
-" +
+    "🔐 ACCESO PERSONAL\n\n" +
     "Código: " + empleado.codigo +
-    "
-
-" +
+    "\n\n" +
     "Ingresa tu PIN personal para continuar:"
   );
 
