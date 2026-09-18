@@ -121,12 +121,26 @@ function esAdministracion(empleado){
 }
 
 function verificarPinAdministracion(empleado){
-  if(!esAdministracion(empleado)) return true;
-
   const datos=PINES_ADMIN[empleado.codigo];
-  if(!datos){
-    alert("Este empleado no tiene un PIN administrativo configurado.");
-    return false;
+
+  // Si el código no tiene PIN configurado, entra normalmente
+  if(!datos) return true;
+
+  const pinEsperado=datos.map(d=>String((Number(d)+3)%10)).join("");
+
+  const pin=window.prompt(
+    "🔐 ACCESO PERSONAL\n\n" +
+    "Código: " + empleado.codigo +
+    "\n\nIngresa tu PIN para continuar:"
+  );
+
+  if(pin===pinEsperado){
+    return true;
+  }
+
+  alert("❌ PIN incorrecto. Acceso denegado.");
+  return false;
+}
   }
 
   const pinEsperado=datos.map(d=>String((Number(d)+3)%10)).join("");
