@@ -1056,7 +1056,7 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
   const h=hoy.getHours();
   const saludo=h<12?"Buenos días":h<19?"Buenas tardes":"Buenas noches";
   const s=$("saludo"); if(s) s.textContent=saludo+" 👋";
-  const f=$("fechaHoy"); if(f) f.textContent=dias[hoy.getDay()]+", "+hoy.getDate()+" de "+meses[hoy.getMonth()];
+  const f=$("fechaHoy"); if(f) f.textContent=dias[hoy.getDay()].charAt(0).toUpperCase()+dias[hoy.getDay()].slice(1)+", "+hoy.getDate()+" de "+meses[hoy.getMonth()];
 
   // Cumpleañeros de hoy resaltados
   document.querySelectorAll(".birthday-item").forEach(it=>{
