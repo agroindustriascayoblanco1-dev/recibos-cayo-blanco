@@ -1037,11 +1037,8 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
       if(e.target.id==="sheetOverlay")closeSheet();
     });
     document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
-    let startY=0;
-    document.querySelector(".info-sheet")?.addEventListener("touchstart",e=>{startY=e.touches[0].clientY},{passive:true});
-    document.querySelector(".info-sheet")?.addEventListener("touchend",e=>{
-      if(e.changedTouches[0].clientY-startY>90)closeSheet();
-    },{passive:true});
+    // Se desactiva el cierre por deslizar hacia abajo para evitar salidas accidentales.
+    // El panel solo se cierra con el botón X, clic fuera o tecla Escape.
     // Oculta el panel antiguo de información para que todo use el nuevo bottom sheet.
     const old=document.getElementById("infoDetalle");
     if(old) old.style.display="none";
