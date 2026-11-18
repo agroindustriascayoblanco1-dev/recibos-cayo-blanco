@@ -1130,6 +1130,75 @@ button{
 .birthday-message>span{font-size:25px}.birthday-message strong{font-size:16px;color:#a85b0c}.birthday-message p{margin:5px 0 0;color:#6e6962;line-height:1.5;font-size:13px}
 @media(max-width:700px){.birthday-panel{width:100%}.birthday-item{padding:12px}.birthday-day{flex-basis:46px;width:46px;height:46px}}
 
+
+/* ===== VISUAL REVAMP 2026 · Cayo Blanco Employee Portal ===== */
+:root{
+  --navy:#123e50;--navy2:#082e3d;--green:#0c9b70;--mint:#e9f7f1;
+  --bg:#f3f7f8;--line:#dce7ea;--muted:#637982;--shadow:0 14px 36px rgba(8,46,61,.08);
+}
+html{scroll-padding-top:90px}
+body{background:#f4f7f9;background-image:radial-gradient(circle at 5% 0%,#dff2eb 0,transparent 24%),radial-gradient(circle at 100% 8%,#e1edf5 0,transparent 24%);color:#173f50}
+.topbar{height:76px;background:linear-gradient(120deg,#082e3d,#0d5264 70%,#0a6c68);padding-inline:clamp(16px,4vw,64px);box-shadow:0 5px 22px #062d3b24}
+.brand img{border-radius:13px;width:48px;height:48px;box-shadow:0 4px 14px #001b2525}
+.brand strong{letter-spacing:.5px;font-size:13px}.brand span{color:#d0e6e8;font-size:11px}
+.confidential{border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;background:#ffffff0d}
+.container{width:min(1180px,calc(100% - 48px));margin:34px auto 60px}
+.access{grid-template-columns:minmax(0,1.1fr) minmax(340px,.82fr);gap:clamp(24px,4vw,52px);padding:clamp(28px,4vw,54px);border-radius:30px;background:linear-gradient(130deg,#e8f4f0,#f8fbfc 62%,#edf5f8);border:1px solid #d5e4e7;box-shadow:0 20px 55px #123e5010}
+.access-copy{align-self:center}.access h1{font-size:clamp(38px,4.6vw,60px);letter-spacing:-2.5px;line-height:1.03}
+.access h1 em{color:#0b9b70}.eyebrow{letter-spacing:1.5px;font-size:10px}
+.access-copy p{font-size:14px;max-width:520px;line-height:1.75;color:#637780}
+.chips span{padding:9px 13px;background:#ffffffc9;border:1px solid #d8e7e5;font-weight:650;color:#45616c}
+.login-card{border-radius:25px;padding:clamp(22px,3vw,32px);box-shadow:0 18px 44px #123e5012;border:1px solid #e0eaed}
+.login-card h2{letter-spacing:-.7px;font-size:27px}.login-card p{line-height:1.6}
+.login-row input{background:#f8fbfc;border-radius:13px;min-height:48px;padding-inline:14px}
+.login-row button,.primary,.outline,.secondary,.back,.more,.sheet-action,.sheet-open-link{border-radius:12px;font-weight:750}
+.login-row button,.primary{background:linear-gradient(135deg,#0b9870,#0d7c76);box-shadow:0 8px 18px #0a8d6c28}
+button{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #46b99c;outline-offset:3px}
+button:hover:not(:disabled){filter:brightness(1.03)}
+.menu-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.menu-card{min-height:124px;padding:20px;grid-template-columns:58px minmax(0,1fr) 32px;border-radius:21px;border:1px solid #dbe7eb;background:#fff;box-shadow:0 6px 18px #103c4c08}
+.menu-card>span{width:58px;height:58px;border-radius:18px;font-size:23px}
+.menu-card strong{font-size:15px;color:#153f50;letter-spacing:-.15px}
+.menu-card small{font-size:11px;line-height:1.5;color:#6b7e86;margin-top:6px}
+.menu-card>b{width:32px;height:32px;background:#f1f6f7;border-radius:50%;color:#53717b}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 15px 30px #123e5012;border-color:#bcdad4}
+.welcome{margin:32px 0 20px}.welcome-title{font-size:clamp(30px,3vw,40px);letter-spacing:-1.5px}
+.profile{border:1px solid #dbe7ea;border-radius:20px;background:#ffffffdb;box-shadow:0 8px 20px #0b344208}
+.profile-main h2{letter-spacing:-.3px}
+.subhead{margin-bottom:26px;gap:16px}
+.subhead h2{font-size:clamp(25px,3vw,34px);letter-spacing:-1px}
+.back{background:#fff;border:1px solid #d7e4e8;box-shadow:0 3px 10px #0c344408}
+.period-grid{gap:16px}.period-card{border:1px solid #dce7ea;background:white;border-radius:21px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
+.period-card:hover{transform:translateY(-3px);box-shadow:0 16px 35px #123e5012}
+.pdf-viewer{border:1px solid #dce7ea;border-radius:20px;background:#edf3f5;padding:14px}
+.cards-list{gap:13px}.doc-card{border-radius:18px;border:1px solid #dce7ea;box-shadow:0 5px 16px #0d354608}
+.guide,.info-panel{border:1px solid #dce7ea;box-shadow:0 5px 18px #0d354608;border-radius:20px}
+.section-title{font-size:15px;letter-spacing:-.2px}
+footer{color:#758890}
+@media(max-width:1000px){.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.access{grid-template-columns:1fr minmax(300px,.85fr)}}
+@media(max-width:700px){
+ .container{width:calc(100% - 24px);margin:18px auto 34px}
+ .topbar{height:66px;padding:8px 14px}
+ .brand img{width:44px;height:44px}
+ .brand strong{font-size:10.5px}.brand span{font-size:9px}
+ .access{grid-template-columns:1fr;padding:22px;border-radius:24px;gap:20px}
+ .access h1{font-size:clamp(36px,10vw,44px);letter-spacing:-1.8px}
+ .access-copy p{font-size:12px}
+ .login-card{padding:21px;border-radius:20px}
+ .login-card h2{font-size:24px}
+ .menu-grid{grid-template-columns:1fr;gap:11px}
+ .menu-card{min-height:92px;padding:14px;border-radius:18px;grid-template-columns:48px minmax(0,1fr) 28px;gap:12px}
+ .menu-card>span{width:48px;height:48px;border-radius:15px;font-size:20px}
+ .menu-card strong{font-size:14px}.menu-card small{font-size:10px}
+ .welcome{margin:24px 0 15px}.welcome-title{font-size:30px}
+ .profile{border-radius:16px}
+ .subhead h2{font-size:26px}
+ .pdf-viewer{padding:6px;border-radius:14px}
+}
+@media(max-width:380px){.container{width:calc(100% - 18px)}.access{padding:17px}.menu-card{padding:12px;grid-template-columns:44px minmax(0,1fr) 26px;gap:10px}.menu-card>span{width:44px;height:44px}}
+@media(prefers-reduced-motion:reduce){button,.menu-card,.period-card{transition:none!important}}
+
 </style>
 </head>
 <body>
