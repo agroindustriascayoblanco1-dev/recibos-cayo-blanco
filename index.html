@@ -5,9 +5,914 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Portal de Empleados | Agroindustrias Cayo Blanco</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<link rel="stylesheet" href="style.css?v=60">
-<link rel="stylesheet" href="mobile-enhancements.css?v=3">
 <style>
+*{box-sizing:border-box} :root{--navy:#123e50;--navy2:#0b2f3d;--green:#11a978;--mint:#e6f6f0;--bg:#eef5f6;--line:#d5e3e7;--muted:#6d8088;--white:#fff;--shadow:0 18px 50px rgba(12,48,61,.09)}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--navy);background:radial-gradient(circle at 7% 5%,#dff3ec 0,transparent 27%),radial-gradient(circle at 95% 10%,#dfeaf0 0,transparent 28%),linear-gradient(135deg,#edf5f6,#f9fbfb);min-height:100vh}
+button,input{font:inherit}.topbar{height:78px;background:linear-gradient(115deg,var(--navy2),var(--navy));color:white;display:flex;align-items:center;justify-content:space-between;padding:10px clamp(18px,6vw,80px);box-shadow:0 8px 25px #0b2f3d22}.brand{display:flex;gap:13px;align-items:center}.brand img{width:52px;height:52px;object-fit:contain;border-radius:14px;background:#fff}.brand strong,.brand span{display:block}.brand strong{font-size:14px;letter-spacing:.4px}.brand span{font-size:11px;color:#cce2e5;margin-top:3px}.confidential{font-size:10px;color:#d8efea}.container{width:min(1120px,94%);margin:32px auto 55px}.screen{display:none}.screen.active{display:block}
+.access{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;padding:46px;border-radius:30px;background:linear-gradient(125deg,#dfeeed,#f8fbfb);border:1px solid #cbdde0;box-shadow:var(--shadow);overflow:hidden;position:relative}.access:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:#11a97814;right:25%;top:-180px}.access-copy,.login-card{position:relative;z-index:1}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--green)}h1{font-size:clamp(38px,6vw,66px);line-height:.98;letter-spacing:-2.7px;margin:13px 0 18px}h1 em{font-style:normal;color:var(--green)}.access-copy p{max-width:600px;color:#5f737c;line-height:1.7;font-size:14px}.chips{display:flex;gap:8px;margin-top:25px;flex-wrap:wrap}.chips span{background:#ffffffb8;border:1px solid #d6e6e4;border-radius:999px;padding:8px 12px;font-size:11px}.login-card{background:#fff;border:1px solid var(--line);padding:30px;border-radius:24px;box-shadow:0 15px 40px #123e5012}.login-icon{width:52px;height:52px;display:grid;place-items:center;background:var(--mint);border-radius:16px;font-size:23px;margin-bottom:18px}.login-card h2{font-size:28px;margin:10px 0 8px}.login-card p{color:var(--muted);font-size:12px;margin-bottom:25px}.login-card label{display:block;font-size:11px;font-weight:700;margin-bottom:7px}.login-row{display:flex;gap:8px}.login-row input{min-width:0;flex:1;border:1px solid #cddde1;border-radius:12px;padding:13px 14px;outline:none}.login-row input:focus{border-color:var(--green);box-shadow:0 0 0 3px #11a97818}.primary,.login-row button{border:0;background:var(--green);color:#fff;border-radius:12px;padding:12px 17px;font-weight:700;cursor:pointer}.message{font-size:11px;margin-top:12px;color:#6b7d84;min-height:16px}.message.error{color:#b53b3b}
+.profile{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px 18px;box-shadow:var(--shadow);margin-bottom:34px}.profile-main{display:flex;align-items:center;gap:12px}.profile-main span{font-size:9px;color:var(--green);font-weight:800;letter-spacing:1px}.profile-main h2{margin:3px 0;font-size:17px}.profile-main small{font-size:10px;color:var(--muted)}.avatar{width:52px;height:52px;border-radius:16px;background:var(--mint);display:grid;place-items:center;font-size:23px;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.secondary,.back,.outline,.more{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:11px;padding:10px 14px;cursor:pointer}.welcome{margin-bottom:20px}.welcome h1{font-size:38px;letter-spacing:-1.5px;margin:8px 0}.welcome p,.subhead p{color:var(--muted);font-size:12px}.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.menu-card{min-height:145px;border:1px solid var(--line);background:#fff;border-radius:20px;padding:20px;text-align:left;cursor:pointer;display:grid;grid-template-columns:54px 1fr 30px;gap:13px;align-items:center;box-shadow:0 7px 22px #123e5009;transition:.2s}.menu-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px #123e5017}.menu-card>span{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:23px;background:var(--mint)}.menu-card strong,.menu-card small{display:block}.menu-card strong{font-size:15px}.menu-card small{font-size:10px;color:var(--muted);line-height:1.45;margin-top:5px}.menu-card b{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#f2f6f7}.menu-card.blue>span{background:#e8f1fb}.menu-card.purple>span{background:#f0eafb}.menu-card.orange>span{background:#fff1df}.menu-card.teal>span{background:#e5f7f4}.menu-card.navy>span{background:#e7eef3}
+.subhead{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin-bottom:25px}.subhead h2{font-size:35px;letter-spacing:-1.3px;margin:4px 0}.period-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.period-card{display:flex;align-items:center;gap:18px;padding:22px;border:1px solid var(--line);background:#fff;border-radius:21px;text-align:left;cursor:pointer;box-shadow:0 8px 24px #123e5008}.period-card:hover{transform:translateY(-2px)}.period-card>span{width:60px;height:60px;border-radius:18px;background:var(--mint);display:grid;place-items:center;font-weight:900;color:var(--green);font-size:20px}.period-card strong,.period-card small{display:block}.period-card strong{font-size:17px}.period-card small{font-size:10px;color:var(--muted);margin-top:4px}.pdf-viewer{background:#e4ebed;border:1px solid var(--line);border-radius:18px;min-height:520px;padding:18px;display:flex;justify-content:center;align-items:flex-start;overflow:auto}.pdf-viewer canvas{max-width:100%;height:auto;box-shadow:0 5px 20px #0002}.viewer-message,.empty{color:var(--muted);font-size:12px;text-align:center;padding:60px 20px}.id-wrap{display:flex;justify-content:center}.id-card{width:min(610px,100%);background:#fff;border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}.id-top{background:linear-gradient(115deg,var(--navy2),var(--navy));color:#fff;padding:18px 22px;display:flex;align-items:center;gap:12px}.id-top img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:12px}.id-top strong,.id-top span{display:block}.id-top strong{font-size:14px}.id-top span{font-size:10px;color:#cce3e5}.id-body{display:grid;grid-template-columns:145px 1fr;gap:24px;padding:30px}.photo-box{width:145px;height:175px;border-radius:18px;background:#edf4f5;display:grid;place-items:center;font-size:45px;overflow:hidden}.photo-box img{width:100%;height:100%;object-fit:cover}.carnet-datos h3{font-size:22px;margin:7px 0 20px}.label{font-size:8px;letter-spacing:1px;color:#82939a;font-weight:800;display:block;margin-bottom:5px}.carnet-datos strong{font-size:12px;display:block}.two{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:18px}.id-footer{background:#f1f6f7;padding:12px 20px;text-align:center;font-size:8px;font-weight:800;color:#6f8088;letter-spacing:1px}
+.section-title{font-size:15px;font-weight:800;margin:15px 0 10px}.section-title.spaced{margin-top:30px}.cards-list{display:flex;flex-direction:column;gap:10px}.doc-card{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px;box-shadow:0 6px 18px #123e5006}.doc-card>span{width:44px;height:44px;border-radius:13px;background:#f0f6f7;display:grid;place-items:center;font-size:20px}.doc-card div{flex:1;min-width:0}.doc-card strong,.doc-card small{display:block}.doc-card strong{font-size:13px}.doc-card small{font-size:10px;color:var(--muted);margin-top:4px}.link{text-decoration:none}.guide-grid,.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.guide,.info-panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px}.guide>span,.info-panel>span{font-size:25px}.guide h3,.info-panel h3{margin:9px 0;font-size:17px}.guide ol{padding-left:20px;color:#60737b;font-size:11px;line-height:1.7}.info-panel p{color:var(--muted);font-size:11px;line-height:1.55;min-height:50px}.more{padding:8px 10px;font-size:10px}.info-detail{margin-top:16px;background:#f7fbfa;border:1px solid #d6e8e3;border-radius:17px;padding:18px}.info-detail h3{margin:0 0 8px}.info-detail p,.info-detail li{font-size:11px;color:#61747b;line-height:1.6}.hidden{display:none}
+footer{text-align:center;color:#819198;font-size:9px;padding:0 20px 25px}
+@media(max-width:850px){.access{grid-template-columns:1fr;padding:30px}.menu-grid{grid-template-columns:1fr 1fr}.subhead{grid-template-columns:auto 1fr}.subhead .primary{grid-column:2}.guide-grid,.info-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.topbar{height:70px;padding:8px 14px}.confidential{display:none}.brand img{width:44px;height:44px}.brand strong{font-size:11px}.container{width:94%;margin:20px auto 40px}.access{padding:24px;border-radius:24px}.access h1{font-size:43px}.login-row{flex-direction:column}.menu-grid,.period-grid{grid-template-columns:1fr}.welcome h1{font-size:31px}.subhead{grid-template-columns:1fr}.subhead .back{justify-self:start}.subhead .primary{grid-column:auto;justify-self:start}.subhead h2{font-size:29px}.id-body{grid-template-columns:1fr}.photo-box{width:130px;height:160px}.two{grid-template-columns:1fr}}
+
+
+/* ===== MOBILE ENHANCEMENTS CSS ===== */
+/* Cayo Blanco — Mobile Experience / Responsive */
+:root{
+  --mobile-navy:#08384a;
+  --mobile-blue:#0b5870;
+  --mobile-green:#12a879;
+  --mobile-mint:#e7f8f2;
+  --mobile-ink:#123b4a;
+}
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  -webkit-tap-highlight-color:transparent;
+  overscroll-behavior-x:none;
+}
+
+button,a,input{
+  -webkit-tap-highlight-color:transparent;
+}
+
+button{
+  touch-action:manipulation;
+}
+
+.topbar{
+  background:linear-gradient(135deg,#062f40 0%,#0a4b60 58%,#0c6b70 100%);
+}
+
+.brand img{
+  box-shadow:0 5px 18px rgba(0,0,0,.12);
+}
+
+.menu-card,.period-card,.doc-card,.guide,.info-panel,.login-card,.profile{
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+
+.menu-card:active,.period-card:active,.doc-card:active,.guide:active,.info-panel:active{
+  transform:scale(.985);
+}
+
+.primary,.login-row button,.more,.outline,.secondary,.back,.sheet-close{
+  transition:transform .16s ease,filter .16s ease,box-shadow .16s ease;
+}
+
+.primary:active,.login-row button:active,.more:active,.outline:active,
+.secondary:active,.back:active,.sheet-close:active{
+  transform:scale(.96);
+}
+
+.menu-card:hover{
+  border-color:#b9ddd5;
+}
+
+.menu-card>span{
+  transition:transform .25s ease;
+}
+
+.menu-card:hover>span{
+  transform:scale(1.05) rotate(-2deg);
+}
+
+.screen.active{
+  animation:screenIn .28s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes screenIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Bottom sheets / information */
+.sheet-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(4,25,34,.42);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .24s ease,visibility .24s ease;
+}
+
+.sheet-overlay.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.info-sheet{
+  width:min(760px,100%);
+  max-height:min(88vh,760px);
+  overflow:hidden;
+  background:rgba(250,253,253,.97);
+  border:1px solid rgba(255,255,255,.72);
+  border-bottom:0;
+  border-radius:28px 28px 0 0;
+  box-shadow:0 -20px 70px rgba(3,34,45,.28);
+  transform:translateY(100%);
+  transition:transform .34s cubic-bezier(.2,.8,.2,1);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+.sheet-overlay.open .info-sheet{
+  transform:translateY(0);
+}
+
+.sheet-handle{
+  width:42px;
+  height:5px;
+  border-radius:99px;
+  background:#b7c9cd;
+  margin:10px auto 4px;
+}
+
+.sheet-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 18px 12px;
+  border-bottom:1px solid #dfeaec;
+}
+
+.sheet-title-kicker{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.2px;
+  color:var(--mobile-green);
+}
+
+.sheet-title{
+  margin:3px 0 0;
+  font-size:22px;
+  letter-spacing:-.5px;
+  color:var(--mobile-ink);
+}
+
+.sheet-close{
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
+  border:0;
+  border-radius:50%;
+  background:#edf4f5;
+  color:#163f4d;
+  font-size:27px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.sheet-content{
+  overflow:auto;
+  max-height:calc(min(88vh,760px) - 90px);
+  padding:18px 20px 28px;
+  -webkit-overflow-scrolling:touch;
+}
+
+.sheet-content h4{
+  margin:20px 0 8px;
+  color:#123e50;
+  font-size:15px;
+}
+
+.sheet-content p,
+.sheet-content li{
+  font-size:12px;
+  line-height:1.65;
+  color:#536a73;
+}
+
+.sheet-content ul,
+.sheet-content ol{
+  padding-left:21px;
+}
+
+/* Contact cards */
+.contact-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  margin:10px 0;
+  background:#fff;
+  border:1px solid #dce8ea;
+  border-radius:17px;
+  box-shadow:0 6px 18px rgba(15,59,72,.06);
+}
+
+.contact-avatar{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:var(--mobile-mint);
+  font-size:20px;
+}
+
+.contact-main{
+  min-width:0;
+  flex:1;
+}
+
+.contact-main strong,
+.contact-main small{
+  display:block;
+}
+
+.contact-main strong{
+  font-size:12px;
+  color:#123e50;
+}
+
+.contact-main small{
+  font-size:10px;
+  color:#6c8088;
+  margin-top:3px;
+}
+
+.contact-actions{
+  display:flex;
+  gap:7px;
+}
+
+.contact-actions a{
+  text-decoration:none;
+  font-size:10px;
+  font-weight:800;
+  padding:9px 10px;
+  border-radius:10px;
+  white-space:nowrap;
+}
+
+.contact-call{
+  background:#e8f6ef;
+  color:#087b56;
+}
+
+.contact-wa,
+.contact-whatsapp{
+  background:#e7f7f0;
+  color:#087b56;
+}
+
+/* Documents inside information */
+.sheet-document{
+  width:100%;
+  border:0;
+  border-radius:16px;
+  overflow:hidden;
+  background:#e8eff1;
+  margin-top:8px;
+}
+
+.sheet-document iframe{
+  display:block;
+  width:100%;
+  height:62vh;
+  border:0;
+  background:white;
+}
+
+.sheet-open-link,
+.sheet-action{
+  display:inline-flex;
+  margin-top:12px;
+  text-decoration:none;
+  background:#0a5064;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:12px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.mobile-hint{
+  padding:11px 13px;
+  border-radius:13px;
+  background:#eef8f5;
+  border:1px solid #d3ece3;
+  color:#4d686f;
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* Tablets and small laptops */
+@media (max-width:850px){
+  .access{
+    grid-template-columns:1fr;
+    padding:30px;
+  }
+
+  .menu-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .subhead{
+    grid-template-columns:auto 1fr;
+  }
+
+  .subhead .primary{
+    grid-column:2;
+  }
+
+  .guide-grid,
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .period-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* Phones */
+@media (max-width:600px){
+  html{
+    font-size:16px;
+  }
+
+  body{
+    overflow-x:hidden;
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    height:68px;
+    padding:8px 14px;
+  }
+
+  .container{
+    width:calc(100% - 24px);
+    max-width:none;
+    margin:16px auto 34px;
+  }
+
+  .brand{
+    gap:9px;
+    min-width:0;
+  }
+
+  .brand img{
+    width:44px;
+    height:44px;
+    flex:0 0 44px;
+  }
+
+  .brand strong{
+    font-size:11px;
+    line-height:1.15;
+  }
+
+  .brand span{
+    font-size:9px;
+    line-height:1.2;
+  }
+
+  .confidential{
+    display:none;
+  }
+
+  /* Login */
+  .access{
+    padding:22px;
+    border-radius:23px;
+    gap:18px;
+  }
+
+  .access h1{
+    font-size:clamp(37px,11vw,46px);
+    letter-spacing:-2px;
+    line-height:.98;
+  }
+
+  .access-copy p{
+    font-size:13px;
+    line-height:1.6;
+  }
+
+  .chips{
+    gap:6px;
+    margin-top:18px;
+  }
+
+  .chips span{
+    padding:7px 9px;
+    font-size:10px;
+  }
+
+  .login-card{
+    padding:22px;
+    border-radius:20px;
+  }
+
+  .login-card h2{
+    font-size:24px;
+  }
+
+  .login-card p{
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  .login-row{
+    flex-direction:column;
+    gap:9px;
+  }
+
+  .login-row input,
+  .login-row button{
+    width:100%;
+    min-height:50px;
+    font-size:15px;
+  }
+
+  .message{
+    font-size:11px;
+    line-height:1.4;
+  }
+
+  /* Employee profile */
+  .profile{
+    padding:10px 11px;
+    border-radius:17px;
+    margin-bottom:24px;
+    gap:9px;
+  }
+
+  .profile-main{
+    min-width:0;
+    gap:9px;
+  }
+
+  .profile-main h2{
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:55vw;
+  }
+
+  .profile-main small{
+    font-size:9px;
+  }
+
+  .profile .secondary{
+    padding:9px 10px;
+    font-size:10px;
+    white-space:nowrap;
+  }
+
+  .avatar{
+    width:46px;
+    height:46px;
+    flex:0 0 46px;
+    border-radius:14px;
+  }
+
+  /* Welcome */
+  .welcome{
+    margin-bottom:16px;
+  }
+
+  .welcome h1{
+    font-size:clamp(28px,8vw,34px);
+    letter-spacing:-1.2px;
+    line-height:1.02;
+  }
+
+  .welcome p,
+  .subhead p{
+    font-size:11px;
+    line-height:1.5;
+  }
+
+  /* Main menu */
+  .menu-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .menu-card{
+    min-height:96px;
+    padding:14px;
+    grid-template-columns:47px minmax(0,1fr) 27px;
+    gap:11px;
+    border-radius:17px;
+  }
+
+  .menu-card>span{
+    width:47px;
+    height:47px;
+    border-radius:14px;
+    font-size:20px;
+  }
+
+  .menu-card strong{
+    font-size:14px;
+    line-height:1.2;
+  }
+
+  .menu-card small{
+    font-size:10px;
+    line-height:1.4;
+    margin-top:4px;
+  }
+
+  .menu-card b{
+    width:27px;
+    height:27px;
+  }
+
+  /* Periods */
+  .period-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .period-card{
+    min-height:82px;
+    padding:14px;
+    gap:13px;
+    border-radius:17px;
+  }
+
+  .period-card>span{
+    width:48px;
+    height:48px;
+    flex:0 0 48px;
+    border-radius:14px;
+  }
+
+  .period-card strong{
+    font-size:15px;
+  }
+
+  .period-card small{
+    font-size:10px;
+    line-height:1.35;
+  }
+
+  /* Section headers */
+  .subhead{
+    grid-template-columns:1fr;
+    gap:9px;
+    margin-bottom:17px;
+  }
+
+  .subhead .back,
+  .subhead .primary{
+    grid-column:auto;
+    justify-self:start;
+  }
+
+  .subhead h2{
+    font-size:27px;
+    letter-spacing:-1px;
+    line-height:1.05;
+  }
+
+  .subhead .back,
+  .subhead .primary{
+    min-height:42px;
+    padding:10px 13px;
+    font-size:11px;
+  }
+
+  /* PDF viewer */
+  .pdf-viewer{
+    min-height:calc(100vh - 185px);
+    padding:7px;
+    border-radius:14px;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .pdf-viewer canvas{
+    width:100%;
+    height:auto;
+  }
+
+  .viewer-message,
+  .empty{
+    font-size:11px;
+    line-height:1.5;
+    padding:50px 15px;
+  }
+
+  /* Carnet */
+  .id-wrap{
+    width:100%;
+  }
+
+  .id-card{
+    width:100%;
+    border-radius:21px;
+  }
+
+  .id-body{
+    grid-template-columns:1fr;
+    padding:20px;
+    gap:17px;
+  }
+
+  .photo-box{
+    width:118px;
+    height:145px;
+    margin:0 auto;
+  }
+
+  .carnet-datos h3{
+    font-size:20px;
+    line-height:1.15;
+    margin:5px 0 18px;
+  }
+
+  .two{
+    grid-template-columns:1fr;
+    gap:13px;
+    margin-bottom:16px;
+  }
+
+  .label{
+    font-size:8px;
+  }
+
+  .carnet-datos strong{
+    font-size:12px;
+  }
+
+  /* Documents */
+  .section-title{
+    font-size:14px;
+    margin:13px 0 9px;
+  }
+
+  .section-title.spaced{
+    margin-top:24px;
+  }
+
+  .doc-card{
+    padding:11px;
+    gap:10px;
+    border-radius:15px;
+  }
+
+  .doc-card>span{
+    width:40px;
+    height:40px;
+    flex:0 0 40px;
+    border-radius:12px;
+    font-size:18px;
+  }
+
+  .doc-card strong{
+    font-size:12px;
+    line-height:1.25;
+  }
+
+  .doc-card small{
+    font-size:9px;
+    line-height:1.35;
+  }
+
+  .doc-card .outline,
+  .doc-card .link{
+    min-height:38px;
+    padding:9px 10px;
+    font-size:10px;
+  }
+
+  /* Guides / information */
+  .guide-grid,
+  .info-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .guide,
+  .info-panel{
+    padding:15px;
+    border-radius:16px;
+  }
+
+  .guide h3,
+  .info-panel h3{
+    font-size:15px;
+  }
+
+  .guide ol{
+    font-size:10px;
+    line-height:1.6;
+  }
+
+  .info-panel p{
+    font-size:10px;
+    line-height:1.5;
+    min-height:auto;
+  }
+
+  .more{
+    min-height:40px;
+    padding:9px 11px;
+    font-size:10px;
+  }
+
+  /* Bottom sheet */
+  .sheet-overlay{
+    align-items:flex-end;
+  }
+
+  .info-sheet{
+    width:100%;
+    max-height:91vh;
+    border-radius:25px 25px 0 0;
+  }
+
+  .sheet-head{
+    padding:9px 15px 11px;
+  }
+
+  .sheet-content{
+    max-height:calc(91vh - 88px);
+    padding:15px 16px 25px;
+  }
+
+  .sheet-title{
+    font-size:20px;
+    line-height:1.1;
+  }
+
+  .sheet-content h4{
+    font-size:14px;
+  }
+
+  .sheet-content p,
+  .sheet-content li{
+    font-size:11px;
+    line-height:1.65;
+  }
+
+  .sheet-content ul,
+  .sheet-content ol{
+    padding-left:19px;
+  }
+
+  .sheet-document iframe{
+    height:65vh;
+  }
+
+  /* Contacts */
+  .contact-card{
+    align-items:flex-start;
+    padding:12px;
+    gap:9px;
+  }
+
+  .contact-avatar{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+    border-radius:12px;
+    font-size:18px;
+  }
+
+  .contact-main strong{
+    font-size:11px;
+    line-height:1.25;
+  }
+
+  .contact-main small{
+    font-size:9px;
+    line-height:1.35;
+  }
+
+  .contact-actions{
+    flex-direction:column;
+    gap:5px;
+  }
+
+  .contact-actions a{
+    min-width:68px;
+    text-align:center;
+    padding:9px 7px;
+    font-size:9px;
+  }
+
+  footer{
+    font-size:8px;
+    padding:0 12px 20px;
+  }
+}
+
+/* Very small phones */
+@media (max-width:360px){
+  .container{
+    width:calc(100% - 18px);
+  }
+
+  .topbar{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .brand strong{
+    font-size:10px;
+  }
+
+  .brand span{
+    font-size:8px;
+  }
+
+  .access{
+    padding:18px;
+  }
+
+  .access h1{
+    font-size:35px;
+  }
+
+  .login-card{
+    padding:18px;
+  }
+
+  .menu-card{
+    min-height:92px;
+    padding:12px;
+    grid-template-columns:43px minmax(0,1fr) 25px;
+  }
+
+  .menu-card>span{
+    width:43px;
+    height:43px;
+  }
+
+  .profile-main h2{
+    max-width:48vw;
+    font-size:13px;
+  }
+
+  .profile .secondary{
+    padding:8px 8px;
+    font-size:9px;
+  }
+
+  .subhead h2{
+    font-size:25px;
+  }
+}
+
+/* Landscape phones */
+@media (max-height:500px) and (max-width:850px){
+  .topbar{
+    position:relative;
+  }
+
+  .info-sheet{
+    max-height:96vh;
+  }
+
+  .sheet-content{
+    max-height:calc(96vh - 88px);
+  }
+
+  .pdf-viewer{
+    min-height:420px;
+  }
+}
+
+/* Accessibility / reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+
+
+/* ===== ORIGINAL INLINE CSS ===== */
+
 /* Mejoras de inicio y navegación móvil - Cayo Blanco */
 .portal-mobile-v2 .welcome-title{letter-spacing:-.035em}
 .portal-mobile-v2 .welcome-subtitle{max-width:620px}
@@ -224,6 +1129,7 @@
 .birthday-message{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#fff8ef,#fff);border:1px solid #f0ddc6}
 .birthday-message>span{font-size:25px}.birthday-message strong{font-size:16px;color:#a85b0c}.birthday-message p{margin:5px 0 0;color:#6e6962;line-height:1.5;font-size:13px}
 @media(max-width:700px){.birthday-panel{width:100%}.birthday-item{padding:12px}.birthday-day{flex-basis:46px;width:46px;height:46px}}
+
 </style>
 </head>
 <body>
@@ -531,7 +1437,423 @@ const CUMPLEANEROS = {
   lista.innerHTML=personas.map(p=>'<div class="birthday-item"><span class="birthday-day">'+String(p.dia).padStart(2,"0")+'</span><div><strong>'+String(p.nombre||"").replace(/[<>&"]/g,m=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[m]))+'</strong><small>'+mes.charAt(0).toUpperCase()+mes.slice(1)+'</small></div><span>🎉</span></div>').join("");
 })();
 </script>
-<script src="script.js?v=61"></script>
-<script src="mobile-enhancements.js?v=2"></script>
+
+<!-- ===== CONSOLIDATED script.js ===== -->
+<script>
+const PERIODOS={
+ q1:{nombre:"Quincena 1",mes:"Octubre del 09 de Octubre al 23 de Octubre del 2026",archivo:"RECIBOS QUINCENA 1.pdf"},
+ q2:{nombre:"Quincena 2",mes:"Octubre del 24 de Septiembre al 08 de Octubre del 2026",archivo:"RECIBOS QUINCENA 2.pdf"}
+};
+let empleadoActual=null,pdfActual=null,paginaEncontrada=null,quincenaActual=null;
+const $=id=>document.getElementById(id);
+document.addEventListener("DOMContentLoaded",init);
+
+function init(){
+ if(window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+ $("mesQ1").textContent=PERIODOS.q1.mes;$("mesQ2").textContent=PERIODOS.q2.mes;
+ $("buscar").onclick=acceder;
+  $("codigo").addEventListener("input",e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"")});
+  $("codigo").onkeydown=e=>{if(e.key==="Enter")acceder()};
+ document.querySelectorAll("[data-screen]").forEach(b=>b.onclick=()=>show(b.dataset.screen));
+ document.querySelectorAll(".period-card").forEach(b=>b.onclick=()=>abrirRecibo(b.dataset.q));
+ $("btnCarnet").onclick=()=>{cargarCarnet();show("pantallaCarnet")};
+ $("btnRecibos").onclick=()=>show("pantallaRecibos");
+ $("cerrarSesion").onclick=logout;
+ $("guardarRecibo").onclick=guardarRecibo;
+ document.querySelectorAll("[data-open-sheet]").forEach(b=>b.onclick=()=>abrirSheet(b.dataset.openSheet));
+ document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>mostrarInfo(b.dataset.info));
+ $("sheetClose").onclick=closeSheet;
+ $("sheetOverlay").addEventListener("click",e=>{if(e.target===$("sheetOverlay"))closeSheet()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
+}
+
+
+/* Protección básica de interfaz: evita clic derecho y atajos comunes de inspección.
+   Esto NO sustituye la seguridad del servidor. */
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{
+  const k=String(e.key||"").toLowerCase();
+  if(
+    e.key==="F12" ||
+    (e.ctrlKey && e.shiftKey && (k==="i" || k==="j" || k==="c")) ||
+    (e.ctrlKey && k==="u")
+  ){
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+});
+
+function show(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ $(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="pantallaDocumentos")cargarDocumentos();
+}
+function msg(t,error=false){$("mensajeAcceso").textContent=t;$("mensajeAcceso").className="message"+(error?" error":"")}
+
+/* ===== PROTECCION PIN ADMINISTRACION ===== */
+const PINES_ADMIN = {
+  "CBEP1392":[5,2,3,6,2,7],
+  "CBEP0288":[5,0,4,2,3,9],
+  "CBEP0025":[7,2,0,1,4,1],
+  "CBEP0143":[9,8,0,8,5,2],
+  "CBEP0124":[0,5,8,7,9,7],
+  "CBEP1437":[1,2,0,0,8,0],
+  "CBEP0422":[5,8,6,5,2,8],
+  "CBEP0096":[2,7,3,9,5,5],
+  "CBEP0542":[3,8,5,5,0,8],
+  "CBEP0108":[5,2,6,0,7,6],
+  "CBEP1404":[7,4,2,9,7,3],
+  "CBEP0664":[9,3,4,5,1,9],
+  "CBEP0088":[8,1,7,7,7,2],
+  "CBEP0607":[5,9,6,2,5,0],
+  "CBEP0528":[0,9,0,0,8,0],
+  "CBEP1315":[4,3,9,4,9,5],
+  "CBEP0055":[7,3,7,4,7,2],
+  "CBEP0457":[4,2,6,8,2,4],
+  "CBEP0679":[1,3,7,5,6,7],
+  "CBEP0910":[0,1,4,7,8,1],
+  "CBEP0016":[4,6,3,3,9,6],
+  "CBEP0524":[3,6,0,6,2,0],
+  "CBEP0986":[0,8,2,8,2,8],
+  "CBEP1371":[3,5,4,6,1,6],
+  "CBEP1144":[0,6,0,6,0,4],
+  "CBEP0112":[9,3,4,1,1,9],
+  "CBEP0081":[8,3,6,3,2,0],
+  "CBEP1454":[0,3,7,7,2,1],
+  "CBEP0109":[4,5,6,1,2,5],
+  "CBEP1090":[0,0,5,5,8,5],
+  "CBEP0741":[8,5,3,9,4,1],
+  "CBEP1486":[5,4,0,7,0,2],
+  "CBEP0635":[8,6,3,4,5,8],
+  "CBEP1395":[5,0,3,2,9,8],
+  "CBEP0740":[6,3,6,9,6,1],
+  "CBEP0984":[6,5,8,7,1,8],
+  "CBEP0105":[7,4,2,3,6,9],
+  "CBEP0047":[6,4,6,9,5,5],
+  "CBEP0173":[8,2,0,3,0,9],
+  "CBEP0817":[6,3,1,0,1,3],
+  "CBEP0018":[4,9,7,1,5,2],
+  "CBEP0046":[2,2,4,5,4,4],
+  "CBEP0137":[8,6,7,0,7,0],
+  "CBEP0106":[0,3,9,2,2,4],
+  "CBEP0555":[3,5,0,5,5,6],
+  "CBEP0053":[2,6,9,6,8,2],
+  "CBEP0144":[4,6,0,1,1,3],
+  "CBEP0026":[4,0,4,4,4,4],
+  "CBEP0561":[6,3,4,3,5,9],
+  "CBEP0010":[1,8,6,1,9,4],
+  "CBEP0574":[7,0,0,9,4,8],
+  "CBEP0430":[5,9,1,5,5,3],
+  "CBEP0777":[3,6,1,3,6,0],
+  "CBEP0569":[4,4,7,1,7,6],
+  "CBEP0593":[2,8,2,1,3,2],
+  "CBEP0957":[2,3,6,0,6,7],
+  "CBEP0583":[7,5,5,5,5,3]
+};
+
+function verificarPinAdministracion(empleado){
+  // El PIN se busca directamente por código de empleado.
+  // No depende del departamento.
+  const datos = PINES_ADMIN[empleado.codigo];
+
+  // Si el código no tiene PIN configurado, entra normalmente.
+  if(!datos) return true;
+
+  // Genera el PIN real.
+  const pinEsperado = datos
+    .map(d => String((Number(d) + 3) % 10))
+    .join("");
+
+  const pin = window.prompt(
+    "🔐 ACCESO PERSONAL\n\n" +
+    "Código: " + empleado.codigo +
+    "\n\n" +
+    "Ingresa tu PIN personal para continuar:"
+  );
+
+  if(pin === pinEsperado){
+    return true;
+  }
+
+  alert("❌ PIN incorrecto. Acceso denegado.");
+  return false;
+}
+
+/* ===== FIN PROTECCION PIN ===== */
+
+async function acceder(){
+ const codigo=normalizar($("codigo").value);
+ if(!codigo){msg("Escribe tu código de empleado.",true);return}
+ if(codigo.length<6){msg("Debes escribir el código completo.",true);return}
+ $("buscar").disabled=true;$("buscar").textContent="Buscando...";msg("🔎 Verificando código...");
+ try{
+  let r=await buscarEmpleado(PERIODOS.q1,codigo);if(!r)r=await buscarEmpleado(PERIODOS.q2,codigo);
+  if(!r){msg("El código no fue encontrado en la información dispinible.",true);return}
+  empleadoActual={codigo,nombre:obtenerNombre(r.texto),departamento:obtenerCampo(r.texto,"Departamento"),puesto:obtenerCampo(r.texto,"Puesto")};
+
+  if(!verificarPinAdministracion(empleadoActual)){
+   empleadoActual=null;
+   return;
+  }
+
+  $("nombreEmpleado").textContent=empleadoActual.nombre;$("codigoEmpleado").textContent=codigo;
+  cargarAvatar();cargarCarnet();show("pantallaPortal");
+ }catch(e){console.error(e);msg("No se pudo consultar la información. Verifica que los PDF estén disponibles.",true)}
+ finally{$("buscar").disabled=false;$("buscar").textContent="Continuar"}
+}
+async function buscarEmpleado(periodo,codigo){
+ const pdf=await pdfjsLib.getDocument({url:periodo.archivo}).promise;
+ for(let n=1;n<=pdf.numPages;n++){const p=await pdf.getPage(n),c=await p.getTextContent(),texto=c.items.map(x=>x.str||"").join(" ");if(normalizar(texto).includes(normalizar(codigo)))return{pdf,pagina:n,texto}}
+ return null;
+}
+async function abrirRecibo(key){
+ if(!empleadoActual)return;quincenaActual=key;const periodo=PERIODOS[key];show("pantallaRecibo");$("visorTitulo").textContent=`${periodo.nombre} · ${periodo.mes}`;
+ const v=document.querySelector(".pdf-viewer");v.innerHTML='<div class="viewer-message">🔄 Buscando tu recibo...</div>';
+ try{const r=await buscarEmpleado(periodo,empleadoActual.codigo);if(!r){v.innerHTML=`<div class="viewer-message">No hay un recibo disponible para tu código en ${periodo.nombre}.</div>`;return}pdfActual=r.pdf;paginaEncontrada=r.pagina;await renderPage(r.pdf,r.pagina)}
+ catch(e){console.error(e);v.innerHTML='<div class="viewer-message">No se pudo cargar el recibo.</div>'}
+}
+async function renderPage(pdf,n){
+ const p=await pdf.getPage(n),v=document.querySelector(".pdf-viewer"),base=p.getViewport({scale:1}),scale=Math.min(2,Math.max(1,(v.clientWidth||900)/base.width)),vp=p.getViewport({scale}),c=document.createElement("canvas");
+ c.width=vp.width;c.height=vp.height;c.style.width="100%";v.innerHTML="";v.appendChild(c);
+ await p.render({canvasContext:c.getContext("2d"),viewport:vp}).promise
+}
+async function guardarRecibo(){
+ if(!pdfActual||!paginaEncontrada||!empleadoActual)return;
+ try{const p=await pdfActual.getPage(paginaEncontrada),vp=p.getViewport({scale:2}),c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;await p.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;const a=document.createElement("a");a.href=c.toDataURL("image/jpeg",.95);a.download=`${empleadoActual.codigo}_${quincenaActual}.jpg`;a.click()}
+ catch(e){alert("No fue posible guardar el recibo.")}
+}
+
+function cargarCarnet(){
+ if(!empleadoActual)return;
+ $("carnetNombre").textContent=empleadoActual.nombre||"Colaborador";$("carnetCodigo").textContent=empleadoActual.codigo||"—";$("carnetDepartamento").textContent=empleadoActual.departamento||"—";$("carnetPuesto").textContent=empleadoActual.puesto||"—";cargarFoto(empleadoActual.codigo)
+}
+function cargarAvatar(){
+ const a=$("avatarMini"),img=new Image();img.onload=()=>{a.innerHTML="";a.appendChild(img)};img.onerror=()=>{a.textContent="👤"};img.src=`fotos/${encodeURIComponent(empleadoActual.codigo)}.png?v=60`
+}
+function cargarFoto(codigo){
+ const box=$("fotoCarnet");box.innerHTML="<span>👤</span>";let i=0;
+ const probar=()=>{if(i>=3)return;const ext=["png","jpg","jpeg"][i++],img=new Image();img.className="foto-empleado";img.alt="Fotografía del empleado";img.onload=()=>{box.innerHTML="";box.appendChild(img)};img.onerror=probar;img.src=`fotos/${encodeURIComponent(codigo)}.${ext}?v=60`};probar()
+}
+async function cargarDocumentos(){
+ if(!empleadoActual)return;
+ await Promise.all([cargarDocumentosGenerales(),cargarDocumentosPersonales()]);
+}
+
+async function cargarDocumentosGenerales(){
+ const box=$("listaDocumentosGenerales");if(!box)return;
+ box.innerHTML='<div class="empty">🔄 Cargando documentos generales...</div>';
+ try{
+  const r=await fetch("DocumentosGenerales/documentos.json",{cache:"no-store"});
+  if(!r.ok)throw new Error("No se pudo cargar documentos.json");
+  const docs=await r.json();
+  if(!Array.isArray(docs)||!docs.length){
+   box.innerHTML='<div class="empty">📂 No hay documentos generales publicados por ahora.</div>';return;
+  }
+  box.innerHTML=docs.map((doc,index)=>{
+   const nombre=esc(doc.nombre||"Documento general");
+   const descripcion=esc(doc.descripcion||"Documento publicado por Recursos Humanos.");
+   const icono=esc(doc.icono||"📄");
+   return `<article class="doc-card"><span>${icono}</span><div><strong>${nombre}</strong><small>${descripcion}</small></div><button class="outline general-doc-btn" data-general-doc="${index}">Ver documento</button></article>`;
+  }).join("");
+  box.querySelectorAll("[data-general-doc]").forEach(btn=>{
+   btn.onclick=()=>abrirDocumentoGeneral(docs[Number(btn.dataset.generalDoc)]);
+  });
+ }catch(e){
+  console.error(e);
+  box.innerHTML='<div class="empty">⚠️ No se pudieron cargar los documentos generales.</div>';
+ }
+}
+
+function abrirDocumentoGeneral(doc){
+ if(!doc)return;
+ const archivo=String(doc.archivo||"");
+ if(!archivo)return;
+ const url="DocumentosGenerales/"+encodeURIComponent(archivo).replace(/%2F/g,"/");
+ window.open(url,"_blank","noopener");
+}
+
+async function cargarDocumentosPersonales(){
+ const box=$("listaDocumentos");if(!box)return;
+ box.innerHTML='<div class="empty">🔄 Buscando tus documentos...</div>';
+ const tipos=[["constancia","📄","Constancia de trabajo"],["solicitud","📝","Solicitud"],["salario","💰","Constancia de salario"],["contrato","📑","Contrato de trabajo"],["otros","📁","Otros documentos"]];
+ const found=[];
+ for(const [key,icon,name] of tipos){for(const dir of ["documentos","Documentos"]){const path=`${dir}/${empleadoActual.codigo}_${key}.pdf`;try{const r=await fetch(path,{cache:"no-store"});if(r.ok){found.push({icon,name,path});break}}catch(e){}}}
+ if(!found.length){box.innerHTML='<div class="empty">📂 No tienes documentos personales disponibles por ahora.</div>';return}
+ box.innerHTML=found.map(x=>`<article class="doc-card"><span>${x.icon}</span><div><strong>${x.name}</strong><small>Documento asociado a ${esc(empleadoActual.codigo)}</small></div><a class="outline link" href="${x.path}" target="_blank">Abrir</a></article>`).join("")
+}
+
+function abrirSheet(tipo){
+ const data=contenidoSheet(tipo);if(!data)return;
+ $("sheetTitleWrap").innerHTML=`<span class="eyebrow">${data.eyebrow}</span><h2>${data.title}</h2>`;
+ $("sheetContent").innerHTML=data.html;
+ $("sheetOverlay").classList.add("open");$("sheetOverlay").setAttribute("aria-hidden","false");document.body.classList.add("sheet-open");
+}
+function closeSheet(){
+ $("sheetOverlay").classList.remove("open");$("sheetOverlay").setAttribute("aria-hidden","true");document.body.classList.remove("sheet-open")
+}
+function mostrarInfo(tipo){abrirSheet(tipo)}
+
+function contactCard(icon,nombre,cargo,telefono,area){
+ const digits=telefono.replace(/\D/g,"");
+ const full=`+504 ${telefono}`;
+ const wa=`https://wa.me/504${digits}`;
+ const tel=`tel:+504${digits}`;
+ return `<article class="contact-item contact-item-rich">
+   <span>${icon}</span>
+   <div class="contact-main"><strong>${esc(nombre)}</strong><small>${esc(cargo)} · ${esc(area)}</small><a class="contact-phone" href="${tel}">${full}</a></div>
+   <div class="contact-actions"><a class="contact-call" href="${tel}" aria-label="Llamar a ${esc(nombre)}">📞 <b>Llamar</b></a><a class="contact-whatsapp" href="${wa}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp a ${esc(nombre)}">💬 <b>WhatsApp</b></a></div>
+ </article>`
+}
+
+function contenidoSheet(tipo){
+ const data={
+  reglamento:{eyebrow:"DOCUMENTO GENERAL",title:"Reglamento Interno de Trabajo",html:`
+   <div class="sheet-document">
+    <div class="sheet-icon">📕</div><div><h3>Reglamento Interno de Trabajo</h3><p>Consulta el Reglamento Interno de Trabajo de Agroindustrias Cayo Blanco.</p></div>
+   </div>
+   <p>Este documento contiene las normas y disposiciones internas aplicables al personal.</p>
+   <a class="sheet-action" href="DocumentosGenerales/reglamento-interno.pdf" target="_blank" rel="noopener">📖 Abrir reglamento</a>
+  `},
+  rap:{eyebrow:"INFORMACIÓN PARA EMPLEADOS",title:"RAP",html:`
+   <div class="sheet-document"><div class="sheet-icon">🏛️</div><div><h3>Régimen de Aportaciones Privadas</h3><p>Información sencilla para conocer tus aportaciones y los servicios disponibles.</p></div></div>
+   <h4>¿Qué es el RAP?</h4><p>El Régimen de Aportaciones Privadas (RAP) es una institución hondureña que ofrece servicios relacionados con el ahorro, vivienda y financiamiento para sus afiliados.</p>
+   <h4>¿Para qué sirve?</h4><ul><li>Ahorro para el trabajador.</li><li>Opciones de financiamiento para vivienda.</li><li>Préstamos y productos financieros, según los requisitos aplicables.</li><li>Administración de las aportaciones registradas a nombre del afiliado.</li></ul>
+   <h4>Recuerda</h4><ul><li>Revisa que tus datos personales estén correctos.</li><li>Conserva tus documentos laborales.</li><li>Consulta periódicamente la información de tus aportaciones.</li><li>Para conocer montos, requisitos y condiciones, consulta la información oficial del RAP o solicita orientación a RRHH.</li></ul>
+  `},
+  ihss:{eyebrow:"INFORMACIÓN PARA EMPLEADOS",title:"IHSS",html:`
+   <div class="sheet-document"><div class="sheet-icon">🏥</div><div><h3>Instituto Hondureño de Seguridad Social</h3><p>Conoce qué hacer cuando necesites utilizar los servicios del Seguro Social.</p></div></div>
+   <h4>¿Qué es el IHSS?</h4><p>El Instituto Hondureño de Seguridad Social (IHSS) brinda servicios de seguridad social a los trabajadores afiliados y sus beneficiarios, de acuerdo con la cobertura y condiciones establecidas.</p>
+   <h4>Servicios y prestaciones</h4><ul><li>Atención médica y consultas.</li><li>Atención por enfermedad y maternidad.</li><li>Servicios relacionados con accidentes y otras situaciones cubiertas.</li><li>Prestaciones económicas cuando corresponda.</li><li>Atención para beneficiarios que cumplan los requisitos establecidos.</li></ul>
+   <h4>🏥 Si necesitas atención médica</h4><ol><li>Informa a tu jefe inmediato cuando corresponda.</li><li>Acude al centro de atención del IHSS que corresponda.</li><li>Presenta tu identificación y la documentación requerida.</li><li>Recibe la atención médica y sigue las indicaciones del personal.</li></ol>
+   <h4>📄 Si recibes una incapacidad</h4><p>Presenta la documentación correspondiente a Recursos Humanos dentro del plazo y siguiendo el procedimiento establecido por la empresa, para que pueda registrarse correctamente.</p>
+   <div class="notice">⚠️ Los procedimientos, requisitos y cobertura pueden variar según el tipo de atención y las disposiciones vigentes. Si tienes dudas, consulta con Recursos Humanos.</div>
+  `},
+  contactos:{eyebrow:"RECURSOS HUMANOS",title:"Contactos",html:`
+   <p>Comunícate directamente con el área o persona que necesites. Puedes <strong>llamar</strong> o abrir una conversación por <strong>WhatsApp</strong>.</p>
+   <div class="contact-sheet">
+    ${contactCard("👤","Cristhian Osorio Acosta","Auxiliar de RRHH","3225-8230","Recursos Humanos")}
+    ${contactCard("👤","Mayda Yanely Palma","Auxiliar de RRHH","3162-3652","Recursos Humanos")}
+    ${contactCard("👤","Mariano Alejandro Perez","Auxiliar de RRHH","3285-7896","Recursos Humanos")}
+    ${contactCard("👩‍💼","Tirsa Lizeht Paz","Coordinadora de RRHH","8863-3324","Recursos Humanos")}
+    ${contactCard("🏥","Dilcia Maribel Vazques","Enfermera","8756-2088","Enfermería")}
+   </div>
+   <div class="notice">🇭🇳 Todos los números corresponden a Honduras (+504). Para WhatsApp se utiliza el mismo número.</div>
+  `}
+ };
+ return data[tipo]
+}
+function obtenerNombre(t){let m=t.match(/Empleado\s*:\s*(.*?)\s+Sueldo\s+Mensual/i);if(m?.[1])return m[1].trim();m=t.match(/Empleado\s*:\s*(.*?)(?=\s+(?:Departamento|Puesto|Sueldo))/i);return m?.[1]?.trim()||"Colaborador"}
+function obtenerCampo(t,campo){const next="(?=\\s+(?:Departamento|Puesto|Días\\s+Trabajados|Días\\s+Incapacidad|Faltas|Vacaciones|Feriados|Sueldo\\s+Base|Sueldo\\s+Mensual|Salario|Ingreso|Deducciones|Total|$))";const m=t.match(new RegExp(`${campo}\\s*:\\s*(.*?)${next}`,"i"));return m?.[1]?.trim().replace(/\s+/g," ")||""}
+function normalizar(t){return String(t||"").toUpperCase().replace(/\s+/g,"").replace(/[^A-Z0-9]/g,"")}
+function esc(t){return String(t??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("codigo").value="";msg("");closeSheet();show("pantallaAcceso")}
+
+</script>
+<!-- ===== CONSOLIDATED mobile-enhancements.js ===== -->
+<script>
+
+(function(){
+  const CONTACTOS = [
+    {nombre:"Cristhian Osorio Acosta",cargo:"Auxiliar de RRHH",tel:"32258230",display:"+504 3225-8230",icon:"👤"},
+    {nombre:"Mayda Yanely Palma",cargo:"Auxiliar de RRHH",tel:"31623652",display:"+504 3162-3652",icon:"👤"},
+    {nombre:"Mariano Alejandro Perez",cargo:"Auxiliar de RRHH",tel:"32857896",display:"+504 3285-7896",icon:"👤"},
+    {nombre:"Tirsa Lizeht Paz",cargo:"Coordinadora de RRHH",tel:"88633324",display:"+504 8863-3324",icon:"👩‍💼"},
+    {nombre:"Dilcia Maribel Vazques",cargo:"Enfermera",tel:"87562088",display:"+504 8756-2088",icon:"🩺"}
+  ];
+
+  const DATA = {
+    rap:{
+      kicker:"INFORMACIÓN PARA EMPLEADOS",
+      title:"RAP",
+      icon:"🏛️",
+      html:`<div class="mobile-hint">Conoce de forma sencilla tus aportaciones, ahorro y opciones disponibles como afiliado.</div>
+      <h4>¿Qué es el RAP?</h4>
+      <p>El Régimen de Aportaciones Privadas (RAP) es una institución hondureña que ofrece servicios relacionados con ahorro, vivienda y financiamiento para sus afiliados.</p>
+      <h4>¿Para qué sirve?</h4>
+      <ul><li>Ahorro para el trabajador.</li><li>Opciones de financiamiento para vivienda.</li><li>Préstamos y productos financieros según los requisitos aplicables.</li><li>Administración de las aportaciones registradas a nombre del afiliado.</li></ul>
+      <h4>📌 Recuerda</h4>
+      <ul><li>Revisa que tus datos estén correctos.</li><li>Conserva tus documentos laborales.</li><li>Consulta periódicamente la información de tus aportaciones.</li><li>Para montos, requisitos y condiciones, consulta la información oficial del RAP o RRHH.</li></ul>`
+    },
+    ihss:{
+      kicker:"INFORMACIÓN PARA EMPLEADOS",
+      title:"IHSS",
+      icon:"🏥",
+      html:`<div class="mobile-hint">Información práctica para saber qué hacer cuando necesites utilizar los servicios del Seguro Social.</div>
+      <h4>¿Qué es el IHSS?</h4>
+      <p>El Instituto Hondureño de Seguridad Social brinda servicios de seguridad social a trabajadores afiliados y sus beneficiarios, de acuerdo con la cobertura y condiciones establecidas.</p>
+      <h4>🩺 Servicios y prestaciones</h4>
+      <ul><li>Atención médica y consultas.</li><li>Atención por enfermedad y maternidad.</li><li>Servicios relacionados con accidentes y otras situaciones cubiertas.</li><li>Prestaciones económicas cuando corresponda.</li></ul>
+      <h4>🏥 Si necesitas atención médica</h4>
+      <ol><li>Informa a tu jefe inmediato cuando corresponda.</li><li>Acude al centro de atención que corresponda.</li><li>Presenta tu identificación y documentación requerida.</li><li>Sigue las indicaciones del personal.</li></ol>
+      <h4>📄 Si recibes una incapacidad</h4>
+      <p>Presenta la documentación correspondiente a Recursos Humanos dentro del plazo y siguiendo el procedimiento establecido por la empresa.</p>
+      <div class="mobile-hint">⚠️ Los requisitos y la cobertura pueden variar según el tipo de atención y las disposiciones vigentes. Si tienes dudas, consulta con RRHH.</div>`
+    },
+    contactos:{
+      kicker:"ATENCIÓN AL EMPLEADO",
+      title:"Contactos de RRHH",
+      icon:"📞",
+      html:`<div class="mobile-hint">Toca <b>Llamar</b> para iniciar una llamada o <b>WhatsApp</b> para abrir una conversación.</div>
+      ${CONTACTOS.map(c=>`<div class="contact-card">
+        <div class="contact-avatar">${c.icon}</div>
+        <div class="contact-main"><strong>${c.nombre}</strong><small>${c.cargo}</small><small>${c.display}</small></div>
+        <div class="contact-actions">
+          <a class="contact-call" href="tel:+504${c.tel}">📞 Llamar</a>
+          <a class="contact-wa" href="https://wa.me/504${c.tel}" target="_blank" rel="noopener">💬 WhatsApp</a>
+        </div>
+      </div>`).join("")}`
+    },
+    reglamento:{
+      kicker:"DOCUMENTO GENERAL",
+      title:"Reglamento Interno",
+      icon:"📕",
+      html:`<div class="mobile-hint">Consulta el Reglamento Interno de Trabajo directamente desde tu teléfono.</div>
+      <div class="sheet-document"><iframe src="DocumentosGenerales/reglamento-interno.pdf#toolbar=0&navpanes=0" title="Reglamento Interno"></iframe></div>
+      <a class="sheet-open-link" href="DocumentosGenerales/reglamento-interno.pdf" target="_blank" rel="noopener">Abrir documento completo ↗</a>`
+    }
+  };
+
+  function openSheet(key){
+    const data=DATA[key], overlay=document.getElementById("sheetOverlay");
+    if(!data||!overlay)return;
+    document.getElementById("sheetTitleWrap").innerHTML=`<div class="sheet-title-kicker">${data.kicker}</div><div class="sheet-title">${data.icon} ${data.title}</div>`;
+    document.getElementById("sheetContent").innerHTML=data.html;
+    overlay.classList.add("open");
+    overlay.setAttribute("aria-hidden","false");
+    document.body.classList.add("sheet-open");
+  }
+  function closeSheet(){
+    const overlay=document.getElementById("sheetOverlay");
+    if(!overlay)return;
+    overlay.classList.remove("open");
+    overlay.setAttribute("aria-hidden","true");
+    document.body.classList.remove("sheet-open");
+  }
+
+  document.addEventListener("DOMContentLoaded",()=>{
+    document.querySelectorAll("[data-info]").forEach(btn=>{
+      btn.addEventListener("click",e=>{e.preventDefault();e.stopImmediatePropagation();openSheet(btn.dataset.info);},{capture:true});
+    });
+    document.querySelectorAll("[data-open-sheet]").forEach(btn=>{
+      btn.addEventListener("click",e=>{e.preventDefault();openSheet(btn.dataset.openSheet);});
+    });
+    document.getElementById("sheetClose")?.addEventListener("click",closeSheet);
+    document.getElementById("sheetOverlay")?.addEventListener("click",e=>{
+      if(e.target.id==="sheetOverlay")closeSheet();
+    });
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
+    let startY=0;
+    document.querySelector(".info-sheet")?.addEventListener("touchstart",e=>{startY=e.touches[0].clientY},{passive:true});
+    document.querySelector(".info-sheet")?.addEventListener("touchend",e=>{
+      if(e.changedTouches[0].clientY-startY>90)closeSheet();
+    },{passive:true});
+    // Oculta el panel antiguo de información para que todo use el nuevo bottom sheet.
+    const old=document.getElementById("infoDetalle");
+    if(old) old.style.display="none";
+  });
+})();
+
+</script>
 </body>
 </html>
