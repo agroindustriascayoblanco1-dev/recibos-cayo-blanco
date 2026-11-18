@@ -2,1206 +2,260 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#0b2f3d">
 <title>Portal de Empleados | Agroindustrias Cayo Blanco</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
-*{box-sizing:border-box} :root{--navy:#123e50;--navy2:#0b2f3d;--green:#11a978;--mint:#e6f6f0;--bg:#eef5f6;--line:#d5e3e7;--muted:#6d8088;--white:#fff;--shadow:0 18px 50px rgba(12,48,61,.09)}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--navy);background:radial-gradient(circle at 7% 5%,#dff3ec 0,transparent 27%),radial-gradient(circle at 95% 10%,#dfeaf0 0,transparent 28%),linear-gradient(135deg,#edf5f6,#f9fbfb);min-height:100vh}
-button,input{font:inherit}.topbar{height:78px;background:linear-gradient(115deg,var(--navy2),var(--navy));color:white;display:flex;align-items:center;justify-content:space-between;padding:10px clamp(18px,6vw,80px);box-shadow:0 8px 25px #0b2f3d22}.brand{display:flex;gap:13px;align-items:center}.brand img{width:52px;height:52px;object-fit:contain;border-radius:14px;background:#fff}.brand strong,.brand span{display:block}.brand strong{font-size:14px;letter-spacing:.4px}.brand span{font-size:11px;color:#cce2e5;margin-top:3px}.confidential{font-size:10px;color:#d8efea}.container{width:min(1120px,94%);margin:32px auto 55px}.screen{display:none}.screen.active{display:block}
-.access{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;padding:46px;border-radius:30px;background:linear-gradient(125deg,#dfeeed,#f8fbfb);border:1px solid #cbdde0;box-shadow:var(--shadow);overflow:hidden;position:relative}.access:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:#11a97814;right:25%;top:-180px}.access-copy,.login-card{position:relative;z-index:1}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--green)}h1{font-size:clamp(38px,6vw,66px);line-height:.98;letter-spacing:-2.7px;margin:13px 0 18px}h1 em{font-style:normal;color:var(--green)}.access-copy p{max-width:600px;color:#5f737c;line-height:1.7;font-size:14px}.chips{display:flex;gap:8px;margin-top:25px;flex-wrap:wrap}.chips span{background:#ffffffb8;border:1px solid #d6e6e4;border-radius:999px;padding:8px 12px;font-size:11px}.login-card{background:#fff;border:1px solid var(--line);padding:30px;border-radius:24px;box-shadow:0 15px 40px #123e5012}.login-icon{width:52px;height:52px;display:grid;place-items:center;background:var(--mint);border-radius:16px;font-size:23px;margin-bottom:18px}.login-card h2{font-size:28px;margin:10px 0 8px}.login-card p{color:var(--muted);font-size:12px;margin-bottom:25px}.login-card label{display:block;font-size:11px;font-weight:700;margin-bottom:7px}.login-row{display:flex;gap:8px}.login-row input{min-width:0;flex:1;border:1px solid #cddde1;border-radius:12px;padding:13px 14px;outline:none}.login-row input:focus{border-color:var(--green);box-shadow:0 0 0 3px #11a97818}.primary,.login-row button{border:0;background:var(--green);color:#fff;border-radius:12px;padding:12px 17px;font-weight:700;cursor:pointer}.message{font-size:11px;margin-top:12px;color:#6b7d84;min-height:16px}.message.error{color:#b53b3b}
-.profile{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px 18px;box-shadow:var(--shadow);margin-bottom:34px}.profile-main{display:flex;align-items:center;gap:12px}.profile-main span{font-size:9px;color:var(--green);font-weight:800;letter-spacing:1px}.profile-main h2{margin:3px 0;font-size:17px}.profile-main small{font-size:10px;color:var(--muted)}.avatar{width:52px;height:52px;border-radius:16px;background:var(--mint);display:grid;place-items:center;font-size:23px;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.secondary,.back,.outline,.more{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:11px;padding:10px 14px;cursor:pointer}.welcome{margin-bottom:20px}.welcome h1{font-size:38px;letter-spacing:-1.5px;margin:8px 0}.welcome p,.subhead p{color:var(--muted);font-size:12px}.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.menu-card{min-height:145px;border:1px solid var(--line);background:#fff;border-radius:20px;padding:20px;text-align:left;cursor:pointer;display:grid;grid-template-columns:54px 1fr 30px;gap:13px;align-items:center;box-shadow:0 7px 22px #123e5009;transition:.2s}.menu-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px #123e5017}.menu-card>span{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:23px;background:var(--mint)}.menu-card strong,.menu-card small{display:block}.menu-card strong{font-size:15px}.menu-card small{font-size:10px;color:var(--muted);line-height:1.45;margin-top:5px}.menu-card b{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#f2f6f7}.menu-card.blue>span{background:#e8f1fb}.menu-card.purple>span{background:#f0eafb}.menu-card.orange>span{background:#fff1df}.menu-card.teal>span{background:#e5f7f4}.menu-card.navy>span{background:#e7eef3}
-.subhead{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin-bottom:25px}.subhead h2{font-size:35px;letter-spacing:-1.3px;margin:4px 0}.period-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.period-card{display:flex;align-items:center;gap:18px;padding:22px;border:1px solid var(--line);background:#fff;border-radius:21px;text-align:left;cursor:pointer;box-shadow:0 8px 24px #123e5008}.period-card:hover{transform:translateY(-2px)}.period-card>span{width:60px;height:60px;border-radius:18px;background:var(--mint);display:grid;place-items:center;font-weight:900;color:var(--green);font-size:20px}.period-card strong,.period-card small{display:block}.period-card strong{font-size:17px}.period-card small{font-size:10px;color:var(--muted);margin-top:4px}.pdf-viewer{background:#e4ebed;border:1px solid var(--line);border-radius:18px;min-height:520px;padding:18px;display:flex;justify-content:center;align-items:flex-start;overflow:auto}.pdf-viewer canvas{max-width:100%;height:auto;box-shadow:0 5px 20px #0002}.viewer-message,.empty{color:var(--muted);font-size:12px;text-align:center;padding:60px 20px}.id-wrap{display:flex;justify-content:center}.id-card{width:min(610px,100%);background:#fff;border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}.id-top{background:linear-gradient(115deg,var(--navy2),var(--navy));color:#fff;padding:18px 22px;display:flex;align-items:center;gap:12px}.id-top img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:12px}.id-top strong,.id-top span{display:block}.id-top strong{font-size:14px}.id-top span{font-size:10px;color:#cce3e5}.id-body{display:grid;grid-template-columns:145px 1fr;gap:24px;padding:30px}.photo-box{width:145px;height:175px;border-radius:18px;background:#edf4f5;display:grid;place-items:center;font-size:45px;overflow:hidden}.photo-box img{width:100%;height:100%;object-fit:cover}.carnet-datos h3{font-size:22px;margin:7px 0 20px}.label{font-size:8px;letter-spacing:1px;color:#82939a;font-weight:800;display:block;margin-bottom:5px}.carnet-datos strong{font-size:12px;display:block}.two{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:18px}.id-footer{background:#f1f6f7;padding:12px 20px;text-align:center;font-size:8px;font-weight:800;color:#6f8088;letter-spacing:1px}
-.section-title{font-size:15px;font-weight:800;margin:15px 0 10px}.section-title.spaced{margin-top:30px}.cards-list{display:flex;flex-direction:column;gap:10px}.doc-card{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px;box-shadow:0 6px 18px #123e5006}.doc-card>span{width:44px;height:44px;border-radius:13px;background:#f0f6f7;display:grid;place-items:center;font-size:20px}.doc-card div{flex:1;min-width:0}.doc-card strong,.doc-card small{display:block}.doc-card strong{font-size:13px}.doc-card small{font-size:10px;color:var(--muted);margin-top:4px}.link{text-decoration:none}.guide-grid,.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.guide,.info-panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px}.guide>span,.info-panel>span{font-size:25px}.guide h3,.info-panel h3{margin:9px 0;font-size:17px}.guide ol{padding-left:20px;color:#60737b;font-size:11px;line-height:1.7}.info-panel p{color:var(--muted);font-size:11px;line-height:1.55;min-height:50px}.more{padding:8px 10px;font-size:10px}.info-detail{margin-top:16px;background:#f7fbfa;border:1px solid #d6e8e3;border-radius:17px;padding:18px}.info-detail h3{margin:0 0 8px}.info-detail p,.info-detail li{font-size:11px;color:#61747b;line-height:1.6}.hidden{display:none}
-footer{text-align:center;color:#819198;font-size:9px;padding:0 20px 25px}
-@media(max-width:850px){.access{grid-template-columns:1fr;padding:30px}.menu-grid{grid-template-columns:1fr 1fr}.subhead{grid-template-columns:auto 1fr}.subhead .primary{grid-column:2}.guide-grid,.info-grid{grid-template-columns:1fr}}
-@media(max-width:600px){.topbar{height:70px;padding:8px 14px}.confidential{display:none}.brand img{width:44px;height:44px}.brand strong{font-size:11px}.container{width:94%;margin:20px auto 40px}.access{padding:24px;border-radius:24px}.access h1{font-size:43px}.login-row{flex-direction:column}.menu-grid,.period-grid{grid-template-columns:1fr}.welcome h1{font-size:31px}.subhead{grid-template-columns:1fr}.subhead .back{justify-self:start}.subhead .primary{grid-column:auto;justify-self:start}.subhead h2{font-size:29px}.id-body{grid-template-columns:1fr}.photo-box{width:130px;height:160px}.two{grid-template-columns:1fr}}
-
-
-/* ===== MOBILE ENHANCEMENTS CSS ===== */
-/* Cayo Blanco — Mobile Experience / Responsive */
+/* ===== PORTAL CAYO BLANCO · DISEÑO UNIFICADO ===== */
 :root{
-  --mobile-navy:#08384a;
-  --mobile-blue:#0b5870;
-  --mobile-green:#12a879;
-  --mobile-mint:#e7f8f2;
-  --mobile-ink:#123b4a;
+  --navy:#0b2f3d;--navy2:#123e50;--teal:#0c6b70;--green:#11a978;--green-d:#0b8a60;--mint:#e6f6f0;
+  --bg:#f1f6f7;--card:#fff;--line:#dbe7ea;--ink:#123e50;--muted:#6a7f87;
+  --r:18px;--shadow:0 10px 30px rgba(11,47,61,.08);--shadow-h:0 18px 40px rgba(11,47,61,.15)
 }
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden}
+body.sheet-open{overflow:hidden}
+button,input{font:inherit;color:inherit}button{touch-action:manipulation;cursor:pointer}
+a{color:inherit}
+.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+:focus-visible{outline:3px solid rgba(17,169,120,.55);outline-offset:2px}
 
-html{
-  scroll-behavior:smooth;
-  -webkit-text-size-adjust:100%;
+/* Barra superior */
+.topbar{position:sticky;top:0;z-index:50;height:72px;display:flex;align-items:center;justify-content:space-between;padding:8px clamp(16px,5vw,72px);color:#fff;background:linear-gradient(120deg,var(--navy) 0%,var(--navy2) 60%,var(--teal) 100%);box-shadow:0 6px 24px rgba(11,47,61,.25)}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:13px;padding:3px;flex:0 0 48px}
+.brand strong{display:block;font-size:14px;letter-spacing:.6px;line-height:1.15}
+.brand span{display:block;font-size:11px;color:#bfe0e3;margin-top:3px}
+.confidential{font-size:10px;font-weight:700;letter-spacing:.8px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#d8efea}
+
+.container{width:min(1080px,92%);margin:30px auto 50px}
+.screen{display:none}
+.screen.active{display:block;animation:in .3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.eyebrow{display:block;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--green)}
+
+/* Acceso */
+.access{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;padding:clamp(24px,5vw,54px);border-radius:28px;color:#fff;position:relative;overflow:hidden;background:radial-gradient(circle at 90% 0,rgba(17,169,120,.35),transparent 45%),linear-gradient(135deg,var(--navy),var(--navy2) 55%,var(--teal));box-shadow:var(--shadow-h)}
+.access .eyebrow{color:#5fe0b4}
+.access h1{font-size:clamp(32px,5vw,54px);line-height:1.05;letter-spacing:-1.5px;margin:12px 0 16px}
+.access h1 em{font-style:normal;color:#5fe0b4}
+.access-copy p{color:#cfe5e8;line-height:1.7;font-size:15px;max-width:540px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chips span{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;font-size:12px;font-weight:600;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+.chips .i{width:15px;height:15px}
+.login-card{background:#fff;color:var(--ink);border-radius:22px;padding:30px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.login-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:16px;background:var(--mint);color:var(--green-d);margin-bottom:16px}
+.login-icon .i{width:26px;height:26px}
+.login-card h2{font-size:26px;margin:8px 0 6px;letter-spacing:-.5px}
+.login-card p{color:var(--muted);font-size:13px;margin:0 0 22px}
+.login-card label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}
+.login-row{display:flex;gap:10px}
+.login-row input{flex:1;min-width:0;min-height:52px;padding:0 16px;font-size:16px;letter-spacing:1px;font-weight:600;border:1.5px solid var(--line);border-radius:14px;background:#f8fbfc;outline:none;transition:.2s}
+.login-row input:focus{border-color:var(--green);background:#fff;box-shadow:0 0 0 4px rgba(17,169,120,.15)}
+.primary,.login-row button{border:0;color:#fff;font-weight:700;border-radius:14px;padding:0 22px;min-height:52px;background:linear-gradient(135deg,var(--green),var(--green-d));box-shadow:0 8px 20px rgba(17,169,120,.3);transition:.2s}
+.primary{min-height:44px;padding:0 18px;font-size:14px}
+.primary:hover,.login-row button:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.primary:active,.login-row button:active{transform:scale(.97)}
+.login-row button:disabled{opacity:.6;cursor:wait}
+.message{min-height:18px;margin-top:12px;font-size:12px;color:var(--muted)}
+.message.error{color:#b53b3b;font-weight:600}
+
+/* Perfil */
+.profile{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;margin-bottom:26px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--green);border-radius:var(--r);box-shadow:var(--shadow)}
+.profile-main{display:flex;align-items:center;gap:14px;min-width:0}
+.profile-main span{font-size:10px;font-weight:800;letter-spacing:1.2px;color:var(--green)}
+.profile-main h2{margin:3px 0;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52vw}
+.profile-main small{font-size:12px;color:var(--muted)}
+.avatar{width:54px;height:54px;flex:0 0 54px;border-radius:16px;background:var(--mint);display:grid;place-items:center;font-size:24px;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.secondary,.back,.outline,.more{border:1px solid var(--line);background:#fff;color:var(--navy2);font-weight:600;border-radius:12px;padding:10px 16px;font-size:13px;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.secondary:hover,.back:hover,.outline:hover,.more:hover{border-color:var(--green);color:var(--green-d);background:#f4fbf8}
+.secondary:active,.back:active,.outline:active,.more:active{transform:scale(.96)}
+
+/* Menú principal */
+.welcome{margin-bottom:20px}
+.welcome h1{font-size:clamp(26px,4vw,36px);letter-spacing:-1px;margin:6px 0}
+.welcome p{margin:0;color:var(--muted);font-size:14px}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.menu-card{position:relative;display:grid;grid-template-columns:56px 1fr 32px;gap:14px;align-items:center;min-height:116px;padding:18px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);transition:transform .22s,box-shadow .22s,border-color .22s}
+.menu-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-h);border-color:#a9dccb}
+.menu-card:active{transform:scale(.985)}
+.menu-card>span{width:56px;height:56px;display:grid;place-items:center;border-radius:16px;color:#fff;background:linear-gradient(135deg,var(--navy2),var(--teal));box-shadow:0 8px 18px rgba(12,107,112,.28)}
+.menu-card:hover>span{background:linear-gradient(135deg,var(--green),var(--green-d))}
+.menu-card strong{display:block;font-size:16px;line-height:1.2}
+.menu-card small{display:block;margin-top:5px;font-size:12px;line-height:1.45;color:var(--muted)}
+.menu-card>b{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#eef5f6;color:var(--navy2);font-size:15px;transition:.2s}
+.menu-card:hover>b{background:var(--green);color:#fff;transform:translateX(3px)}
+
+/* Encabezados de pantalla */
+.subhead{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin-bottom:24px}
+.subhead h2{font-size:clamp(24px,3.5vw,34px);letter-spacing:-1px;margin:4px 0}
+.subhead p{margin:0;color:var(--muted);font-size:13px}
+.section-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:800;margin:18px 0 12px}
+.section-title:before{content:"";width:5px;height:20px;border-radius:4px;background:var(--green)}
+.section-title.spaced{margin-top:30px}
+
+/* Recibos */
+.period-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.period-card{display:flex;align-items:center;gap:18px;padding:22px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);transition:.22s}
+.period-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-h);border-color:#a9dccb}
+.period-card>span{width:62px;height:62px;flex:0 0 62px;display:grid;place-items:center;border-radius:18px;font-size:22px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--green),var(--green-d))}
+.period-card strong{display:block;font-size:18px}
+.period-card small{display:block;margin-top:4px;font-size:12px;color:var(--muted);line-height:1.4}
+.period-card small:last-child{color:var(--green-d);font-weight:700}
+.pdf-viewer{display:flex;justify-content:center;align-items:flex-start;min-height:520px;padding:18px;overflow:auto;background:#dfe9ec;border:1px solid var(--line);border-radius:var(--r)}
+.pdf-viewer canvas{max-width:100%;height:auto;background:#fff;border-radius:6px;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.viewer-message,.empty{color:var(--muted);font-size:13px;text-align:center;padding:56px 20px;line-height:1.5}
+.empty{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:30px 20px}
+
+/* Carné */
+.id-wrap{display:flex;justify-content:center}
+.id-card{width:min(620px,100%);overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow-h)}
+.id-top{display:flex;align-items:center;gap:14px;padding:20px 24px;color:#fff;background:linear-gradient(120deg,var(--navy),var(--navy2) 60%,var(--teal));border-bottom:4px solid var(--green)}
+.id-top img{width:52px;height:52px;object-fit:contain;background:#fff;border-radius:13px;padding:3px}
+.id-top strong{display:block;font-size:15px;letter-spacing:.8px}
+.id-top span{display:block;font-size:11px;letter-spacing:2px;color:#9fe8cd;margin-top:2px}
+.id-body{display:grid;grid-template-columns:150px 1fr;gap:26px;padding:30px}
+.photo-box{width:150px;height:184px;display:grid;place-items:center;overflow:hidden;font-size:46px;background:#edf4f5;border:3px solid var(--mint);border-radius:18px}
+.photo-box img{width:100%;height:100%;object-fit:cover}
+.label{display:block;margin-bottom:5px;font-size:10px;font-weight:800;letter-spacing:1.2px;color:#7f939b}
+.carnet-datos h3{font-size:23px;line-height:1.15;margin:4px 0 20px}
+.carnet-datos strong{display:block;font-size:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+.id-footer{padding:13px 20px;text-align:center;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#6f8088;background:#f1f6f7}
+
+/* Documentos y comunicados */
+.cards-list{display:flex;flex-direction:column;gap:10px}
+.doc-card{display:flex;align-items:center;gap:14px;padding:15px 16px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 14px rgba(11,47,61,.05);transition:.2s}
+.doc-card:hover{border-color:#a9dccb;box-shadow:var(--shadow)}
+.doc-card>span{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;font-size:21px;background:var(--mint);border-radius:13px}
+.doc-card div{flex:1;min-width:0}
+.doc-card strong{display:block;font-size:14px;line-height:1.3}
+.doc-card small{display:block;margin-top:4px;font-size:12px;color:var(--muted);line-height:1.4}
+.link{text-decoration:none}
+
+/* Procedimientos e información */
+.guide-grid,.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.info-grid{grid-template-columns:repeat(3,1fr)}
+.guide,.info-panel{padding:22px;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.guide>span,.info-panel>span{display:grid;place-items:center;width:48px;height:48px;font-size:23px;background:var(--mint);border-radius:14px}
+.guide h3,.info-panel h3{margin:14px 0 8px;font-size:18px}
+.guide ol{margin:0;padding-left:20px;font-size:13px;line-height:1.75;color:#55707a}
+.guide li::marker{color:var(--green);font-weight:800}
+.info-panel p{min-height:56px;margin:0 0 14px;font-size:13px;line-height:1.6;color:var(--muted)}
+
+/* Cumpleañeros */
+.birthday-panel{max-width:760px;margin:0 auto}
+.birthday-list{display:grid;gap:10px}
+.birthday-item{display:flex;align-items:center;gap:14px;padding:13px 16px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 14px rgba(11,47,61,.05)}
+.birthday-day{flex:0 0 50px;width:50px;height:50px;display:grid;place-items:center;font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--navy2),var(--teal));border-radius:14px}
+.birthday-item div{flex:1;min-width:0}
+.birthday-item strong{display:block;font-size:15px}
+.birthday-item small{display:block;margin-top:3px;font-size:12px;color:var(--muted)}
+.birthday-item>span:last-child{font-size:20px}
+.birthday-empty{padding:28px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:16px}
+.birthday-message{display:flex;gap:14px;align-items:flex-start;margin-top:18px;padding:18px;background:var(--mint);border:1px solid #c6e8dc;border-radius:var(--r)}
+.birthday-message>span{font-size:26px}
+.birthday-message strong{font-size:16px;color:var(--green-d)}
+.birthday-message p{margin:5px 0 0;font-size:13px;line-height:1.6;color:#4d6c68}
+
+/* Panel inferior (RAP, IHSS, Contactos) */
+.sheet-overlay{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-end;justify-content:center;background:rgba(4,25,34,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,visibility .25s}
+.sheet-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
+.info-sheet{width:min(760px,100%);max-height:min(90vh,780px);overflow:hidden;background:#fbfdfd;border-radius:28px 28px 0 0;box-shadow:0 -20px 70px rgba(3,34,45,.3);transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);padding-bottom:env(safe-area-inset-bottom)}
+.sheet-overlay.open .info-sheet{transform:none}
+.sheet-handle{width:44px;height:5px;margin:10px auto 4px;border-radius:99px;background:#bccfd3}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px 14px;border-bottom:1px solid var(--line)}
+.sheet-title-kicker,.sheet-head .eyebrow{font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--green)}
+.sheet-title,.sheet-head h2{margin:3px 0 0;font-size:22px;letter-spacing:-.4px;color:var(--ink)}
+.sheet-close{width:42px;height:42px;flex:0 0 42px;border:0;border-radius:50%;background:#edf4f5;color:var(--navy2);font-size:26px;line-height:1;transition:.2s}
+.sheet-close:hover{background:var(--green);color:#fff}
+.sheet-content{overflow:auto;max-height:calc(min(90vh,780px) - 92px);padding:18px 20px 30px;-webkit-overflow-scrolling:touch}
+.sheet-content h4{margin:22px 0 8px;font-size:15px;color:var(--navy2)}
+.sheet-content p,.sheet-content li{font-size:13px;line-height:1.7;color:#4f6770}
+.sheet-content ul,.sheet-content ol{padding-left:22px}
+.sheet-content li::marker{color:var(--green)}
+.mobile-hint,.notice{padding:12px 14px;font-size:12px;line-height:1.6;color:#44636a;background:var(--mint);border:1px solid #c9eadf;border-radius:13px}
+.notice{margin-top:14px}
+.contact-card{display:flex;align-items:center;gap:13px;margin:10px 0;padding:14px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 14px rgba(11,47,61,.05)}
+.contact-avatar{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;font-size:21px;background:var(--mint);border-radius:14px}
+.contact-main{flex:1;min-width:0}
+.contact-main strong{display:block;font-size:14px}
+.contact-main small{display:block;margin-top:3px;font-size:12px;color:var(--muted)}
+.contact-actions{display:flex;gap:7px}
+.contact-actions a{padding:10px 12px;font-size:12px;font-weight:800;text-decoration:none;white-space:nowrap;border-radius:11px}
+.contact-call{color:#fff;background:var(--navy2)}
+.contact-wa,.contact-whatsapp{color:#fff;background:var(--green-d)}
+.sheet-document{margin-top:10px;overflow:hidden;background:#e8eff1;border-radius:16px}
+.sheet-document iframe{display:block;width:100%;height:62vh;border:0;background:#fff}
+.sheet-open-link,.sheet-action{display:inline-flex;margin-top:14px;padding:12px 18px;font-size:13px;font-weight:800;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--green),var(--green-d));border-radius:12px}
+
+footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center;font-size:11px;color:#7b9097}
+
+/* Tablet */
+@media(max-width:900px){
+  .access{grid-template-columns:1fr}
+  .menu-grid,.info-grid{grid-template-columns:repeat(2,1fr)}
+  .guide-grid{grid-template-columns:1fr}
 }
-
-body{
-  -webkit-tap-highlight-color:transparent;
-  overscroll-behavior-x:none;
+/* Celular */
+@media(max-width:640px){
+  .topbar{height:66px;padding:8px 14px}
+  .brand img{width:42px;height:42px;flex-basis:42px}
+  .brand strong{font-size:12px}.brand span{font-size:10px}
+  .confidential{display:none}
+  .container{width:calc(100% - 24px);margin:16px auto 34px}
+  .access{padding:22px;border-radius:22px;gap:22px}
+  .access-copy p{font-size:14px}
+  .login-card{padding:22px;border-radius:20px}
+  .login-row{flex-direction:column}
+  .login-row button{width:100%}
+  .profile{padding:12px;margin-bottom:20px}
+  .profile-main h2{font-size:15px;max-width:48vw}
+  .avatar{width:46px;height:46px;flex-basis:46px}
+  .menu-grid,.info-grid,.period-grid{grid-template-columns:1fr;gap:11px}
+  .menu-card{min-height:92px;padding:14px;grid-template-columns:50px 1fr 30px;gap:12px}
+  .menu-card>span{width:50px;height:50px}
+  .menu-card strong{font-size:15px}.menu-card small{font-size:11.5px}
+  .subhead{grid-template-columns:1fr;gap:10px;margin-bottom:18px}
+  .subhead .back,.subhead .primary{justify-self:start}
+  .pdf-viewer{min-height:calc(100vh - 220px);padding:8px;border-radius:14px}
+  .id-body{grid-template-columns:1fr;padding:22px;gap:18px;justify-items:center;text-align:center}
+  .photo-box{width:130px;height:160px}
+  .two{grid-template-columns:1fr 1fr}
+  .doc-card{padding:12px;gap:11px}
+  .doc-card .outline{padding:9px 12px;font-size:12px}
+  .guide,.info-panel{padding:18px}
+  .info-panel p{min-height:0}
+  .info-sheet{max-height:92vh;border-radius:24px 24px 0 0}
+  .sheet-content{max-height:calc(92vh - 92px);padding:16px 16px 26px}
+  .contact-card{flex-wrap:wrap}
+  .contact-actions{width:100%}
+  .contact-actions a{flex:1;text-align:center}
 }
-
-button,a,input{
-  -webkit-tap-highlight-color:transparent;
-}
-
-button{
-  touch-action:manipulation;
-}
-
-.topbar{
-  background:linear-gradient(135deg,#062f40 0%,#0a4b60 58%,#0c6b70 100%);
-}
-
-.brand img{
-  box-shadow:0 5px 18px rgba(0,0,0,.12);
-}
-
-.menu-card,.period-card,.doc-card,.guide,.info-panel,.login-card,.profile{
-  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
-}
-
-.menu-card:active,.period-card:active,.doc-card:active,.guide:active,.info-panel:active{
-  transform:scale(.985);
-}
-
-.primary,.login-row button,.more,.outline,.secondary,.back,.sheet-close{
-  transition:transform .16s ease,filter .16s ease,box-shadow .16s ease;
-}
-
-.primary:active,.login-row button:active,.more:active,.outline:active,
-.secondary:active,.back:active,.sheet-close:active{
-  transform:scale(.96);
-}
-
-.menu-card:hover{
-  border-color:#b9ddd5;
-}
-
-.menu-card>span{
-  transition:transform .25s ease;
-}
-
-.menu-card:hover>span{
-  transform:scale(1.05) rotate(-2deg);
-}
-
-.screen.active{
-  animation:screenIn .28s cubic-bezier(.2,.8,.2,1) both;
-}
-
-@keyframes screenIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* Bottom sheets / information */
-.sheet-overlay{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  background:rgba(4,25,34,.42);
-  backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .24s ease,visibility .24s ease;
-}
-
-.sheet-overlay.open{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-}
-
-.info-sheet{
-  width:min(760px,100%);
-  max-height:min(88vh,760px);
-  overflow:hidden;
-  background:rgba(250,253,253,.97);
-  border:1px solid rgba(255,255,255,.72);
-  border-bottom:0;
-  border-radius:28px 28px 0 0;
-  box-shadow:0 -20px 70px rgba(3,34,45,.28);
-  transform:translateY(100%);
-  transition:transform .34s cubic-bezier(.2,.8,.2,1);
-  padding-bottom:env(safe-area-inset-bottom);
-}
-
-.sheet-overlay.open .info-sheet{
-  transform:translateY(0);
-}
-
-.sheet-handle{
-  width:42px;
-  height:5px;
-  border-radius:99px;
-  background:#b7c9cd;
-  margin:10px auto 4px;
-}
-
-.sheet-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 18px 12px;
-  border-bottom:1px solid #dfeaec;
-}
-
-.sheet-title-kicker{
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:1.2px;
-  color:var(--mobile-green);
-}
-
-.sheet-title{
-  margin:3px 0 0;
-  font-size:22px;
-  letter-spacing:-.5px;
-  color:var(--mobile-ink);
-}
-
-.sheet-close{
-  width:40px;
-  height:40px;
-  flex:0 0 40px;
-  border:0;
-  border-radius:50%;
-  background:#edf4f5;
-  color:#163f4d;
-  font-size:27px;
-  line-height:1;
-  cursor:pointer;
-}
-
-.sheet-content{
-  overflow:auto;
-  max-height:calc(min(88vh,760px) - 90px);
-  padding:18px 20px 28px;
-  -webkit-overflow-scrolling:touch;
-}
-
-.sheet-content h4{
-  margin:20px 0 8px;
-  color:#123e50;
-  font-size:15px;
-}
-
-.sheet-content p,
-.sheet-content li{
-  font-size:12px;
-  line-height:1.65;
-  color:#536a73;
-}
-
-.sheet-content ul,
-.sheet-content ol{
-  padding-left:21px;
-}
-
-/* Contact cards */
-.contact-card{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:14px;
-  margin:10px 0;
-  background:#fff;
-  border:1px solid #dce8ea;
-  border-radius:17px;
-  box-shadow:0 6px 18px rgba(15,59,72,.06);
-}
-
-.contact-avatar{
-  width:44px;
-  height:44px;
-  flex:0 0 44px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  background:var(--mobile-mint);
-  font-size:20px;
-}
-
-.contact-main{
-  min-width:0;
-  flex:1;
-}
-
-.contact-main strong,
-.contact-main small{
-  display:block;
-}
-
-.contact-main strong{
-  font-size:12px;
-  color:#123e50;
-}
-
-.contact-main small{
-  font-size:10px;
-  color:#6c8088;
-  margin-top:3px;
-}
-
-.contact-actions{
-  display:flex;
-  gap:7px;
-}
-
-.contact-actions a{
-  text-decoration:none;
-  font-size:10px;
-  font-weight:800;
-  padding:9px 10px;
-  border-radius:10px;
-  white-space:nowrap;
-}
-
-.contact-call{
-  background:#e8f6ef;
-  color:#087b56;
-}
-
-.contact-wa,
-.contact-whatsapp{
-  background:#e7f7f0;
-  color:#087b56;
-}
-
-/* Documents inside information */
-.sheet-document{
-  width:100%;
-  border:0;
-  border-radius:16px;
-  overflow:hidden;
-  background:#e8eff1;
-  margin-top:8px;
-}
-
-.sheet-document iframe{
-  display:block;
-  width:100%;
-  height:62vh;
-  border:0;
-  background:white;
-}
-
-.sheet-open-link,
-.sheet-action{
-  display:inline-flex;
-  margin-top:12px;
-  text-decoration:none;
-  background:#0a5064;
-  color:#fff;
-  padding:11px 15px;
-  border-radius:12px;
-  font-size:11px;
-  font-weight:800;
-}
-
-.mobile-hint{
-  padding:11px 13px;
-  border-radius:13px;
-  background:#eef8f5;
-  border:1px solid #d3ece3;
-  color:#4d686f;
-  font-size:10px;
-  line-height:1.5;
-}
-
-/* Tablets and small laptops */
-@media (max-width:850px){
-  .access{
-    grid-template-columns:1fr;
-    padding:30px;
-  }
-
-  .menu-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .subhead{
-    grid-template-columns:auto 1fr;
-  }
-
-  .subhead .primary{
-    grid-column:2;
-  }
-
-  .guide-grid,
-  .info-grid{
-    grid-template-columns:1fr;
-  }
-
-  .period-grid{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
-/* Phones */
-@media (max-width:600px){
-  html{
-    font-size:16px;
-  }
-
-  body{
-    overflow-x:hidden;
-  }
-
-  .topbar{
-    position:sticky;
-    top:0;
-    z-index:50;
-    height:68px;
-    padding:8px 14px;
-  }
-
-  .container{
-    width:calc(100% - 24px);
-    max-width:none;
-    margin:16px auto 34px;
-  }
-
-  .brand{
-    gap:9px;
-    min-width:0;
-  }
-
-  .brand img{
-    width:44px;
-    height:44px;
-    flex:0 0 44px;
-  }
-
-  .brand strong{
-    font-size:11px;
-    line-height:1.15;
-  }
-
-  .brand span{
-    font-size:9px;
-    line-height:1.2;
-  }
-
-  .confidential{
-    display:none;
-  }
-
-  /* Login */
-  .access{
-    padding:22px;
-    border-radius:23px;
-    gap:18px;
-  }
-
-  .access h1{
-    font-size:clamp(37px,11vw,46px);
-    letter-spacing:-2px;
-    line-height:.98;
-  }
-
-  .access-copy p{
-    font-size:13px;
-    line-height:1.6;
-  }
-
-  .chips{
-    gap:6px;
-    margin-top:18px;
-  }
-
-  .chips span{
-    padding:7px 9px;
-    font-size:10px;
-  }
-
-  .login-card{
-    padding:22px;
-    border-radius:20px;
-  }
-
-  .login-card h2{
-    font-size:24px;
-  }
-
-  .login-card p{
-    font-size:12px;
-    line-height:1.5;
-  }
-
-  .login-row{
-    flex-direction:column;
-    gap:9px;
-  }
-
-  .login-row input,
-  .login-row button{
-    width:100%;
-    min-height:50px;
-    font-size:15px;
-  }
-
-  .message{
-    font-size:11px;
-    line-height:1.4;
-  }
-
-  /* Employee profile */
-  .profile{
-    padding:10px 11px;
-    border-radius:17px;
-    margin-bottom:24px;
-    gap:9px;
-  }
-
-  .profile-main{
-    min-width:0;
-    gap:9px;
-  }
-
-  .profile-main h2{
-    font-size:14px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    max-width:55vw;
-  }
-
-  .profile-main small{
-    font-size:9px;
-  }
-
-  .profile .secondary{
-    padding:9px 10px;
-    font-size:10px;
-    white-space:nowrap;
-  }
-
-  .avatar{
-    width:46px;
-    height:46px;
-    flex:0 0 46px;
-    border-radius:14px;
-  }
-
-  /* Welcome */
-  .welcome{
-    margin-bottom:16px;
-  }
-
-  .welcome h1{
-    font-size:clamp(28px,8vw,34px);
-    letter-spacing:-1.2px;
-    line-height:1.02;
-  }
-
-  .welcome p,
-  .subhead p{
-    font-size:11px;
-    line-height:1.5;
-  }
-
-  /* Main menu */
-  .menu-grid{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  .menu-card{
-    min-height:96px;
-    padding:14px;
-    grid-template-columns:47px minmax(0,1fr) 27px;
-    gap:11px;
-    border-radius:17px;
-  }
-
-  .menu-card>span{
-    width:47px;
-    height:47px;
-    border-radius:14px;
-    font-size:20px;
-  }
-
-  .menu-card strong{
-    font-size:14px;
-    line-height:1.2;
-  }
-
-  .menu-card small{
-    font-size:10px;
-    line-height:1.4;
-    margin-top:4px;
-  }
-
-  .menu-card b{
-    width:27px;
-    height:27px;
-  }
-
-  /* Periods */
-  .period-grid{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  .period-card{
-    min-height:82px;
-    padding:14px;
-    gap:13px;
-    border-radius:17px;
-  }
-
-  .period-card>span{
-    width:48px;
-    height:48px;
-    flex:0 0 48px;
-    border-radius:14px;
-  }
-
-  .period-card strong{
-    font-size:15px;
-  }
-
-  .period-card small{
-    font-size:10px;
-    line-height:1.35;
-  }
-
-  /* Section headers */
-  .subhead{
-    grid-template-columns:1fr;
-    gap:9px;
-    margin-bottom:17px;
-  }
-
-  .subhead .back,
-  .subhead .primary{
-    grid-column:auto;
-    justify-self:start;
-  }
-
-  .subhead h2{
-    font-size:27px;
-    letter-spacing:-1px;
-    line-height:1.05;
-  }
-
-  .subhead .back,
-  .subhead .primary{
-    min-height:42px;
-    padding:10px 13px;
-    font-size:11px;
-  }
-
-  /* PDF viewer */
-  .pdf-viewer{
-    min-height:calc(100vh - 185px);
-    padding:7px;
-    border-radius:14px;
-    -webkit-overflow-scrolling:touch;
-  }
-
-  .pdf-viewer canvas{
-    width:100%;
-    height:auto;
-  }
-
-  .viewer-message,
-  .empty{
-    font-size:11px;
-    line-height:1.5;
-    padding:50px 15px;
-  }
-
-  /* Carnet */
-  .id-wrap{
-    width:100%;
-  }
-
-  .id-card{
-    width:100%;
-    border-radius:21px;
-  }
-
-  .id-body{
-    grid-template-columns:1fr;
-    padding:20px;
-    gap:17px;
-  }
-
-  .photo-box{
-    width:118px;
-    height:145px;
-    margin:0 auto;
-  }
-
-  .carnet-datos h3{
-    font-size:20px;
-    line-height:1.15;
-    margin:5px 0 18px;
-  }
-
-  .two{
-    grid-template-columns:1fr;
-    gap:13px;
-    margin-bottom:16px;
-  }
-
-  .label{
-    font-size:8px;
-  }
-
-  .carnet-datos strong{
-    font-size:12px;
-  }
-
-  /* Documents */
-  .section-title{
-    font-size:14px;
-    margin:13px 0 9px;
-  }
-
-  .section-title.spaced{
-    margin-top:24px;
-  }
-
-  .doc-card{
-    padding:11px;
-    gap:10px;
-    border-radius:15px;
-  }
-
-  .doc-card>span{
-    width:40px;
-    height:40px;
-    flex:0 0 40px;
-    border-radius:12px;
-    font-size:18px;
-  }
-
-  .doc-card strong{
-    font-size:12px;
-    line-height:1.25;
-  }
-
-  .doc-card small{
-    font-size:9px;
-    line-height:1.35;
-  }
-
-  .doc-card .outline,
-  .doc-card .link{
-    min-height:38px;
-    padding:9px 10px;
-    font-size:10px;
-  }
-
-  /* Guides / information */
-  .guide-grid,
-  .info-grid{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  .guide,
-  .info-panel{
-    padding:15px;
-    border-radius:16px;
-  }
-
-  .guide h3,
-  .info-panel h3{
-    font-size:15px;
-  }
-
-  .guide ol{
-    font-size:10px;
-    line-height:1.6;
-  }
-
-  .info-panel p{
-    font-size:10px;
-    line-height:1.5;
-    min-height:auto;
-  }
-
-  .more{
-    min-height:40px;
-    padding:9px 11px;
-    font-size:10px;
-  }
-
-  /* Bottom sheet */
-  .sheet-overlay{
-    align-items:flex-end;
-  }
-
-  .info-sheet{
-    width:100%;
-    max-height:91vh;
-    border-radius:25px 25px 0 0;
-  }
-
-  .sheet-head{
-    padding:9px 15px 11px;
-  }
-
-  .sheet-content{
-    max-height:calc(91vh - 88px);
-    padding:15px 16px 25px;
-  }
-
-  .sheet-title{
-    font-size:20px;
-    line-height:1.1;
-  }
-
-  .sheet-content h4{
-    font-size:14px;
-  }
-
-  .sheet-content p,
-  .sheet-content li{
-    font-size:11px;
-    line-height:1.65;
-  }
-
-  .sheet-content ul,
-  .sheet-content ol{
-    padding-left:19px;
-  }
-
-  .sheet-document iframe{
-    height:65vh;
-  }
-
-  /* Contacts */
-  .contact-card{
-    align-items:flex-start;
-    padding:12px;
-    gap:9px;
-  }
-
-  .contact-avatar{
-    width:40px;
-    height:40px;
-    flex-basis:40px;
-    border-radius:12px;
-    font-size:18px;
-  }
-
-  .contact-main strong{
-    font-size:11px;
-    line-height:1.25;
-  }
-
-  .contact-main small{
-    font-size:9px;
-    line-height:1.35;
-  }
-
-  .contact-actions{
-    flex-direction:column;
-    gap:5px;
-  }
-
-  .contact-actions a{
-    min-width:68px;
-    text-align:center;
-    padding:9px 7px;
-    font-size:9px;
-  }
-
-  footer{
-    font-size:8px;
-    padding:0 12px 20px;
-  }
-}
-
-/* Very small phones */
-@media (max-width:360px){
-  .container{
-    width:calc(100% - 18px);
-  }
-
-  .topbar{
-    padding-left:10px;
-    padding-right:10px;
-  }
-
-  .brand strong{
-    font-size:10px;
-  }
-
-  .brand span{
-    font-size:8px;
-  }
-
-  .access{
-    padding:18px;
-  }
-
-  .access h1{
-    font-size:35px;
-  }
-
-  .login-card{
-    padding:18px;
-  }
-
-  .menu-card{
-    min-height:92px;
-    padding:12px;
-    grid-template-columns:43px minmax(0,1fr) 25px;
-  }
-
-  .menu-card>span{
-    width:43px;
-    height:43px;
-  }
-
-  .profile-main h2{
-    max-width:48vw;
-    font-size:13px;
-  }
-
-  .profile .secondary{
-    padding:8px 8px;
-    font-size:9px;
-  }
-
-  .subhead h2{
-    font-size:25px;
-  }
-}
-
-/* Landscape phones */
-@media (max-height:500px) and (max-width:850px){
-  .topbar{
-    position:relative;
-  }
-
-  .info-sheet{
-    max-height:96vh;
-  }
-
-  .sheet-content{
-    max-height:calc(96vh - 88px);
-  }
-
-  .pdf-viewer{
-    min-height:420px;
-  }
-}
-
-/* Accessibility / reduced motion */
-@media (prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
-    scroll-behavior:auto!important;
-  }
-}
-
-
-/* ===== ORIGINAL INLINE CSS ===== */
-
-/* Mejoras de inicio y navegación móvil - Cayo Blanco */
-.portal-mobile-v2 .welcome-title{letter-spacing:-.035em}
-.portal-mobile-v2 .welcome-subtitle{max-width:620px}
-.portal-mobile-v2 .menu-grid{gap:14px}
-.portal-mobile-v2 .menu-list{
-  position:relative; overflow:hidden; transform:translateZ(0);
-  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-  -webkit-tap-highlight-color:transparent;
-}
-.portal-mobile-v2 .menu-card::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.20),transparent 65%);
-  transform:translateX(-120%); transition:transform .55s ease;
-}
-.portal-mobile-v2 .menu-card:hover{transform:translateY(-3px)}
-.portal-mobile-v2 .menu-card:hover::after{transform:translateX(120%)}
-.portal-mobile-v2 .menu-card:active{transform:scale(.985)}
-.portal-mobile-v2 .menu-card > span{
-  transition:transform .22s ease;
-}
-.portal-mobile-v2 .menu-card:hover > span{transform:scale(1.08)}
-.portal-mobile-v2 .portal-greeting{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  margin:0 0 18px; padding:16px 18px; border-radius:20px;
-  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(246,250,247,.96));
-  border:1px solid rgba(26,92,58,.10);
-  box-shadow:0 10px 30px rgba(16,52,34,.07);
-}
-.portal-mobile-v2 .portal-greeting-main{min-width:0}
-.portal-mobile-v2 .portal-greeting-kicker{
-  display:block; margin-bottom:4px; font-size:.72rem; font-weight:800;
-  letter-spacing:.11em; color:#62806f; text-transform:uppercase;
-}
-.portal-mobile-v2 .portal-greeting h2{
-  margin:0; font-size:clamp(1.2rem,4.8vw,1.65rem); line-height:1.15;
-}
-.portal-mobile-v2 .portal-greeting p{
-  margin:6px 0 0; color:#66746d; font-size:.9rem;
-}
-.portal-mobile-v2 .portal-badge{
-  flex:0 0 auto; width:48px; height:48px; display:grid; place-items:center;
-  border-radius:15px; background:#eef7f1; font-size:1.35rem;
-}
-@media (max-width:700px){
-  .portal-mobile-v2 .profile{position:relative}
-  .portal-mobile-v2 .welcome{margin-top:10px}
-  .portal-mobile-v2 .welcome-title{font-size:clamp(1.65rem,7.2vw,2.2rem)}
-
-  .portal-mobile-v2 .menu-grid{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    gap:12px !important;
-    width:100% !important;
-  }
-
-  .portal-mobile-v2 .menu-card{
-    position:relative !important;
-    width:100% !important;
-    min-width:0 !important;
-    min-height:94px !important;
-    padding:14px !important;
-    display:grid !important;
-    grid-template-columns:52px minmax(0,1fr) 30px !important;
-    align-items:center !important;
-    gap:13px !important;
-    border-radius:19px !important;
-    box-sizing:border-box !important;
-  }
-
-  .portal-mobile-v2 .menu-card > span{
-    width:52px !important;
-    height:52px !important;
-    display:grid !important;
-    place-items:center !important;
-    border-radius:16px !important;
-    font-size:21px !important;
-  }
-
-  .portal-mobile-v2 .menu-card > div{
-    width:auto !important;
-    min-width:0 !important;
-    align-self:center !important;
-  }
-
-  .portal-mobile-v2 .menu-card strong{
-    display:block !important;
-    font-size:16px !important;
-    line-height:1.15 !important;
-  }
-
-  .portal-mobile-v2 .menu-card small{
-    display:block !important;
-    margin-top:5px !important;
-    font-size:11px !important;
-    line-height:1.4 !important;
-  }
-
-  .portal-mobile-v2 .menu-card > b{
-    position:static !important;
-    width:30px !important;
-    height:30px !important;
-    display:grid !important;
-    place-items:center !important;
-    justify-self:end !important;
-    border-radius:50% !important;
-    font-size:1rem !important;
-    opacity:.65 !important;
-  }
-
-  .portal-mobile-v2 .menu-card:nth-child(1){
-    background:linear-gradient(135deg,#effaf5,#fff) !important;
-    border-color:#cdeee0 !important;
-  }
-  .portal-mobile-v2 .menu-card:nth-child(1)>span{background:#dff5eb !important}
-  .portal-mobile-v2 .menu-card:nth-child(1) strong{color:#087b56 !important}
-
-  .portal-mobile-v2 .menu-card:nth-child(2){
-    background:linear-gradient(135deg,#eef6ff,#fff) !important;
-    border-color:#cfe1f8 !important;
-  }
-  .portal-mobile-v2 .menu-card:nth-child(2)>span{background:#e1edff !important}
-  .portal-mobile-v2 .menu-card:nth-child(2) strong{color:#1768b2 !important}
-
-  .portal-mobile-v2 .menu-card:nth-child(3){
-    background:linear-gradient(135deg,#fff7ed,#fff) !important;
-    border-color:#f5dfc4 !important;
-  }
-  .portal-mobile-v2 .menu-card:nth-child(3)>span{background:#ffecd7 !important}
-  .portal-mobile-v2 .menu-card:nth-child(3) strong{color:#c86a08 !important}
-
-  .portal-mobile-v2 .menu-card:nth-child(4){
-    background:linear-gradient(135deg,#f7f0ff,#fff) !important;
-    border-color:#e3d5f7 !important;
-  }
-  .portal-mobile-v2 .menu-card:nth-child(4)>span{background:#eee2ff !important}
-  .portal-mobile-v2 .menu-card:nth-child(4) strong{color:#7350b5 !important}
-
-  .portal-mobile-v2 .menu-card:nth-child(5){
-    background:linear-gradient(135deg,#edfbfa,#fff) !important;
-    border-color:#ccebe8 !important;
-  }
-  .portal-mobile-v2 .menu-card:nth-child(5)>span{background:#dff4f2 !important}
-  .portal-mobile-v2 .menu-card:nth-child(5) strong{color:#087e82 !important}
-
-  .portal-mobile-v2 .menu-card:nth-child(6){
-    background:linear-gradient(135deg,#fff1f4,#fff) !important;
-    border-color:#f4d3db !important;
-  }
-  .portal-mobile-v2 .menu-card:nth-child(6)>span{background:#ffe2e8 !important}
-  .portal-mobile-v2 .menu-card:nth-child(6) strong{color:#d83f63 !important}
-
-  .portal-mobile-v2 .portal-greeting{
-    padding:14px 15px;
-    border-radius:17px;
-  }
-  .portal-mobile-v2 .portal-greeting p{font-size:.82rem}
-}
-
-/* Prevent mobile browser auto-zoom when focusing form fields */
-@media (max-width:700px){
-  .portal-mobile-v2 input,
-  .portal-mobile-v2 select,
-  .portal-mobile-v2 textarea{
-    font-size:16px !important;
-    -webkit-text-size-adjust:100%;
-  }
-
-  .portal-mobile-v2 .login-row input{
-    font-size:16px !important;
-    min-height:50px;
-  }
-}
-
-@media (max-width:390px){
-  .portal-mobile-v2 .menu-grid{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    gap:10px !important;
-  }
-
-  .portal-mobile-v2 .menu-card{
-    min-height:88px !important;
-    grid-template-columns:46px minmax(0,1fr) 27px !important;
-    gap:11px !important;
-    padding:12px !important;
-  }
-
-  .portal-mobile-v2 .menu-card > span{
-    width:46px !important;
-    height:46px !important;
-    font-size:19px !important;
-  }
-
-  .portal-mobile-v2 .menu-card strong{font-size:15px !important}
-  .portal-mobile-v2 .menu-card small{font-size:10px !important}
-  .portal-mobile-v2 .menu-card > b{
-    width:27px !important;
-    height:27px !important;
-  }
-}
-@media (prefers-reduced-motion:reduce){
-  .portal-mobile-v2 .menu-card,
-  .portal-mobile-v2 .menu-card::after,
-  .portal-mobile-v2 .menu-card > span{transition:none}
-}
-/* Cumpleañeros del mes */
-.portal-mobile-v2 .birthday-card{background:linear-gradient(135deg,#fff5e9,#fff)!important;border-color:#f2d5b2!important}
-.portal-mobile-v2 .birthday-card>span{background:#ffe8c9!important}.portal-mobile-v2 .birthday-card strong{color:#c96b10!important}
-.birthday-panel{max-width:760px;margin:0 auto}.birthday-list{display:grid;gap:10px}
-.birthday-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border:1px solid #eadfd3;border-radius:16px;box-shadow:0 6px 18px rgba(70,45,20,.06)}
-.birthday-day{flex:0 0 52px;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:#fff0dd;color:#c96b10;font-size:18px;font-weight:800}
-.birthday-item div{min-width:0;flex:1}.birthday-item strong{display:block;font-size:16px}.birthday-item small{display:block;margin-top:4px;color:#7b7771;font-size:12px}
-.birthday-item>span:last-child{font-size:20px}.birthday-empty{padding:24px;text-align:center;background:#fff;border:1px dashed #dfd4c7;border-radius:16px;color:#756f67}
-.birthday-message{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#fff8ef,#fff);border:1px solid #f0ddc6}
-.birthday-message>span{font-size:25px}.birthday-message strong{font-size:16px;color:#a85b0c}.birthday-message p{margin:5px 0 0;color:#6e6962;line-height:1.5;font-size:13px}
-@media(max-width:700px){.birthday-panel{width:100%}.birthday-item{padding:12px}.birthday-day{flex-basis:46px;width:46px;height:46px}}
-
-
-/* ===== VISUAL REVAMP 2026 · Cayo Blanco Employee Portal ===== */
-:root{
-  --navy:#123e50;--navy2:#082e3d;--green:#0c9b70;--mint:#e9f7f1;
-  --bg:#f3f7f8;--line:#dce7ea;--muted:#637982;--shadow:0 14px 36px rgba(8,46,61,.08);
-}
-html{scroll-padding-top:90px}
-body{background:#f4f7f9;background-image:radial-gradient(circle at 5% 0%,#dff2eb 0,transparent 24%),radial-gradient(circle at 100% 8%,#e1edf5 0,transparent 24%);color:#173f50}
-.topbar{height:76px;background:linear-gradient(120deg,#082e3d,#0d5264 70%,#0a6c68);padding-inline:clamp(16px,4vw,64px);box-shadow:0 5px 22px #062d3b24}
-.brand img{border-radius:13px;width:48px;height:48px;box-shadow:0 4px 14px #001b2525}
-.brand strong{letter-spacing:.5px;font-size:13px}.brand span{color:#d0e6e8;font-size:11px}
-.confidential{border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;background:#ffffff0d}
-.container{width:min(1180px,calc(100% - 48px));margin:34px auto 60px}
-.access{grid-template-columns:minmax(0,1.1fr) minmax(340px,.82fr);gap:clamp(24px,4vw,52px);padding:clamp(28px,4vw,54px);border-radius:30px;background:linear-gradient(130deg,#e8f4f0,#f8fbfc 62%,#edf5f8);border:1px solid #d5e4e7;box-shadow:0 20px 55px #123e5010}
-.access-copy{align-self:center}.access h1{font-size:clamp(38px,4.6vw,60px);letter-spacing:-2.5px;line-height:1.03}
-.access h1 em{color:#0b9b70}.eyebrow{letter-spacing:1.5px;font-size:10px}
-.access-copy p{font-size:14px;max-width:520px;line-height:1.75;color:#637780}
-.chips span{padding:9px 13px;background:#ffffffc9;border:1px solid #d8e7e5;font-weight:650;color:#45616c}
-.login-card{border-radius:25px;padding:clamp(22px,3vw,32px);box-shadow:0 18px 44px #123e5012;border:1px solid #e0eaed}
-.login-card h2{letter-spacing:-.7px;font-size:27px}.login-card p{line-height:1.6}
-.login-row input{background:#f8fbfc;border-radius:13px;min-height:48px;padding-inline:14px}
-.login-row button,.primary,.outline,.secondary,.back,.more,.sheet-action,.sheet-open-link{border-radius:12px;font-weight:750}
-.login-row button,.primary{background:linear-gradient(135deg,#0b9870,#0d7c76);box-shadow:0 8px 18px #0a8d6c28}
-button{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
-button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #46b99c;outline-offset:3px}
-button:hover:not(:disabled){filter:brightness(1.03)}
-.menu-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.menu-card{min-height:124px;padding:20px;grid-template-columns:58px minmax(0,1fr) 32px;border-radius:21px;border:1px solid #dbe7eb;background:#fff;box-shadow:0 6px 18px #103c4c08}
-.menu-card>span{width:58px;height:58px;border-radius:18px;font-size:23px}
-.menu-card strong{font-size:15px;color:#153f50;letter-spacing:-.15px}
-.menu-card small{font-size:11px;line-height:1.5;color:#6b7e86;margin-top:6px}
-.menu-card>b{width:32px;height:32px;background:#f1f6f7;border-radius:50%;color:#53717b}
-.menu-card:hover{transform:translateY(-4px);box-shadow:0 15px 30px #123e5012;border-color:#bcdad4}
-.welcome{margin:32px 0 20px}.welcome-title{font-size:clamp(30px,3vw,40px);letter-spacing:-1.5px}
-.profile{border:1px solid #dbe7ea;border-radius:20px;background:#ffffffdb;box-shadow:0 8px 20px #0b344208}
-.profile-main h2{letter-spacing:-.3px}
-.subhead{margin-bottom:26px;gap:16px}
-.subhead h2{font-size:clamp(25px,3vw,34px);letter-spacing:-1px}
-.back{background:#fff;border:1px solid #d7e4e8;box-shadow:0 3px 10px #0c344408}
-.period-grid{gap:16px}.period-card{border:1px solid #dce7ea;background:white;border-radius:21px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
-.period-card:hover{transform:translateY(-3px);box-shadow:0 16px 35px #123e5012}
-.pdf-viewer{border:1px solid #dce7ea;border-radius:20px;background:#edf3f5;padding:14px}
-.cards-list{gap:13px}.doc-card{border-radius:18px;border:1px solid #dce7ea;box-shadow:0 5px 16px #0d354608}
-.guide,.info-panel{border:1px solid #dce7ea;box-shadow:0 5px 18px #0d354608;border-radius:20px}
-.section-title{font-size:15px;letter-spacing:-.2px}
-footer{color:#758890}
-@media(max-width:1000px){.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.access{grid-template-columns:1fr minmax(300px,.85fr)}}
-@media(max-width:700px){
- .container{width:calc(100% - 24px);margin:18px auto 34px}
- .topbar{height:66px;padding:8px 14px}
- .brand img{width:44px;height:44px}
- .brand strong{font-size:10.5px}.brand span{font-size:9px}
- .access{grid-template-columns:1fr;padding:22px;border-radius:24px;gap:20px}
- .access h1{font-size:clamp(36px,10vw,44px);letter-spacing:-1.8px}
- .access-copy p{font-size:12px}
- .login-card{padding:21px;border-radius:20px}
- .login-card h2{font-size:24px}
- .menu-grid{grid-template-columns:1fr;gap:11px}
- .menu-card{min-height:92px;padding:14px;border-radius:18px;grid-template-columns:48px minmax(0,1fr) 28px;gap:12px}
- .menu-card>span{width:48px;height:48px;border-radius:15px;font-size:20px}
- .menu-card strong{font-size:14px}.menu-card small{font-size:10px}
- .welcome{margin:24px 0 15px}.welcome-title{font-size:30px}
- .profile{border-radius:16px}
- .subhead h2{font-size:26px}
- .pdf-viewer{padding:6px;border-radius:14px}
-}
-@media(max-width:380px){.container{width:calc(100% - 18px)}.access{padding:17px}.menu-card{padding:12px;grid-template-columns:44px minmax(0,1fr) 26px;gap:10px}.menu-card>span{width:44px;height:44px}}
-@media(prefers-reduced-motion:reduce){button,.menu-card,.period-card{transition:none!important}}
-
+@media(max-height:500px) and (max-width:900px){.topbar{position:relative}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+
+<!-- Íconos (no mostrar) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/></symbol>
+<symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.6-1.6 5.4-1.6 6 0M14 10h4M14 14h3"/></symbol>
+<symbol id="i-docs" viewBox="0 0 24 24"><path d="M5 4h10a3 3 0 013 3v13H8a3 3 0 01-3-3V4z"/><path d="M8 20a3 3 0 01-3-3M9 8h6M9 12h6"/></symbol>
+<symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 11v3a1 1 0 001 1h2l7 4V6L6 10H4a1 1 0 00-1 1z"/><path d="M17 9a4 4 0 010 6"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+<symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 20h16M5 20v-6a2 2 0 012-2h10a2 2 0 012 2v6M12 12V9M12 5.5v.5M8 12v-1.5M16 12v-1.5"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+</defs></svg>
+
 <header class="topbar">
   <div class="brand"><img src="logo-cayo-blanco.png" alt="Agroindustrias Cayo Blanco"><div><strong>AGROINDUSTRIAS CAYO BLANCO</strong><span>Portal de Empleados</span></div></div>
   <span class="confidential">Versión 1</span>
@@ -1214,13 +268,13 @@ footer{color:#758890}
       <span class="eyebrow">RECURSOS HUMANOS</span>
       <h1>Bienvenido, tu información laboral,<br><em>en un solo lugar.</em></h1>
       <p>Consulta tus recibos de pago, carné, documentos, comunicados y la información que Recursos Humanos ha preparado para ti.</p>
-      <div class="chips"><span>🔐Seguro</span><span>⚡Rápido</span><span> 📱Fácil </span></div>
+      <div class="chips"><span><svg class="i"><use href="#i-lock"/></svg>Seguro</span><span><svg class="i"><use href="#i-bolt"/></svg>Rápido</span><span><svg class="i"><use href="#i-phone"/></svg>Fácil</span></div>
     </div>
     <div class="login-card">
-      <div class="login-icon">👤</div><span class="eyebrow">ACCESO PERSONAL</span>
+      <div class="login-icon"><svg class="i"><use href="#i-user"/></svg></div><span class="eyebrow">ACCESO PERSONAL</span>
       <h2>Ingresa a tu portal</h2><p>Escribe tu código de empleado para continuar.</p>
       <label for="codigo">Código de empleado</label>
-      <div class="login-row"><input id="codigo" autocomplete="off" placeholder="Ejemplo: CBEP0000"><button id="buscar">Continuar</button></div>
+      <div class="login-row"><input id="codigo" autocomplete="off" autocapitalize="characters" placeholder="Ejemplo: CBEP0000"><button id="buscar">Continuar</button></div>
       <div id="mensajeAcceso" class="message"></div>
     </div>
   </div>
@@ -1235,29 +289,20 @@ footer{color:#758890}
     <button id="cerrarSesion" class="secondary">Salir</button>
   </div>
 
-  <div class="portal-greeting">
-    <div class="portal-greeting-main">
-      <span class="portal-greeting-kicker">Tu espacio de Recursos Humanos</span>
-      <h2>¿Qué necesitas consultar hoy?</h2>
-      <p>Accede rápidamente a tu información laboral.</p>
-    </div>
-    <div class="portal-badge" aria-hidden="true">🔎️</div>
-  </div>
-
   <div class="welcome">
     <span class="eyebrow">MENÚ PRINCIPAL</span>
-    <h1 class="welcome-title">Todo en un solo lugar</h1>
+    <h1 class="welcome-title">¿Qué necesitas consultar hoy?</h1>
     <p class="welcome-subtitle">Consulta tus pagos, documentos, procedimientos e información importante.</p>
   </div>
 
   <div class="menu-grid">
-    <button class="menu-card green" id="btnRecibos"><span>🧾</span><div><strong>Mis recibos</strong><small>Consulta tus recibos de pago por quincena</small></div><b>→</b></button>
-    <button class="menu-card blue" id="btnCarnet"><span>🪪</span><div><strong>Mi carné</strong><small>Consulta tu identificación de empleado</small></div><b>→</b></button>
-    <button class="menu-card purple" data-screen="pantallaDocumentos"><span>📚</span><div><strong>Documentos</strong><small>Reglamento, Código de Trabajo y documentos personales</small></div><b>→</b></button>
-    <button class="menu-card orange" data-screen="pantallaComunicados"><span>📢</span><div><strong>Comunicados</strong><small>Avisos e información publicada por RRHH</small></div><b>→</b></button>
-    <button class="menu-card teal" data-screen="pantallaProcedimientos"><span>📋</span><div><strong>Procedimientos</strong><small>Guías sencillas para realizar tus procesos</small></div><b>→</b></button>
-    <button class="menu-card navy" data-screen="pantallaInformacion"><span>ℹ️</span><div><strong>Información para empleados</strong><small>RAP, IHSS y contactos de RRHH</small></div><b>→</b></button>
-    <button class="menu-card birthday-card" data-screen="pantallaCumpleaneros"><span>🎂</span><div><strong>Cumpleañeros del mes</strong><small>Celebramos a nuestros compañeros este mes</small></div><b>→</b></button>
+    <button class="menu-card green" id="btnRecibos"><span><svg class="i"><use href="#i-receipt"/></svg></span><div><strong>Mis recibos</strong><small>Consulta tus recibos de pago por quincena</small></div><b>→</b></button>
+    <button class="menu-card blue" id="btnCarnet"><span><svg class="i"><use href="#i-id"/></svg></span><div><strong>Mi carné</strong><small>Consulta tu identificación de empleado</small></div><b>→</b></button>
+    <button class="menu-card purple" data-screen="pantallaDocumentos"><span><svg class="i"><use href="#i-docs"/></svg></span><div><strong>Documentos</strong><small>Reglamento, Código de Trabajo y documentos personales</small></div><b>→</b></button>
+    <button class="menu-card orange" data-screen="pantallaComunicados"><span><svg class="i"><use href="#i-mega"/></svg></span><div><strong>Comunicados</strong><small>Avisos e información publicada por RRHH</small></div><b>→</b></button>
+    <button class="menu-card teal" data-screen="pantallaProcedimientos"><span><svg class="i"><use href="#i-list"/></svg></span><div><strong>Procedimientos</strong><small>Guías sencillas para realizar tus procesos</small></div><b>→</b></button>
+    <button class="menu-card navy" data-screen="pantallaInformacion"><span><svg class="i"><use href="#i-info"/></svg></span><div><strong>Información para empleados</strong><small>RAP, IHSS y contactos de RRHH</small></div><b>→</b></button>
+    <button class="menu-card birthday-card" data-screen="pantallaCumpleaneros"><span><svg class="i"><use href="#i-cake"/></svg></span><div><strong>Cumpleañeros del mes</strong><small>Celebramos a nuestros compañeros este mes</small></div><b>→</b></button>
   </div>
 </section>
 
@@ -1278,9 +323,9 @@ footer{color:#758890}
 
 <section id="pantallaDocumentos" class="screen">
   <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">DOCUMENTOS</span><h2>Documentos laborales</h2><p>Consulta documentos generales y documentos publicados para tu código.</p></div></div>
-  <div class="section-title">📘 Documentos generales</div>
+  <div class="section-title">Documentos generales</div>
   <div id="listaDocumentosGenerales" class="cards-list"><div class="empty">🔄 Cargando documentos generales...</div></div>
-  <div class="section-title spaced">📁 Mis documentos</div>
+  <div class="section-title spaced">Mis documentos</div>
   <div id="listaDocumentos" class="cards-list"><div class="empty">Los documentos asociados a tu código aparecerán aquí.</div></div>
 </section>
 
@@ -1331,7 +376,7 @@ footer{color:#758890}
 </section>
 
 <section id="pantallaCumpleaneros" class="screen">
-  <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">RECURSOS HUMANOS</span><h2>🎂 Cumpleañeros del mes</h2><p>Celebramos a nuestros compañeros que cumplen años este mes.</p></div></div>
+  <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">RECURSOS HUMANOS</span><h2>Cumpleañeros del mes</h2><p>Celebramos a nuestros compañeros que cumplen años este mes.</p></div></div>
   <div class="birthday-panel"><div class="birthday-list" id="listaCumpleaneros"></div>
     <div class="birthday-message"><span>🎉</span><div><strong>¡Feliz cumpleaños!</strong><p>De parte de Agroindustrias Cayo Blanco, les deseamos mucha salud, alegría y éxitos. ¡Que disfruten mucho su día!</p></div></div>
   </div>
@@ -1350,579 +395,7 @@ footer{color:#758890}
 <div id="sheetOverlay" class="sheet-overlay" aria-hidden="true"><div class="info-sheet" role="dialog" aria-modal="true"><div class="sheet-handle"></div><div class="sheet-head"><div id="sheetTitleWrap"></div><button id="sheetClose" class="sheet-close" aria-label="Cerrar">×</button></div><div id="sheetContent" class="sheet-content"></div></div></div>
 
 <footer>Agroindustrias Cayo Blanco · RRHH · COA SYSTEMS · Versión 1</footer>
-<script>
-/* CUMPLEAÑEROS — EDITA SOLO ESTA LISTA CADA MES. */
-const CUMPLEANEROS = {
-  enero: [], febrero: [], marzo: [], abril: [], mayo: [], junio: [],
-  julio: [], agosto: [{ nombre: "Rosy Margarita Moreno", dia: 1 },
-  { nombre: "Yoselin Alexandra Moreno Lopez", dia: 1 },
-  { nombre: "Kleimer Donaldo Romero Castro", dia: 2 },
-  { nombre: "Mirian Suyapa Talavera Varela", dia: 5 },
-  { nombre: "Eduar David Paguada Erazo", dia: 5 },
-  { nombre: "Jose Daniel Breve Gonzales", dia: 7 },
-  { nombre: "Mayda Yanely Palma Solorzano", dia: 8 },
-  { nombre: "Denis Josue Ponce Mejia", dia: 8 },
-  { nombre: "Jorge Ivan Urbina Matute", dia: 9 },
-  { nombre: "Ever Guillermo Enrique Garcia Rivera", dia: 10 },
-  { nombre: "Jose Ceferino Rodriguez Tercero", dia: 10 },
-  { nombre: "Andres Alfaro Flores Martinez", dia: 10 },
-  { nombre: "Milagro Lili Euceda Corea", dia: 10 },
-  { nombre: "Larissa Carolina Zelaya Lobo", dia: 10 },
-  { nombre: "Edwin Adalberto Mendez Solorzano", dia: 11 },
-  { nombre: "Milda Susana Ortiz Alonzo", dia: 11 },
-  { nombre: "Wuilberto Mendoza Sandoval", dia: 13 },
-  { nombre: "Carlos Adonay Hernandez Hernandez", dia: 13 },
-  { nombre: "Luis Fernando Mendoza Banegas", dia: 14 },
-  { nombre: "Kelin Jissela Flores Ordoñez", dia: 14 },
-  { nombre: "Yohana Banessa Sabonge Figueroa", dia: 14 },
-  { nombre: "Josafat Jesurin Hernandez Rojas", dia: 16 },
-  { nombre: "Sulma Yaquelin Herrera Antunez", dia: 16 },
-  { nombre: "Luis Javier Andrade Garcia", dia: 16 },
-  { nombre: "Isael Antonio Casco Menjivar", dia: 17 },
-  { nombre: "Yery Ivan Maradiaga Vargas", dia: 17 },
-  { nombre: "Lixsy Maria Torres Barahona", dia: 18 },
-  { nombre: "Yesli Yolibeth Calderon Benitez", dia: 19 },
-  { nombre: "Eduin Orlando Espinal Herrera", dia: 20 },
-  { nombre: "Merary Sarahi Romero Romero", dia: 20 },
-  { nombre: "Luis Arturo Murillo Fernandez", dia: 20 },
-  { nombre: "Dania Ninoska Mendez Solorzano", dia: 21 },
-  { nombre: "Elkin Ernesto Reyes Castillo", dia: 21 },
-  { nombre: "Nelson Nahun Flores Ortiz", dia: 22 },
-  { nombre: "Daysi Nohemi Carranza Corrales", dia: 22 },
-  { nombre: "Evelin Gerardina Carranza Corrales", dia: 22 },
-  { nombre: "Eymi Yamileth Ramirez Medina", dia: 24 },
-  { nombre: "Mariela de Jesus Garcia Vasquez", dia: 24 },
-  { nombre: "Maria Socorro Lainez", dia: 24 },
-  { nombre: "Dilmer Eduardo Vargas Torres", dia: 25 },
-  { nombre: "Lesbia Roselin Betanco Zambrano", dia: 27 },
-  { nombre: "Justo Nicolas Chacon Martinez", dia: 27 },
-  { nombre: "Yuri Liliana Galeas Rivera", dia: 29 },
-  { nombre: "Irma Yulisa Turcios Castillo", dia: 29 },
-  { nombre: "Victor Manuel Martinez Gaitan", dia: 29 },
-  { nombre: "Gilder Nectaly Herrera Aviles", dia: 29 },
-  { nombre: "Selvin Jaudiel Baca Andrade", dia: 30 }], septiembre: [{ nombre: "Celio Alejandro Rodriguez Espinal", dia: 2 },
-  { nombre: "Walter Pineda Isaguirre", dia: 2 },
-  { nombre: "Elsy Amanda Duarte Hernandez", dia: 3 },
-  { nombre: "Fanny Elizabeth Martinez Murillo", dia: 3 },
-  { nombre: "Miriam Maribel Villeda", dia: 4 },
-  { nombre: "Wilber Leonel Martinez Betanco", dia: 4 },
-  { nombre: "Nixon Johnael Sanchez Rodriguez", dia: 5 },
-  { nombre: "Angel Humberto Turcios Turcios", dia: 6 },
-  { nombre: "Gerardo Enrique Perez Mancebo", dia: 7 },
-  { nombre: "Jose Alexander Mendoza Tercero", dia: 8 },
-  { nombre: "Luis Alberto Torres Rodriguez", dia: 8 },
-  { nombre: "Dayana Michel Molina Agurcia", dia: 9 },
-  { nombre: "Jose Efrain Ortiz", dia: 9 },
-  { nombre: "Jesus Antonio Castillo Palma", dia: 10 },
-  { nombre: "Angela Roxana Torres", dia: 13 },
-  { nombre: "Olga Rosalina Funez Hernandez", dia: 13 },
-  { nombre: "Rafael Antonio Solis Solis", dia: 13 },
-  { nombre: "Emerson Abel Herrera Herrera", dia: 15 },
-  { nombre: "Maria Dilcia Avila Martinez", dia: 17 },
-  { nombre: "Martha Maria Lopez Palma", dia: 18 },
-  { nombre: "Angelica Francisca Erazo Molina", dia: 19 },
-  { nombre: "Carmen Teresa Irias Vargas", dia: 19 },
-  { nombre: "Emir Anael Ilias Rodriguez", dia: 19 },
-  { nombre: "Denixon Yoeni Aviles Rivera", dia: 22 },
-  { nombre: "Carlos Junior Martinez Corrales", dia: 23 },
-  { nombre: "Hayder Samuel Zelaya Lobo", dia: 23 },
-  { nombre: "Cristhyan Adoney Moreno Zambrano", dia: 26 },
-  { nombre: "Francisco Roberto Cruz Garcia", dia: 27 },
-  { nombre: "Ever Noel Sanchez Murillo", dia: 28 }], octubre: [
-  { nombre: "Juan Carlos Galeano Rodriguez", dia: 1 },
-  { nombre: "Nely Yolany Rodriguez Herrrera", dia: 2 },
-  { nombre: "Kerin Alexander Martinez Gomez", dia: 3 },
-  { nombre: "Maria Francisca Ramirez Vasquez", dia: 3 },
-  { nombre: "Oscar Armando Orellana Caceres", dia: 4 },
-  { nombre: "Abi Ernestina Molina Agurcia", dia: 5 },
-  { nombre: "Armando Espinal Gonzalez", dia: 10 },
-  { nombre: "Eli Jacob Calderon Montalvan", dia: 11 },
-  { nombre: "Jarvin Manuel Ponce Almendarez", dia: 11 },
-  { nombre: "Alex David Hernandez Aleman", dia: 13 },
-  { nombre: "Anderson Leandro Turcios Argeñal", dia: 13 },
-  { nombre: "Jose David Figueroa Vasquez", dia: 13 },
-  { nombre: "Delmer Alejandro Hernandez Sanchez", dia: 16 },
-  { nombre: "Jose Luis Matute Valladares", dia: 17 },
-  { nombre: "Yesilin Elizabeth Garcia Giron", dia: 17 },
-  { nombre: "Arnol Javier Cruz Carranza", dia: 18 },
-  { nombre: "Jani Marbeli Ardon Torres", dia: 18 },
-  { nombre: "Mirian Yaneth Garcia Rosa", dia: 18 },
-  { nombre: "Doris Suyapa Matute Lainez", dia: 19 },
-  { nombre: "Luis Alberto Sanchez Irias", dia: 20 },
-  { nombre: "Dunia Lizeth Palma Galindo", dia: 21 },
-  { nombre: "Juan Manuel Benitez Palada", dia: 22 },
-  { nombre: "Yolani Elizabeth Euceda Espinoza", dia: 22 },
-  { nombre: "Cristian Alexander Zelaya Mercado", dia: 22 },
-  { nombre: "Cintia Yulissa Flores Moreno", dia: 23 },
-  { nombre: "Eliezer Martin Navarro Cuellar", dia: 23 },
-  { nombre: "Leonel Alonzo Lobo Ordoñez", dia: 24 },
-  { nombre: "Lilian Karina Gonzales Inestroza", dia: 26 },
-  { nombre: "Abel Antonio Betanco Montoya", dia: 27 },
-  { nombre: "Alicia Zenayra Vasquez Corrales", dia: 29 },
-  { nombre: "Angel David Inestroza", dia: 30 }
-], noviembre: [
-  { nombre: "Isaias Leodan Herrera Guzman", dia: 1 },
-  { nombre: "Edilson Josue Rodriguez Pineda", dia: 2 },
-  { nombre: "Jose Luis Ortiz Jimenez", dia: 2 },
-  { nombre: "Melbin Alexander Cruz Turcios", dia: 3 },
-  { nombre: "Sayra Yaquelin Benitez Pineda", dia: 3 },
-  { nombre: "Carlos Selin Alvarado Alvarado", dia: 4 },
-  { nombre: "Franklin Natanael Mejia Zuniga", dia: 4 },
-  { nombre: "Sulmy Sagrario Benitez Pineda", dia: 4 },
-  { nombre: "Jose Alexander Vargas Garcia", dia: 5 },
-  { nombre: "Leonel Antonio Lopez Diaz", dia: 6 },
-  { nombre: "Carlos Ernesto Henrriquez Antunez", dia: 7 },
-  { nombre: "Maria Isabel Gebuarer Calderon", dia: 7 },
-  { nombre: "Leonardo Francisco Bustillo Rauda", dia: 12 },
-  { nombre: "Ana Gabriela Cruz Talavera", dia: 13 },
-  { nombre: "Blanca Elibenia Herrera Cuello", dia: 14 },
-  { nombre: "Rosa Carolina Alvarado Alvarado", dia: 14 },
-  { nombre: "Ediee Raul Acosta Ordoñez", dia: 15 },
-  { nombre: "Maribel Ramires Sanchez", dia: 15 },
-  { nombre: "Zoila Yaneth Maldonado Rodriguez", dia: 15 },
-  { nombre: "Leila Danely Zambrano Martinez", dia: 16 },
-  { nombre: "Josue Rafael Sandoval Valladares", dia: 17 },
-  { nombre: "Abimael Gutierrez Carranza", dia: 20 },
-  { nombre: "Alex Isaias Alvarado Alvarado", dia: 20 },
-  { nombre: "Nelton Hodimir Ulloa Montoya", dia: 20 },
-  { nombre: "Bertha lidia Diaz Padilla", dia: 22 },
-  { nombre: "Elizzon Ilybran Martinez Flores", dia: 22 },
-  { nombre: "Ever Saul Acosta Ordoñez", dia: 23 },
-  { nombre: "Nerlin Emil Mairena Sierra", dia: 25 },
-  { nombre: "Yefri Josue Lagos Ventura", dia: 26 },
-  { nombre: "Gisela Marilu Aviles Almendares", dia: 28 },
-  { nombre: "Yaleny Anahi Turcios Reyes", dia: 28 },
-  { nombre: "Santos Keni Matute Diaz", dia: 29 },
-  { nombre: "Yensy Dayany Betanco Zambrano", dia: 29 }
-], diciembre: []
-};
-(function(){
-  const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-  const lista=document.getElementById("listaCumpleaneros"); if(!lista)return;
-  const mes=meses[new Date().getMonth()];
-  const personas=Array.isArray(CUMPLEANEROS[mes])?CUMPLEANEROS[mes]:[];
-  if(!personas.length){lista.innerHTML='<div class="birthday-empty">🎈 Aún no hay cumpleaños registrados para este mes.</div>';return;}
-  personas.sort((a,b)=>(Number(a.dia)||0)-(Number(b.dia)||0));
-  lista.innerHTML=personas.map(p=>'<div class="birthday-item"><span class="birthday-day">'+String(p.dia).padStart(2,"0")+'</span><div><strong>'+String(p.nombre||"").replace(/[<>&"]/g,m=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[m]))+'</strong><small>'+mes.charAt(0).toUpperCase()+mes.slice(1)+'</small></div><span>🎉</span></div>').join("");
-})();
-</script>
 
-<!-- ===== CONSOLIDATED script.js ===== -->
-<script>
-const PERIODOS={
- q1:{nombre:"Quincena 1",mes:"Octubre del 09 de Octubre al 23 de Octubre del 2026",archivo:"RECIBOS QUINCENA 1.pdf"},
- q2:{nombre:"Quincena 2",mes:"Octubre del 24 de Septiembre al 08 de Octubre del 2026",archivo:"RECIBOS QUINCENA 2.pdf"}
-};
-let empleadoActual=null,pdfActual=null,paginaEncontrada=null,quincenaActual=null;
-const $=id=>document.getElementById(id);
-document.addEventListener("DOMContentLoaded",init);
-
-function init(){
- if(window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
- $("mesQ1").textContent=PERIODOS.q1.mes;$("mesQ2").textContent=PERIODOS.q2.mes;
- $("buscar").onclick=acceder;
-  $("codigo").addEventListener("input",e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"")});
-  $("codigo").onkeydown=e=>{if(e.key==="Enter")acceder()};
- document.querySelectorAll("[data-screen]").forEach(b=>b.onclick=()=>show(b.dataset.screen));
- document.querySelectorAll(".period-card").forEach(b=>b.onclick=()=>abrirRecibo(b.dataset.q));
- $("btnCarnet").onclick=()=>{cargarCarnet();show("pantallaCarnet")};
- $("btnRecibos").onclick=()=>show("pantallaRecibos");
- $("cerrarSesion").onclick=logout;
- $("guardarRecibo").onclick=guardarRecibo;
- document.querySelectorAll("[data-open-sheet]").forEach(b=>b.onclick=()=>abrirSheet(b.dataset.openSheet));
- document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>mostrarInfo(b.dataset.info));
- $("sheetClose").onclick=closeSheet;
- $("sheetOverlay").addEventListener("click",e=>{if(e.target===$("sheetOverlay"))closeSheet()});
- document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
-}
-
-
-/* Protección básica de interfaz: evita clic derecho y atajos comunes de inspección.
-   Esto NO sustituye la seguridad del servidor. */
-document.addEventListener("contextmenu",e=>e.preventDefault());
-document.addEventListener("keydown",e=>{
-  const k=String(e.key||"").toLowerCase();
-  if(
-    e.key==="F12" ||
-    (e.ctrlKey && e.shiftKey && (k==="i" || k==="j" || k==="c")) ||
-    (e.ctrlKey && k==="u")
-  ){
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-  }
-});
-
-function show(id){
- document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
- $(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});
- if(id==="pantallaDocumentos")cargarDocumentos();
-}
-function msg(t,error=false){$("mensajeAcceso").textContent=t;$("mensajeAcceso").className="message"+(error?" error":"")}
-
-/* ===== PROTECCION PIN ADMINISTRACION ===== */
-const PINES_ADMIN = {
-  "CBEP1392":[5,2,3,6,2,7],
-  "CBEP0288":[5,0,4,2,3,9],
-  "CBEP0025":[7,2,0,1,4,1],
-  "CBEP0143":[9,8,0,8,5,2],
-  "CBEP0124":[0,5,8,7,9,7],
-  "CBEP1437":[1,2,0,0,8,0],
-  "CBEP0422":[5,8,6,5,2,8],
-  "CBEP0096":[2,7,3,9,5,5],
-  "CBEP0542":[3,8,5,5,0,8],
-  "CBEP0108":[5,2,6,0,7,6],
-  "CBEP1404":[7,4,2,9,7,3],
-  "CBEP0664":[9,3,4,5,1,9],
-  "CBEP0088":[8,1,7,7,7,2],
-  "CBEP0607":[5,9,6,2,5,0],
-  "CBEP0528":[0,9,0,0,8,0],
-  "CBEP1315":[4,3,9,4,9,5],
-  "CBEP0055":[7,3,7,4,7,2],
-  "CBEP0457":[4,2,6,8,2,4],
-  "CBEP0679":[1,3,7,5,6,7],
-  "CBEP0910":[0,1,4,7,8,1],
-  "CBEP0016":[4,6,3,3,9,6],
-  "CBEP0524":[3,6,0,6,2,0],
-  "CBEP0986":[0,8,2,8,2,8],
-  "CBEP1371":[3,5,4,6,1,6],
-  "CBEP1144":[0,6,0,6,0,4],
-  "CBEP0112":[9,3,4,1,1,9],
-  "CBEP0081":[8,3,6,3,2,0],
-  "CBEP1454":[0,3,7,7,2,1],
-  "CBEP0109":[4,5,6,1,2,5],
-  "CBEP1090":[0,0,5,5,8,5],
-  "CBEP0741":[8,5,3,9,4,1],
-  "CBEP1486":[5,4,0,7,0,2],
-  "CBEP0635":[8,6,3,4,5,8],
-  "CBEP1395":[5,0,3,2,9,8],
-  "CBEP0740":[6,3,6,9,6,1],
-  "CBEP0984":[6,5,8,7,1,8],
-  "CBEP0105":[7,4,2,3,6,9],
-  "CBEP0047":[6,4,6,9,5,5],
-  "CBEP0173":[8,2,0,3,0,9],
-  "CBEP0817":[6,3,1,0,1,3],
-  "CBEP0018":[4,9,7,1,5,2],
-  "CBEP0046":[2,2,4,5,4,4],
-  "CBEP0137":[8,6,7,0,7,0],
-  "CBEP0106":[0,3,9,2,2,4],
-  "CBEP0555":[3,5,0,5,5,6],
-  "CBEP0053":[2,6,9,6,8,2],
-  "CBEP0144":[4,6,0,1,1,3],
-  "CBEP0026":[4,0,4,4,4,4],
-  "CBEP0561":[6,3,4,3,5,9],
-  "CBEP0010":[1,8,6,1,9,4],
-  "CBEP0574":[7,0,0,9,4,8],
-  "CBEP0430":[5,9,1,5,5,3],
-  "CBEP0777":[3,6,1,3,6,0],
-  "CBEP0569":[4,4,7,1,7,6],
-  "CBEP0593":[2,8,2,1,3,2],
-  "CBEP0957":[2,3,6,0,6,7],
-  "CBEP0583":[7,5,5,5,5,3]
-};
-
-function verificarPinAdministracion(empleado){
-  // El PIN se busca directamente por código de empleado.
-  // No depende del departamento.
-  const datos = PINES_ADMIN[empleado.codigo];
-
-  // Si el código no tiene PIN configurado, entra normalmente.
-  if(!datos) return true;
-
-  // Genera el PIN real.
-  const pinEsperado = datos
-    .map(d => String((Number(d) + 3) % 10))
-    .join("");
-
-  const pin = window.prompt(
-    "🔐 ACCESO PERSONAL\n\n" +
-    "Código: " + empleado.codigo +
-    "\n\n" +
-    "Ingresa tu PIN personal para continuar:"
-  );
-
-  if(pin === pinEsperado){
-    return true;
-  }
-
-  alert("❌ PIN incorrecto. Acceso denegado.");
-  return false;
-}
-
-/* ===== FIN PROTECCION PIN ===== */
-
-async function acceder(){
- const codigo=normalizar($("codigo").value);
- if(!codigo){msg("Escribe tu código de empleado.",true);return}
- if(codigo.length<6){msg("Debes escribir el código completo.",true);return}
- $("buscar").disabled=true;$("buscar").textContent="Buscando...";msg("🔎 Verificando código...");
- try{
-  let r=await buscarEmpleado(PERIODOS.q1,codigo);if(!r)r=await buscarEmpleado(PERIODOS.q2,codigo);
-  if(!r){msg("El código no fue encontrado en la información dispinible.",true);return}
-  empleadoActual={codigo,nombre:obtenerNombre(r.texto),departamento:obtenerCampo(r.texto,"Departamento"),puesto:obtenerCampo(r.texto,"Puesto")};
-
-  if(!verificarPinAdministracion(empleadoActual)){
-   empleadoActual=null;
-   return;
-  }
-
-  $("nombreEmpleado").textContent=empleadoActual.nombre;$("codigoEmpleado").textContent=codigo;
-  cargarAvatar();cargarCarnet();show("pantallaPortal");
- }catch(e){console.error(e);msg("No se pudo consultar la información. Verifica que los PDF estén disponibles.",true)}
- finally{$("buscar").disabled=false;$("buscar").textContent="Continuar"}
-}
-async function buscarEmpleado(periodo,codigo){
- const pdf=await pdfjsLib.getDocument({url:periodo.archivo}).promise;
- for(let n=1;n<=pdf.numPages;n++){const p=await pdf.getPage(n),c=await p.getTextContent(),texto=c.items.map(x=>x.str||"").join(" ");if(normalizar(texto).includes(normalizar(codigo)))return{pdf,pagina:n,texto}}
- return null;
-}
-async function abrirRecibo(key){
- if(!empleadoActual)return;quincenaActual=key;const periodo=PERIODOS[key];show("pantallaRecibo");$("visorTitulo").textContent=`${periodo.nombre} · ${periodo.mes}`;
- const v=document.querySelector(".pdf-viewer");v.innerHTML='<div class="viewer-message">🔄 Buscando tu recibo...</div>';
- try{const r=await buscarEmpleado(periodo,empleadoActual.codigo);if(!r){v.innerHTML=`<div class="viewer-message">No hay un recibo disponible para tu código en ${periodo.nombre}.</div>`;return}pdfActual=r.pdf;paginaEncontrada=r.pagina;await renderPage(r.pdf,r.pagina)}
- catch(e){console.error(e);v.innerHTML='<div class="viewer-message">No se pudo cargar el recibo.</div>'}
-}
-async function renderPage(pdf,n){
- const p=await pdf.getPage(n),v=document.querySelector(".pdf-viewer"),base=p.getViewport({scale:1}),scale=Math.min(2,Math.max(1,(v.clientWidth||900)/base.width)),vp=p.getViewport({scale}),c=document.createElement("canvas");
- c.width=vp.width;c.height=vp.height;c.style.width="100%";v.innerHTML="";v.appendChild(c);
- await p.render({canvasContext:c.getContext("2d"),viewport:vp}).promise
-}
-async function guardarRecibo(){
- if(!pdfActual||!paginaEncontrada||!empleadoActual)return;
- try{const p=await pdfActual.getPage(paginaEncontrada),vp=p.getViewport({scale:2}),c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;await p.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;const a=document.createElement("a");a.href=c.toDataURL("image/jpeg",.95);a.download=`${empleadoActual.codigo}_${quincenaActual}.jpg`;a.click()}
- catch(e){alert("No fue posible guardar el recibo.")}
-}
-
-function cargarCarnet(){
- if(!empleadoActual)return;
- $("carnetNombre").textContent=empleadoActual.nombre||"Colaborador";$("carnetCodigo").textContent=empleadoActual.codigo||"—";$("carnetDepartamento").textContent=empleadoActual.departamento||"—";$("carnetPuesto").textContent=empleadoActual.puesto||"—";cargarFoto(empleadoActual.codigo)
-}
-function cargarAvatar(){
- const a=$("avatarMini"),img=new Image();img.onload=()=>{a.innerHTML="";a.appendChild(img)};img.onerror=()=>{a.textContent="👤"};img.src=`fotos/${encodeURIComponent(empleadoActual.codigo)}.png?v=60`
-}
-function cargarFoto(codigo){
- const box=$("fotoCarnet");box.innerHTML="<span>👤</span>";let i=0;
- const probar=()=>{if(i>=3)return;const ext=["png","jpg","jpeg"][i++],img=new Image();img.className="foto-empleado";img.alt="Fotografía del empleado";img.onload=()=>{box.innerHTML="";box.appendChild(img)};img.onerror=probar;img.src=`fotos/${encodeURIComponent(codigo)}.${ext}?v=60`};probar()
-}
-async function cargarDocumentos(){
- if(!empleadoActual)return;
- await Promise.all([cargarDocumentosGenerales(),cargarDocumentosPersonales()]);
-}
-
-async function cargarDocumentosGenerales(){
- const box=$("listaDocumentosGenerales");if(!box)return;
- box.innerHTML='<div class="empty">🔄 Cargando documentos generales...</div>';
- try{
-  const r=await fetch("DocumentosGenerales/documentos.json",{cache:"no-store"});
-  if(!r.ok)throw new Error("No se pudo cargar documentos.json");
-  const docs=await r.json();
-  if(!Array.isArray(docs)||!docs.length){
-   box.innerHTML='<div class="empty">📂 No hay documentos generales publicados por ahora.</div>';return;
-  }
-  box.innerHTML=docs.map((doc,index)=>{
-   const nombre=esc(doc.nombre||"Documento general");
-   const descripcion=esc(doc.descripcion||"Documento publicado por Recursos Humanos.");
-   const icono=esc(doc.icono||"📄");
-   return `<article class="doc-card"><span>${icono}</span><div><strong>${nombre}</strong><small>${descripcion}</small></div><button class="outline general-doc-btn" data-general-doc="${index}">Ver documento</button></article>`;
-  }).join("");
-  box.querySelectorAll("[data-general-doc]").forEach(btn=>{
-   btn.onclick=()=>abrirDocumentoGeneral(docs[Number(btn.dataset.generalDoc)]);
-  });
- }catch(e){
-  console.error(e);
-  box.innerHTML='<div class="empty">⚠️ No se pudieron cargar los documentos generales.</div>';
- }
-}
-
-function abrirDocumentoGeneral(doc){
- if(!doc)return;
- const archivo=String(doc.archivo||"");
- if(!archivo)return;
- const url="DocumentosGenerales/"+encodeURIComponent(archivo).replace(/%2F/g,"/");
- window.open(url,"_blank","noopener");
-}
-
-async function cargarDocumentosPersonales(){
- const box=$("listaDocumentos");if(!box)return;
- box.innerHTML='<div class="empty">🔄 Buscando tus documentos...</div>';
- const tipos=[["constancia","📄","Constancia de trabajo"],["solicitud","📝","Solicitud"],["salario","💰","Constancia de salario"],["contrato","📑","Contrato de trabajo"],["otros","📁","Otros documentos"]];
- const found=[];
- for(const [key,icon,name] of tipos){for(const dir of ["documentos","Documentos"]){const path=`${dir}/${empleadoActual.codigo}_${key}.pdf`;try{const r=await fetch(path,{cache:"no-store"});if(r.ok){found.push({icon,name,path});break}}catch(e){}}}
- if(!found.length){box.innerHTML='<div class="empty">📂 No tienes documentos personales disponibles por ahora.</div>';return}
- box.innerHTML=found.map(x=>`<article class="doc-card"><span>${x.icon}</span><div><strong>${x.name}</strong><small>Documento asociado a ${esc(empleadoActual.codigo)}</small></div><a class="outline link" href="${x.path}" target="_blank">Abrir</a></article>`).join("")
-}
-
-function abrirSheet(tipo){
- const data=contenidoSheet(tipo);if(!data)return;
- $("sheetTitleWrap").innerHTML=`<span class="eyebrow">${data.eyebrow}</span><h2>${data.title}</h2>`;
- $("sheetContent").innerHTML=data.html;
- $("sheetOverlay").classList.add("open");$("sheetOverlay").setAttribute("aria-hidden","false");document.body.classList.add("sheet-open");
-}
-function closeSheet(){
- $("sheetOverlay").classList.remove("open");$("sheetOverlay").setAttribute("aria-hidden","true");document.body.classList.remove("sheet-open")
-}
-function mostrarInfo(tipo){abrirSheet(tipo)}
-
-function contactCard(icon,nombre,cargo,telefono,area){
- const digits=telefono.replace(/\D/g,"");
- const full=`+504 ${telefono}`;
- const wa=`https://wa.me/504${digits}`;
- const tel=`tel:+504${digits}`;
- return `<article class="contact-item contact-item-rich">
-   <span>${icon}</span>
-   <div class="contact-main"><strong>${esc(nombre)}</strong><small>${esc(cargo)} · ${esc(area)}</small><a class="contact-phone" href="${tel}">${full}</a></div>
-   <div class="contact-actions"><a class="contact-call" href="${tel}" aria-label="Llamar a ${esc(nombre)}">📞 <b>Llamar</b></a><a class="contact-whatsapp" href="${wa}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp a ${esc(nombre)}">💬 <b>WhatsApp</b></a></div>
- </article>`
-}
-
-function contenidoSheet(tipo){
- const data={
-  reglamento:{eyebrow:"DOCUMENTO GENERAL",title:"Reglamento Interno de Trabajo",html:`
-   <div class="sheet-document">
-    <div class="sheet-icon">📕</div><div><h3>Reglamento Interno de Trabajo</h3><p>Consulta el Reglamento Interno de Trabajo de Agroindustrias Cayo Blanco.</p></div>
-   </div>
-   <p>Este documento contiene las normas y disposiciones internas aplicables al personal.</p>
-   <a class="sheet-action" href="DocumentosGenerales/reglamento-interno.pdf" target="_blank" rel="noopener">📖 Abrir reglamento</a>
-  `},
-  rap:{eyebrow:"INFORMACIÓN PARA EMPLEADOS",title:"RAP",html:`
-   <div class="sheet-document"><div class="sheet-icon">🏛️</div><div><h3>Régimen de Aportaciones Privadas</h3><p>Información sencilla para conocer tus aportaciones y los servicios disponibles.</p></div></div>
-   <h4>¿Qué es el RAP?</h4><p>El Régimen de Aportaciones Privadas (RAP) es una institución hondureña que ofrece servicios relacionados con el ahorro, vivienda y financiamiento para sus afiliados.</p>
-   <h4>¿Para qué sirve?</h4><ul><li>Ahorro para el trabajador.</li><li>Opciones de financiamiento para vivienda.</li><li>Préstamos y productos financieros, según los requisitos aplicables.</li><li>Administración de las aportaciones registradas a nombre del afiliado.</li></ul>
-   <h4>Recuerda</h4><ul><li>Revisa que tus datos personales estén correctos.</li><li>Conserva tus documentos laborales.</li><li>Consulta periódicamente la información de tus aportaciones.</li><li>Para conocer montos, requisitos y condiciones, consulta la información oficial del RAP o solicita orientación a RRHH.</li></ul>
-  `},
-  ihss:{eyebrow:"INFORMACIÓN PARA EMPLEADOS",title:"IHSS",html:`
-   <div class="sheet-document"><div class="sheet-icon">🏥</div><div><h3>Instituto Hondureño de Seguridad Social</h3><p>Conoce qué hacer cuando necesites utilizar los servicios del Seguro Social.</p></div></div>
-   <h4>¿Qué es el IHSS?</h4><p>El Instituto Hondureño de Seguridad Social (IHSS) brinda servicios de seguridad social a los trabajadores afiliados y sus beneficiarios, de acuerdo con la cobertura y condiciones establecidas.</p>
-   <h4>Servicios y prestaciones</h4><ul><li>Atención médica y consultas.</li><li>Atención por enfermedad y maternidad.</li><li>Servicios relacionados con accidentes y otras situaciones cubiertas.</li><li>Prestaciones económicas cuando corresponda.</li><li>Atención para beneficiarios que cumplan los requisitos establecidos.</li></ul>
-   <h4>🏥 Si necesitas atención médica</h4><ol><li>Informa a tu jefe inmediato cuando corresponda.</li><li>Acude al centro de atención del IHSS que corresponda.</li><li>Presenta tu identificación y la documentación requerida.</li><li>Recibe la atención médica y sigue las indicaciones del personal.</li></ol>
-   <h4>📄 Si recibes una incapacidad</h4><p>Presenta la documentación correspondiente a Recursos Humanos dentro del plazo y siguiendo el procedimiento establecido por la empresa, para que pueda registrarse correctamente.</p>
-   <div class="notice">⚠️ Los procedimientos, requisitos y cobertura pueden variar según el tipo de atención y las disposiciones vigentes. Si tienes dudas, consulta con Recursos Humanos.</div>
-  `},
-  contactos:{eyebrow:"RECURSOS HUMANOS",title:"Contactos",html:`
-   <p>Comunícate directamente con el área o persona que necesites. Puedes <strong>llamar</strong> o abrir una conversación por <strong>WhatsApp</strong>.</p>
-   <div class="contact-sheet">
-    ${contactCard("👤","Cristhian Osorio Acosta","Auxiliar de RRHH","3225-8230","Recursos Humanos")}
-    ${contactCard("👤","Mayda Yanely Palma","Auxiliar de RRHH","3162-3652","Recursos Humanos")}
-    ${contactCard("👤","Mariano Alejandro Perez","Auxiliar de RRHH","3285-7896","Recursos Humanos")}
-    ${contactCard("👩‍💼","Tirsa Lizeht Paz","Coordinadora de RRHH","8863-3324","Recursos Humanos")}
-    ${contactCard("🏥","Dilcia Maribel Vazques","Enfermera","8756-2088","Enfermería")}
-   </div>
-   <div class="notice">🇭🇳 Todos los números corresponden a Honduras (+504). Para WhatsApp se utiliza el mismo número.</div>
-  `}
- };
- return data[tipo]
-}
-function obtenerNombre(t){let m=t.match(/Empleado\s*:\s*(.*?)\s+Sueldo\s+Mensual/i);if(m?.[1])return m[1].trim();m=t.match(/Empleado\s*:\s*(.*?)(?=\s+(?:Departamento|Puesto|Sueldo))/i);return m?.[1]?.trim()||"Colaborador"}
-function obtenerCampo(t,campo){const next="(?=\\s+(?:Departamento|Puesto|Días\\s+Trabajados|Días\\s+Incapacidad|Faltas|Vacaciones|Feriados|Sueldo\\s+Base|Sueldo\\s+Mensual|Salario|Ingreso|Deducciones|Total|$))";const m=t.match(new RegExp(`${campo}\\s*:\\s*(.*?)${next}`,"i"));return m?.[1]?.trim().replace(/\s+/g," ")||""}
-function normalizar(t){return String(t||"").toUpperCase().replace(/\s+/g,"").replace(/[^A-Z0-9]/g,"")}
-function esc(t){return String(t??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("codigo").value="";msg("");closeSheet();show("pantallaAcceso")}
-
-</script>
-<!-- ===== CONSOLIDATED mobile-enhancements.js ===== -->
-<script>
-
-(function(){
-  const CONTACTOS = [
-    {nombre:"Cristhian Osorio Acosta",cargo:"Auxiliar de RRHH",tel:"32258230",display:"+504 3225-8230",icon:"👤"},
-    {nombre:"Mayda Yanely Palma",cargo:"Auxiliar de RRHH",tel:"31623652",display:"+504 3162-3652",icon:"👤"},
-    {nombre:"Mariano Alejandro Perez",cargo:"Auxiliar de RRHH",tel:"32857896",display:"+504 3285-7896",icon:"👤"},
-    {nombre:"Tirsa Lizeht Paz",cargo:"Coordinadora de RRHH",tel:"88633324",display:"+504 8863-3324",icon:"👩‍💼"},
-    {nombre:"Dilcia Maribel Vazques",cargo:"Enfermera",tel:"87562088",display:"+504 8756-2088",icon:"🩺"}
-  ];
-
-  const DATA = {
-    rap:{
-      kicker:"INFORMACIÓN PARA EMPLEADOS",
-      title:"RAP",
-      icon:"🏛️",
-      html:`<div class="mobile-hint">Conoce de forma sencilla tus aportaciones, ahorro y opciones disponibles como afiliado.</div>
-      <h4>¿Qué es el RAP?</h4>
-      <p>El Régimen de Aportaciones Privadas (RAP) es una institución hondureña que ofrece servicios relacionados con ahorro, vivienda y financiamiento para sus afiliados.</p>
-      <h4>¿Para qué sirve?</h4>
-      <ul><li>Ahorro para el trabajador.</li><li>Opciones de financiamiento para vivienda.</li><li>Préstamos y productos financieros según los requisitos aplicables.</li><li>Administración de las aportaciones registradas a nombre del afiliado.</li></ul>
-      <h4>📌 Recuerda</h4>
-      <ul><li>Revisa que tus datos estén correctos.</li><li>Conserva tus documentos laborales.</li><li>Consulta periódicamente la información de tus aportaciones.</li><li>Para montos, requisitos y condiciones, consulta la información oficial del RAP o RRHH.</li></ul>`
-    },
-    ihss:{
-      kicker:"INFORMACIÓN PARA EMPLEADOS",
-      title:"IHSS",
-      icon:"🏥",
-      html:`<div class="mobile-hint">Información práctica para saber qué hacer cuando necesites utilizar los servicios del Seguro Social.</div>
-      <h4>¿Qué es el IHSS?</h4>
-      <p>El Instituto Hondureño de Seguridad Social brinda servicios de seguridad social a trabajadores afiliados y sus beneficiarios, de acuerdo con la cobertura y condiciones establecidas.</p>
-      <h4>🩺 Servicios y prestaciones</h4>
-      <ul><li>Atención médica y consultas.</li><li>Atención por enfermedad y maternidad.</li><li>Servicios relacionados con accidentes y otras situaciones cubiertas.</li><li>Prestaciones económicas cuando corresponda.</li></ul>
-      <h4>🏥 Si necesitas atención médica</h4>
-      <ol><li>Informa a tu jefe inmediato cuando corresponda.</li><li>Acude al centro de atención que corresponda.</li><li>Presenta tu identificación y documentación requerida.</li><li>Sigue las indicaciones del personal.</li></ol>
-      <h4>📄 Si recibes una incapacidad</h4>
-      <p>Presenta la documentación correspondiente a Recursos Humanos dentro del plazo y siguiendo el procedimiento establecido por la empresa.</p>
-      <div class="mobile-hint">⚠️ Los requisitos y la cobertura pueden variar según el tipo de atención y las disposiciones vigentes. Si tienes dudas, consulta con RRHH.</div>`
-    },
-    contactos:{
-      kicker:"ATENCIÓN AL EMPLEADO",
-      title:"Contactos de RRHH",
-      icon:"📞",
-      html:`<div class="mobile-hint">Toca <b>Llamar</b> para iniciar una llamada o <b>WhatsApp</b> para abrir una conversación.</div>
-      ${CONTACTOS.map(c=>`<div class="contact-card">
-        <div class="contact-avatar">${c.icon}</div>
-        <div class="contact-main"><strong>${c.nombre}</strong><small>${c.cargo}</small><small>${c.display}</small></div>
-        <div class="contact-actions">
-          <a class="contact-call" href="tel:+504${c.tel}">📞 Llamar</a>
-          <a class="contact-wa" href="https://wa.me/504${c.tel}" target="_blank" rel="noopener">💬 WhatsApp</a>
-        </div>
-      </div>`).join("")}`
-    },
-    reglamento:{
-      kicker:"DOCUMENTO GENERAL",
-      title:"Reglamento Interno",
-      icon:"📕",
-      html:`<div class="mobile-hint">Consulta el Reglamento Interno de Trabajo directamente desde tu teléfono.</div>
-      <div class="sheet-document"><iframe src="DocumentosGenerales/reglamento-interno.pdf#toolbar=0&navpanes=0" title="Reglamento Interno"></iframe></div>
-      <a class="sheet-open-link" href="DocumentosGenerales/reglamento-interno.pdf" target="_blank" rel="noopener">Abrir documento completo ↗</a>`
-    }
-  };
-
-  function openSheet(key){
-    const data=DATA[key], overlay=document.getElementById("sheetOverlay");
-    if(!data||!overlay)return;
-    document.getElementById("sheetTitleWrap").innerHTML=`<div class="sheet-title-kicker">${data.kicker}</div><div class="sheet-title">${data.icon} ${data.title}</div>`;
-    document.getElementById("sheetContent").innerHTML=data.html;
-    overlay.classList.add("open");
-    overlay.setAttribute("aria-hidden","false");
-    document.body.classList.add("sheet-open");
-  }
-  function closeSheet(){
-    const overlay=document.getElementById("sheetOverlay");
-    if(!overlay)return;
-    overlay.classList.remove("open");
-    overlay.setAttribute("aria-hidden","true");
-    document.body.classList.remove("sheet-open");
-  }
-
-  document.addEventListener("DOMContentLoaded",()=>{
-    document.querySelectorAll("[data-info]").forEach(btn=>{
-      btn.addEventListener("click",e=>{e.preventDefault();e.stopImmediatePropagation();openSheet(btn.dataset.info);},{capture:true});
-    });
-    document.querySelectorAll("[data-open-sheet]").forEach(btn=>{
-      btn.addEventListener("click",e=>{e.preventDefault();openSheet(btn.dataset.openSheet);});
-    });
-    document.getElementById("sheetClose")?.addEventListener("click",closeSheet);
-    document.getElementById("sheetOverlay")?.addEventListener("click",e=>{
-      if(e.target.id==="sheetOverlay")closeSheet();
-    });
-    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet()});
-    let startY=0;
-    document.querySelector(".info-sheet")?.addEventListener("touchstart",e=>{startY=e.touches[0].clientY},{passive:true});
-    document.querySelector(".info-sheet")?.addEventListener("touchend",e=>{
-      if(e.changedTouches[0].clientY-startY>90)closeSheet();
-    },{passive:true});
-    // Oculta el panel antiguo de información para que todo use el nuevo bottom sheet.
-    const old=document.getElementById("infoDetalle");
-    if(old) old.style.display="none";
-  });
-})();
-
-</script>
-</body>
-</html>
+<!-- ▲▲▲ AQUÍ TERMINA LA PARTE NUEVA ▲▲▲
+     Pega justo debajo todo lo que ya tenías en tu index.html desde la línea
+     <script> /* CUMPLEAÑEROS ... */ hasta el final (</body></html>). No cambies nada de esos scripts. -->
