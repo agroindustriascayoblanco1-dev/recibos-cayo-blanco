@@ -77,7 +77,7 @@ body.logged .container{margin-bottom:110px}
 .profile:after{content:"";position:absolute;right:-70px;top:-90px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(20,184,127,.5),transparent 65%);animation:float 12s ease-in-out infinite alternate;pointer-events:none}
 .profile-main{position:relative;z-index:1;display:flex;align-items:center;gap:18px;min-width:0}
 .avatar{width:72px;height:72px;flex:0 0 72px;display:grid;place-items:center;overflow:hidden;font-size:30px;background:rgba(255,255,255,.14);border:3px solid rgba(255,255,255,.55);border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
 .profile-main span{display:block;font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--gold)}
 .profile-main h2{max-width:56vw;margin:4px 0 6px;font-size:clamp(19px,3.2vw,28px);letter-spacing:-.5px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .profile-main small{display:inline-block;padding:4px 11px;font-size:12px;color:#d5ecee;background:rgba(255,255,255,.12);border-radius:99px}
@@ -93,8 +93,8 @@ body.logged .container{margin-bottom:110px}
 .welcome p{margin:0;font-size:14px;color:var(--muted)}
 
 /* ===== MENÚ BENTO ===== */
-.menu-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.menu-card{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;gap:18px 10px;grid-column:span 2;min-height:168px;padding:20px;text-align:left;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh);animation:pop .55s var(--ease) both;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
+.menu-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.menu-card{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;gap:18px 10px;grid-column:span 4;min-height:176px;padding:20px;text-align:left;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh);animation:pop .55s var(--ease) both;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
 .menu-card:nth-child(2){animation-delay:.06s}.menu-card:nth-child(3){animation-delay:.12s}.menu-card:nth-child(4){animation-delay:.18s}.menu-card:nth-child(5){animation-delay:.24s}.menu-card:nth-child(6){animation-delay:.3s}.menu-card:nth-child(7){animation-delay:.36s}
 .menu-card:hover{transform:translateY(-6px);box-shadow:var(--sh2);border-color:#9fdcc6}
 .menu-card:active{transform:scale(.98)}
@@ -106,7 +106,7 @@ body.logged .container{margin-bottom:110px}
 .menu-card strong{display:block;font-size:17px;line-height:1.2;letter-spacing:-.2px}
 .menu-card small{display:block;margin-top:6px;font-size:12.5px;line-height:1.45;color:var(--muted)}
 /* tarjetas destacadas */
-#btnRecibos,#btnCarnet{grid-column:span 3;min-height:210px;color:#fff;border:0}
+#btnRecibos,#btnCarnet{grid-column:span 6;min-height:210px;color:#fff;border:0}
 #btnRecibos{background:linear-gradient(140deg,var(--green),var(--green2) 55%,var(--teal))}
 #btnCarnet{background:linear-gradient(140deg,var(--navy2),var(--teal))}
 #btnRecibos:after,#btnCarnet:after{content:"";position:absolute;right:-50px;bottom:-60px;width:210px;height:210px;border-radius:50%;background:rgba(242,184,75,.22);pointer-events:none;transition:transform .5s var(--ease)}
@@ -118,9 +118,8 @@ body.logged .container{margin-bottom:110px}
 #btnRecibos strong,#btnCarnet strong{font-size:22px}
 #btnRecibos small,#btnCarnet small{color:rgba(255,255,255,.85);font-size:13.5px}
 #btnRecibos,#btnCarnet{border-color:transparent}
-.menu-card.navy,.birthday-card{grid-column:span 3;min-height:130px}
-.birthday-card{background:linear-gradient(135deg,#fff6e0,#fff);border-color:#f3dba5}
-.birthday-card>span{color:var(--gold2);background:#ffefc9}
+.menu-card.navy{grid-column:3 / span 4}
+.birthday-card{grid-column:7 / span 4}
 
 /* ===== SUBPANTALLAS ===== */
 .subhead{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin-bottom:24px}
@@ -150,13 +149,13 @@ body.logged .container{margin-bottom:110px}
 .id-wrap{display:flex;justify-content:center;padding:10px 0}
 .id-card{position:relative;width:min(390px,100%);overflow:hidden;background:#fff;border-radius:30px;box-shadow:0 30px 70px rgba(6,42,58,.28);border:1px solid var(--line);transition:transform .4s var(--ease)}
 .id-card:hover{transform:translateY(-6px) rotate(-.6deg)}
-.id-top{position:relative;display:flex;align-items:center;gap:14px;padding:22px 24px 74px;color:#fff;background:radial-gradient(rgba(255,255,255,.08) 1.2px,transparent 1.4px) 0 0/18px 18px,linear-gradient(130deg,var(--navy),var(--teal))}
+.id-top{position:relative;display:flex;align-items:center;gap:14px;padding:22px 24px 100px;color:#fff;background:radial-gradient(rgba(255,255,255,.08) 1.2px,transparent 1.4px) 0 0/18px 18px,linear-gradient(130deg,var(--navy),var(--teal))}
 .id-top img{width:52px;height:52px;object-fit:contain;padding:3px;background:#fff;border-radius:14px}
 .id-top strong{display:block;font-size:15px;letter-spacing:1px}
 .id-top span{display:block;margin-top:2px;font-size:11px;letter-spacing:3px;color:var(--gold)}
-.id-body{display:flex;flex-direction:column;align-items:center;margin-top:-56px;padding:0 26px 26px;text-align:center}
-.photo-box{width:132px;height:132px;display:grid;place-items:center;overflow:hidden;font-size:46px;background:#edf4f5;border:5px solid #fff;border-radius:50%;box-shadow:0 10px 28px rgba(6,42,58,.25)}
-.photo-box img{width:100%;height:100%;object-fit:cover}
+.id-body{display:flex;flex-direction:column;align-items:center;margin-top:-82px;padding:0 26px 26px;text-align:center}
+.photo-box{width:156px;aspect-ratio:3/4;display:grid;place-items:center;overflow:hidden;font-size:52px;background:#edf4f5;border:5px solid #fff;border-radius:22px;box-shadow:0 12px 30px rgba(6,42,58,.3)}
+.photo-box img{width:100%;height:100%;object-fit:cover;object-position:center top}
 .carnet-datos{width:100%}
 .carnet-datos h3{margin:16px 0 18px;font-size:23px;line-height:1.15;letter-spacing:-.4px}
 .label{display:block;margin-bottom:4px;font-size:10px;font-weight:800;letter-spacing:1.4px;color:#7e939b}
@@ -255,6 +254,10 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
   .info-grid{grid-template-columns:repeat(2,1fr)}
   .guide-grid{grid-template-columns:1fr}
 }
+@media(min-width:641px) and (max-width:900px){
+  .menu-card,.menu-card.navy,#btnRecibos,#btnCarnet{grid-column:span 6}
+  .birthday-card{grid-column:4 / span 6}
+}
 @media(max-width:640px){
   .topbar{height:64px;padding:8px 14px}
   .brand img{width:40px;height:40px;flex-basis:40px}
@@ -268,17 +271,18 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
   .login-row button{width:100%}
   .profile{padding:18px;border-radius:24px;margin-bottom:20px}
   .avatar{width:58px;height:58px;flex-basis:58px}
+  .photo-box{width:142px}
   .profile-main{gap:13px}
   .profile-main h2{max-width:46vw}
   .profile-main small+small{margin:6px 0 0}
-  .menu-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .menu-card{grid-column:span 1;min-height:150px;padding:16px;border-radius:22px}
-  .menu-card strong{font-size:15px}.menu-card small{font-size:11.5px}
-  .menu-card>span{width:48px;height:48px}
-  #btnRecibos,#btnCarnet,.birthday-card,.menu-card.navy{grid-column:span 2}
-  #btnRecibos,#btnCarnet{min-height:150px}
-  #btnRecibos strong,#btnCarnet strong{font-size:20px}
-  .birthday-card,.menu-card.navy{min-height:112px}
+  .menu-grid{grid-template-columns:1fr;gap:11px}
+  .menu-card,#btnRecibos,#btnCarnet,.menu-card.navy,.birthday-card{grid-column:1/-1;grid-template-columns:52px minmax(0,1fr) 32px;grid-template-rows:auto;align-items:center;gap:0 14px;min-height:96px;padding:14px 16px;border-radius:20px}
+  .menu-card>span,#btnRecibos>span,#btnCarnet>span{grid-column:1;grid-row:1;width:52px;height:52px}
+  .menu-card>div{grid-column:2;grid-row:1;align-self:center}
+  .menu-card>b{grid-column:3;grid-row:1}
+  .menu-card strong,#btnRecibos strong,#btnCarnet strong{font-size:16px}
+  .menu-card small,#btnRecibos small,#btnCarnet small{margin-top:4px;font-size:12px}
+  #btnRecibos,#btnCarnet{min-height:108px}
   .subhead{grid-template-columns:1fr;gap:12px;margin-bottom:18px}
   .subhead .back,.subhead .primary{justify-self:start}
   .period-grid,.info-grid{grid-template-columns:1fr;gap:12px}
