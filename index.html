@@ -147,22 +147,22 @@ body.logged .container{margin-bottom:110px}
 
 /* Carné */
 .id-wrap{display:flex;justify-content:center;padding:10px 0}
-.id-card{position:relative;width:min(390px,100%);overflow:hidden;background:#fff;border-radius:30px;box-shadow:0 30px 70px rgba(6,42,58,.28);border:1px solid var(--line);transition:transform .4s var(--ease)}
+.id-card{position:relative;width:min(320px,100%);overflow:hidden;background:#fff;border-radius:30px;box-shadow:0 30px 70px rgba(6,42,58,.28);border:1px solid var(--line);transition:transform .4s var(--ease)}
 .id-card:hover{transform:translateY(-6px) rotate(-.6deg)}
-.id-top{position:relative;display:flex;align-items:center;gap:14px;padding:22px 24px 100px;color:#fff;background:radial-gradient(rgba(255,255,255,.08) 1.2px,transparent 1.4px) 0 0/18px 18px,linear-gradient(130deg,var(--navy),var(--teal))}
-.id-top img{width:52px;height:52px;object-fit:contain;padding:3px;background:#fff;border-radius:14px}
-.id-top strong{display:block;font-size:15px;letter-spacing:1px}
+.id-top{position:relative;display:flex;align-items:center;gap:12px;padding:18px 20px 76px;color:#fff;background:radial-gradient(rgba(255,255,255,.08) 1.2px,transparent 1.4px) 0 0/18px 18px,linear-gradient(130deg,var(--navy),var(--teal))}
+.id-top img{width:44px;height:44px;object-fit:contain;padding:3px;background:#fff;border-radius:14px}
+.id-top strong{display:block;font-size:13.5px;letter-spacing:1px}
 .id-top span{display:block;margin-top:2px;font-size:11px;letter-spacing:3px;color:var(--gold)}
-.id-body{display:flex;flex-direction:column;align-items:center;margin-top:-82px;padding:0 26px 26px;text-align:center}
-.photo-box{width:156px;aspect-ratio:3/4;display:grid;place-items:center;overflow:hidden;font-size:52px;background:#edf4f5;border:5px solid #fff;border-radius:22px;box-shadow:0 12px 30px rgba(6,42,58,.3)}
+.id-body{display:flex;flex-direction:column;align-items:center;margin-top:-58px;padding:0 20px 20px;text-align:center;position:relative;z-index:2}
+.photo-box{width:116px;aspect-ratio:3/4;display:grid;place-items:center;overflow:hidden;font-size:44px;background:#edf4f5;border:4px solid #fff;border-radius:18px;box-shadow:0 12px 30px rgba(6,42,58,.3)}
 .photo-box img{width:100%;height:100%;object-fit:cover;object-position:center top}
-.carnet-datos{width:100%}
-.carnet-datos h3{margin:16px 0 18px;font-size:23px;line-height:1.15;letter-spacing:-.4px}
+.carnet-datos{width:100%;padding-top:14px}
+.carnet-datos h3{margin:6px 0 14px;font-size:19px;line-height:1.15;letter-spacing:-.4px}
 .label{display:block;margin-bottom:4px;font-size:10px;font-weight:800;letter-spacing:1.4px;color:#7e939b}
-.carnet-datos strong{display:block;font-size:14px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.two>div,.carnet-datos>div:last-child{padding:12px;background:#f3f8f9;border-radius:14px}
-.id-footer{padding:14px 18px;text-align:center;font-size:10px;font-weight:800;letter-spacing:1.6px;color:var(--navy);background:linear-gradient(90deg,var(--gold2),var(--gold))}
+.carnet-datos strong{display:block;font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.two>div,.carnet-datos>div:last-child{padding:10px;background:#f3f8f9;border-radius:14px}
+.id-footer{padding:11px 14px;text-align:center;font-size:9px;font-weight:800;letter-spacing:1.6px;color:var(--navy);background:linear-gradient(90deg,var(--gold2),var(--gold))}
 
 /* Documentos y comunicados */
 .cards-list{display:flex;flex-direction:column;gap:11px}
@@ -271,7 +271,6 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
   .login-row button{width:100%}
   .profile{padding:18px;border-radius:24px;margin-bottom:20px}
   .avatar{width:58px;height:58px;flex-basis:58px}
-  .photo-box{width:142px}
   .profile-main{gap:13px}
   .profile-main h2{max-width:46vw}
   .profile-main small+small{margin:6px 0 0}
