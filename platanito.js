@@ -10,6 +10,8 @@
     #platanito-fab.visible{display:flex}
     #platanito-fab:after{content:"";position:absolute;inset:-5px;border:2px solid #19bd8355;border-radius:50%;animation:platanitoPulse 2s infinite}
     @keyframes platanitoPulse{50%{transform:scale(1.12);opacity:.35}}
+    #platanito-backdrop{position:fixed;inset:0;z-index:899;background:rgba(5,24,29,.38);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease;pointer-events:none}
+    #platanito-backdrop.open{opacity:1;visibility:visible}
     #platanito-panel{position:fixed;right:24px;bottom:166px;z-index:901;width:min(390px,calc(100vw - 28px));height:min(560px,calc(100dvh - 190px));display:none;flex-direction:column;overflow:hidden;background:#fff;border:1px solid #dce9e5;border-radius:24px;box-shadow:0 22px 70px #062a3a35}
     #platanito-panel.open{display:flex}
     .platanito-head{display:flex;align-items:center;gap:12px;padding:16px 18px;color:#fff;background:linear-gradient(120deg,#062a3a,#0e7c72)}
@@ -38,11 +40,15 @@
   fab.title = "Consultar a PLATANITO";
   fab.textContent = "🍌";
 
+  const backdrop = document.createElement("div");
+  backdrop.id = "platanito-backdrop";
+  backdrop.setAttribute("aria-hidden", "true");
+
   const panel = document.createElement("section");
   panel.id = "platanito-panel";
   panel.setAttribute("aria-label", "Chat PLATANITO");
   panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO. 🍌<br>Hazme tu pregunta sobre el Reglamento Interno y te daré una respuesta clara y directa. Solo mostraré mi respuesta, sin desplegar el texto completo de los artículos.</div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta..." aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
-  document.body.append(fab, panel);
+  document.body.append(fab, backdrop, panel);
 
   const body = panel.querySelector("#platanito-messages");
   const form = panel.querySelector("#platanito-form");
@@ -73,8 +79,8 @@
     document.body.style.width = "";
     window.scrollTo(0, lockedScrollY);
   }
-  const open = () => { lockBackground(); panel.classList.add("open"); };
-  const close = () => { panel.classList.remove("open"); unlockBackground(); };
+  const open = () => { lockBackground(); backdrop.classList.add("open"); panel.classList.add("open"); };
+  const close = () => { panel.classList.remove("open"); backdrop.classList.remove("open"); unlockBackground(); };
 
   function addMessage(text, kind = "bot") {
     const el = document.createElement("div");
