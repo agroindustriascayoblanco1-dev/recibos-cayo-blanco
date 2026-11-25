@@ -94,56 +94,14 @@
   fab.addEventListener("click", () => panel.classList.contains("open") ? close() : open());
   panel.querySelector(".platanito-close").addEventListener("click", close);
 
-  // Cola secuencial: permite escribir y enviar nuevos mensajes mientras
-  // PLATANITO responde, conservando el orden y el contexto de la conversación.
-  const requestQueue = [];
-  let processingQueue = false;
+  // Un solo mensaje a la vez: bloquea la escritura mientras PLATANITO
+  // responde y vuelve a habilitarla inmediatamente al terminar.
+  let requestInProgress = false;
 
-  async function processQueue() {
-    if (processingQueue) return;
-    processingQueue = true;
-    try {
-      while (requestQueue.length) {
-        const job = requestQueue.shift();
-        conversationHistory.push({ role: "user", content: job.question });
-        try {
-          const response = await fetch(SUPABASE_URL + "/functions/v1/platanito-chat", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "apikey": SUPABASE_PUBLISHABLE_KEY
-            },
-            body: JSON.stringify({
-              question: job.question,
-              employee_code: job.code,
-              conversation_history: conversationHistory.slice(-8)
-            })
-          });
-          const data = await response.json().catch(() => ({}));
-          job.loading.remove();
-          if (!response.ok || !data.ok) {
-            throw new Error(data.error || "No fue posible consultar el Reglamento.");
-          }
-          const reply = data.message || "Consulta completada.";
-          addMessage(reply);
-          conversationHistory.push({ role: "assistant", content: reply });
-          if (conversationHistory.length > 10) {
-            conversationHistory.splice(0, conversationHistory.length - 10);
-          }
-        } catch (error) {
-          job.loading.remove();
-          addMessage(error?.message || "No fue posible conectar con PLATANITO. Inténtalo nuevamente.", "error");
-        }
-      }
-    } finally {
-      processingQueue = false;
-      send.disabled = false;
-      send.textContent = "➤";
-    }
-  }
-
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (requestInProgress) return;
+
     const question = input.value.trim();
     const employee = window.empleadoActual;
     const code = String(employee?.codigo || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -156,15 +114,49 @@
       return;
     }
 
+    requestInProgress = true;
     addMessage(question, "user");
     const loading = addMessage("Consultando el Reglamento Interno…");
-    requestQueue.push({ question, code, loading });
+    conversationHistory.push({ role: "user", content: question });
     input.value = "";
-    input.style.height = "auto";
-    send.disabled = false;
-    send.textContent = "➤";
-    input.focus();
-    processQueue();
+    input.disabled = true;
+    send.disabled = true;
+    send.textContent = "…";
+
+    try {
+      const response = await fetch(SUPABASE_URL + "/functions/v1/platanito-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_PUBLISHABLE_KEY
+        },
+        body: JSON.stringify({
+          question,
+          employee_code: code,
+          conversation_history: conversationHistory.slice(-8)
+        })
+      });
+      const data = await response.json().catch(() => ({}));
+      loading.remove();
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "No fue posible consultar el Reglamento.");
+      }
+      const reply = data.message || "Consulta completada.";
+      addMessage(reply);
+      conversationHistory.push({ role: "assistant", content: reply });
+      if (conversationHistory.length > 10) {
+        conversationHistory.splice(0, conversationHistory.length - 10);
+      }
+    } catch (error) {
+      loading.remove();
+      addMessage(error?.message || "No fue posible conectar con PLATANITO. Inténtalo nuevamente.", "error");
+    } finally {
+      requestInProgress = false;
+      input.disabled = false;
+      send.disabled = false;
+      send.textContent = "➤";
+      input.focus();
+    }
   });
 
   const portal = document.getElementById("pantallaPortal");
