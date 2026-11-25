@@ -47,7 +47,7 @@
   const panel = document.createElement("section");
   panel.id = "platanito-panel";
   panel.setAttribute("aria-label", "Chat PLATANITO");
-  panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO. 🍌<br>Hazme tu pregunta sobre el Reglamento Interno y te daré una respuesta clara y directa. Solo mostraré mi respuesta, sin desplegar el texto completo de los artículos.</div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta..." aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
+  panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO. 🍌<br>Hazme tu pregunta sobre el Reglamento Interno y te daré una respuesta clara y directa. Solo mostraré mi respuesta, sin desplegar el texto completo de los artículos.</div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Consulta a PLATANITO" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
   document.body.append(fab, backdrop, panel);
 
   const body = panel.querySelector("#platanito-messages");
@@ -120,6 +120,7 @@
     conversationHistory.push({ role: "user", content: question });
     input.value = "";
     input.disabled = true;
+    input.placeholder = "Espera, se está respondiendo tu mensaje anterior…";
     send.disabled = true;
     send.textContent = "…";
 
@@ -153,6 +154,7 @@
     } finally {
       requestInProgress = false;
       input.disabled = false;
+      input.placeholder = "Consulta a PLATANITO";
       send.disabled = false;
       send.textContent = "➤";
       input.focus();
