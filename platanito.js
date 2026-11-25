@@ -23,7 +23,7 @@
     .platanito-msg.bot{margin-right:auto;background:#fff;color:#244b48;border-bottom-left-radius:4px;box-shadow:0 2px 9px #0b4b350c}
     .platanito-msg.error{color:#9d3030;border:1px solid #f0d4d4}
     .platanito-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #e4eeea;background:#fff}
-    #platanito-question{flex:1;min-width:0;resize:none;max-height:90px;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font:13px inherit;outline:none}
+    #platanito-question{flex:1;min-width:0;resize:none;max-height:90px;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font:16px inherit;outline:none;touch-action:manipulation}
     #platanito-question:focus{border-color:#19a979;box-shadow:0 0 0 3px #19a97918}
     #platanito-send{width:42px;height:42px;flex:0 0 42px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}
     #platanito-send:disabled{opacity:.5}
