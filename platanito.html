@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#073b45">
+<title>PLATANITO | Reglamento Interno</title>
+<style>
+:root{--navy:#073b45;--teal:#087d70;--green:#19a77b;--mint:#e9f7f1;--ink:#163b3c;--muted:#667e7b;--line:#dcebe5;--bg:#f4f9f6;--white:#fff;--gold:#f1bd55}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 0,#dff4e9,transparent 32%),var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+header{background:linear-gradient(115deg,#062f3d,#087d70);color:#fff;padding:18px max(20px,calc((100% - 980px)/2));display:flex;align-items:center;gap:14px;box-shadow:0 8px 28px #073b4520}
+.logo{width:48px;height:48px;border-radius:16px;background:#ffffff20;display:grid;place-items:center;font-size:28px}
+.brand strong{display:block;font-size:18px;letter-spacing:.5px}.brand small{color:#c6e8df}
+header a{margin-left:auto;color:#e8fff7;font-size:13px;text-decoration:none;border:1px solid #ffffff55;border-radius:12px;padding:9px 13px}
+main{width:min(900px,calc(100% - 28px));margin:34px auto 60px}
+.hero{margin-bottom:22px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--teal)}h1{font-size:clamp(28px,5vw,42px);margin:7px 0;color:var(--navy);letter-spacing:-1px}.hero p{color:var(--muted);line-height:1.65;margin:0;max-width:680px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,4vw,30px);box-shadow:0 14px 38px #073b450c}
+.hidden{display:none!important}label{display:block;font-size:12px;font-weight:750;margin:14px 0 7px}
+input,textarea{font:inherit;width:100%;border:1.5px solid var(--line);border-radius:13px;padding:13px 14px;background:#fbfdfc;color:var(--ink);outline:none}
+input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px #19a77b18}
+button{font:inherit;cursor:pointer;border:0;border-radius:13px;padding:13px 18px;background:linear-gradient(120deg,var(--green),var(--teal));color:white;font-weight:800}
+button:disabled{opacity:.55;cursor:wait}.login-btn{width:100%;margin-top:18px}
+.muted{color:var(--muted);font-size:13px;line-height:1.55}.status{margin-top:12px;font-size:13px;line-height:1.5;color:var(--muted)}.status.error{color:#a33333}
+.userbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.userbar strong{display:block}.userbar small{color:var(--muted)}
+.signout{padding:9px 12px;background:#eef7f3;color:var(--teal);border:1px solid var(--line);font-size:12px}
+.question-form{display:flex;gap:10px;align-items:stretch;margin-top:16px}.question-form textarea{min-height:54px;max-height:130px;resize:vertical;flex:1}
+.question-form button{min-width:116px}
+.note{margin-top:15px;padding:12px 14px;background:#fff8e8;border:1px solid #f4e6bd;border-radius:13px;color:#765d28;font-size:12px;line-height:1.5}
+.results{margin-top:22px;display:grid;gap:12px}.result{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fcfefd}.result-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}.result-head strong{color:var(--teal);font-size:13px}.result-head span{font-size:11px;color:var(--muted)}.result p{margin:0;white-space:pre-wrap;line-height:1.7;font-size:14px;color:#274b48}
+.disclaimer{font-size:11px;color:#718581;margin-top:16px;line-height:1.5}
+@media(max-width:560px){header{padding:14px}.brand strong{font-size:16px}header a{font-size:11px;padding:8px}.question-form{flex-direction:column}.question-form button{width:100%}.userbar{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header><div class="logo">🍌</div><div class="brand"><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><a href="/">Portal de colaboradores</a></header>
+<main>
+  <section class="hero"><span class="eyebrow">AGROINDUSTRIAS CAYO BLANCO</span><h1>Consulta tu Reglamento Interno</h1><p>Escribe tu pregunta y PLATANITO buscará los apartados relacionados directamente en el Reglamento Interno de Trabajo.</p></section>
+  <section id="loginCard" class="card">
+    <h2 style="margin:0 0 6px;color:var(--navy)">Ingreso de colaboradores</h2>
+    <p class="muted" style="margin:0">Utiliza el código y la contraseña de tu cuenta de colaborador.</p>
+    <form id="loginForm">
+      <label for="employeeCode">Código de empleado</label><input id="employeeCode" autocomplete="username" maxlength="16" required placeholder="Tu código">
+      <label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required placeholder="Tu contraseña">
+      <button class="login-btn" id="loginButton" type="submit">Ingresar</button>
+      <div id="loginStatus" class="status" role="status"></div>
+    </form>
+  </section>
+  <section id="chatCard" class="card hidden">
+    <div class="userbar"><div><strong id="employeeName">Colaborador</strong><small>Sesión verificada</small></div><button id="signOut" class="signout" type="button">Cerrar sesión</button></div>
+    <h2 style="margin:0;color:var(--navy)">¿Qué deseas consultar?</h2>
+    <form id="questionForm" class="question-form"><textarea id="question" maxlength="500" required placeholder="Ejemplo: ¿Qué permisos especiales contempla el Reglamento?"></textarea><button id="sendButton" type="submit">Consultar</button></form>
+    <div class="note">PLATANITO utiliza únicamente el Reglamento Interno. En esta versión gratuita muestra fragmentos originales y su ubicación; no inventa respuestas ni interpreta apartados. Si no encuentra información suficiente, te recomendará consultar a Recursos Humanos.</div>
+    <div id="answerStatus" class="status" role="status"></div>
+    <div id="results" class="results" aria-live="polite"></div>
+    <p class="disclaimer">No introduzcas datos personales sensibles en tus preguntas. Las consultas se procesan para localizar texto del Reglamento.</p>
+  </section>
+</main>
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.102.0";
+const SUPABASE_URL = "https://brvzmmvhbhntnuwatuli.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_wNR0GBMwaxaMbR3kt-hd_g_VvkJDhlT";
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, storageKey: "cayo-blanco-employee-session" }
+});
+const $ = (id) => document.getElementById(id);
+const emailFor = (code) => code.toLowerCase() + "@empleados.cayoblanco.hn";
+function status(id, message, error=false){$(id).textContent=message;$(id).className="status"+(error?" error":"")}
+async function validateProfile(){
+  const {data,error}=await supabase.functions.invoke("employee-profile",{body:{}});
+  if(error||!data?.employee) throw new Error("No se pudo validar tu cuenta de colaborador.");
+  $("employeeName").textContent=data.employee.name||"Colaborador";
+  $("loginCard").classList.add("hidden");$("chatCard").classList.remove("hidden");
+}
+$("employeeCode").addEventListener("input",e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"")});
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();const code=$("employeeCode").value.trim();const password=$("password").value;
+  if(!/^[A-Z0-9]{6,16}$/.test(code)){status("loginStatus","Escribe un código de empleado válido.",true);return}
+  $("loginButton").disabled=true;$("loginButton").textContent="Verificando...";
+  try{
+    const {error}=await supabase.auth.signInWithPassword({email:emailFor(code),password});
+    if(error)throw error;
+    await validateProfile();$("password").value="";status("loginStatus","");
+  }catch(err){await supabase.auth.signOut();status("loginStatus",err?.message||"No se pudo iniciar sesión. Verifica tus datos o consulta con Recursos Humanos.",true)}
+  finally{$("loginButton").disabled=false;$("loginButton").textContent="Ingresar"}
+});
+$("questionForm").addEventListener("submit",async e=>{
+  e.preventDefault();const question=$("question").value.trim();if(!question)return;
+  $("sendButton").disabled=true;$("sendButton").textContent="Buscando...";
+  $("results").replaceChildren();status("answerStatus","Buscando en el Reglamento Interno...");
+  try{
+    const {data,error}=await supabase.functions.invoke("platanito-chat",{body:{question}});
+    if(error)throw error;
+    if(!data?.ok)throw new Error(data?.error||"No se pudo realizar la consulta.");
+    status("answerStatus",data.message||"Consulta completada.");
+    for(const match of (data.matches||[])){
+      const article=document.createElement("article");article.className="result";
+      const head=document.createElement("div");head.className="result-head";
+      const source=document.createElement("strong");
+      source.textContent=match.article_number?("Artículo "+match.article_number):(match.section_title||"Apartado del Reglamento");
+      const page=document.createElement("span");page.textContent="Página "+match.page_number;
+      const content=document.createElement("p");content.textContent=match.content;
+      head.append(source,page);article.append(head,content);$("results").append(article);
+    }
+  }catch(err){status("answerStatus",err?.message||"No fue posible consultar el Reglamento. Inténtalo nuevamente.",true)}
+  finally{$("sendButton").disabled=false;$("sendButton").textContent="Consultar"}
+});
+$("signOut").addEventListener("click",async()=>{await supabase.auth.signOut();$("chatCard").classList.add("hidden");$("loginCard").classList.remove("hidden");$("results").replaceChildren();$("question").value="";status("answerStatus","");});
+(async()=>{const {data}=await supabase.auth.getSession();if(data?.session){try{await validateProfile()}catch{await supabase.auth.signOut()}}})();
+</script>
+</body>
+</html>
