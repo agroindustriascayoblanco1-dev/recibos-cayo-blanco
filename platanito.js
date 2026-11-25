@@ -47,7 +47,7 @@
   const panel = document.createElement("section");
   panel.id = "platanito-panel";
   panel.setAttribute("aria-label", "Chat PLATANITO");
-  panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO. 🍌<br>Hazme tu pregunta sobre el Reglamento Interno y te daré una respuesta clara y directa. Solo mostraré mi respuesta, sin desplegar el texto completo de los artículos.</div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Consulta a PLATANITO" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
+  panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Estoy aquí para orientarte sobre el Reglamento Interno de Agroindustrias Cayo Blanco. Escribe tu consulta y recibirás una respuesta clara y breve, con el artículo y la página cuando corresponda.</div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Consulta a PLATANITO" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
   document.body.append(fab, backdrop, panel);
 
   const body = panel.querySelector("#platanito-messages");
@@ -135,7 +135,8 @@
           question,
           employee_code: code,
           conversation_history: conversationHistory.slice(-8)
-        })
+        }),
+        signal: AbortSignal.timeout(18000)
       });
       const data = await response.json().catch(() => ({}));
       loading.remove();
@@ -150,7 +151,10 @@
       }
     } catch (error) {
       loading.remove();
-      addMessage(error?.message || "No fue posible conectar con PLATANITO. Inténtalo nuevamente.", "error");
+      const message = error?.name === "TimeoutError" || error?.name === "AbortError"
+        ? "La consulta tardó demasiado. Ya puedes escribir e intentarlo nuevamente."
+        : (error?.message || "No fue posible conectar con PLATANITO. Inténtalo nuevamente.");
+      addMessage(message, "error");
     } finally {
       requestInProgress = false;
       input.disabled = false;
