@@ -1,19 +1,150 @@
+(() => {
+  if (document.getElementById("platanito-fab")) return;
 
-(function(){
- if(document.getElementById("platanito-fab")) return;
- const style=document.createElement("style");style.textContent="\n#platanito-fab{position:fixed;right:24px;bottom:92px;z-index:900;width:62px;height:62px;border:0;border-radius:50%;background:linear-gradient(145deg,#19bd83,#087e62);color:#fff;box-shadow:0 12px 30px #063d3150;display:none;align-items:center;justify-content:center;font-size:28px;cursor:pointer}\n#platanito-fab.visible{display:flex}\n#platanito-fab:after{content:\"\";position:absolute;inset:-5px;border:2px solid #19bd8355;border-radius:50%;animation:platanitoPulse 2s infinite}\n@keyframes platanitoPulse{50%{transform:scale(1.12);opacity:.35}}\n#platanito-panel{position:fixed;right:24px;bottom:166px;z-index:901;width:min(390px,calc(100vw - 28px));height:min(560px,calc(100dvh - 190px));display:none;flex-direction:column;overflow:hidden;background:#fff;border:1px solid #dce9e5;border-radius:24px;box-shadow:0 22px 70px #062a3a35}\n#platanito-panel.open{display:flex}\n.platanito-head{display:flex;align-items:center;gap:12px;padding:16px 18px;color:#fff;background:linear-gradient(120deg,#062a3a,#0e7c72)}\n.platanito-avatar{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:14px;background:#ffffff20;font-size:23px}\n.platanito-head strong{display:block;font-size:15px}.platanito-head small{display:block;margin-top:3px;color:#c8e8df;font-size:11px}\n.platanito-close{margin-left:auto;width:34px;height:34px;border:0;border-radius:50%;background:#ffffff20;color:#fff;font-size:21px}\n.platanito-body{flex:1;overflow:auto;padding:16px;background:#f5faf8}\n.platanito-welcome{padding:13px 14px;margin-bottom:12px;border-radius:16px 16px 16px 5px;background:#fff;color:#244b48;font-size:13px;line-height:1.55;box-shadow:0 3px 12px #0b4b3510}\n.platanito-note{margin-top:9px;padding:9px 11px;border-radius:10px;background:#fff8e8;color:#80642b;font-size:10px;line-height:1.45}\n.platanito-msg{max-width:88%;padding:11px 13px;margin:9px 0;border-radius:15px;font-size:13px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}\n.platanito-msg.user{margin-left:auto;background:#dff5eb;color:#164b3d;border-bottom-right-radius:4px}\n.platanito-msg.bot{margin-right:auto;background:#fff;color:#244b48;border-bottom-left-radius:4px;box-shadow:0 2px 9px #0b4b350c}\n.platanito-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #e4eeea;background:#fff}\n#platanito-question{flex:1;min-width:0;resize:none;max-height:90px;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font:13px inherit;outline:none}\n#platanito-question:focus{border-color:#19a979;box-shadow:0 0 0 3px #19a97918}\n#platanito-send{width:42px;height:42px;flex:0 0 42px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}\n#platanito-send:disabled{opacity:.5}\n@media(max-width:600px){#platanito-fab{right:16px;bottom:88px;width:56px;height:56px}#platanito-panel{right:10px;bottom:154px;width:calc(100vw - 20px);height:min(590px,calc(100dvh - 175px));border-radius:21px}}\n";document.head.appendChild(style);
- const fab=document.createElement("button");fab.id="platanito-fab";fab.type="button";fab.setAttribute("aria-label","Abrir PLATANITO");fab.title="Consultar a PLATANITO";fab.textContent="🍌";
- const panel=document.createElement("section");panel.id="platanito-panel";panel.setAttribute("aria-label","Chat PLATANITO");
- panel.innerHTML='<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO. 🍌<br>Estoy aquí para ayudarte a comprender el Reglamento Interno de Agroindustrias Cayo Blanco.<div class="platanito-note">Mis respuestas deberán basarse únicamente en el Reglamento Interno e indicar el artículo correspondiente. La conexión de consulta todavía está pendiente.</div></div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" placeholder="Escribe tu pregunta..." aria-label="Escribe tu pregunta"></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
- document.body.append(fab,panel);
- const body=panel.querySelector("#platanito-messages"),form=panel.querySelector("#platanito-form"),input=panel.querySelector("#platanito-question");
- const close=()=>panel.classList.remove("open");
- fab.addEventListener("click",()=>panel.classList.toggle("open"));
- panel.querySelector(".platanito-close").addEventListener("click",close);
- form.addEventListener("submit",e=>{e.preventDefault();const q=input.value.trim();if(!q)return;const u=document.createElement("div");u.className="platanito-msg user";u.textContent=q;body.appendChild(u);const a=document.createElement("div");a.className="platanito-msg bot";a.textContent="Gracias por tu pregunta. La ventana de PLATANITO ya está integrada, pero el motor de consulta del Reglamento aún no está conectado. No quiero darte una respuesta sin verificar el artículo que la respalda. Consulta temporalmente con Recursos Humanos.";body.appendChild(a);input.value="";body.scrollTop=body.scrollHeight;});
- const portal=document.getElementById("pantallaPortal"),access=document.getElementById("pantallaAcceso");
- function sync(){const authenticated=!!(portal&&portal.classList.contains("active")&&access&&!access.classList.contains("active"));fab.classList.toggle("visible",authenticated);if(!authenticated)close();}
- if(portal&&access){new MutationObserver(sync).observe(document.querySelector("main")||document.body,{subtree:true,attributes:true,attributeFilter:["class"]});}
- document.addEventListener("click",e=>{if(e.target.closest("#cerrarSesion")){close();fab.classList.remove("visible");}});
- sync();
+  const SUPABASE_URL = "https://brvzmmvhbhntnuwatuli.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_wNR0GBMwaxaMbR3kt-hd_g_VvkJDhlT";
+
+  const style = document.createElement("style");
+  style.textContent = `
+    #platanito-fab{position:fixed;right:24px;bottom:92px;z-index:900;width:62px;height:62px;border:0;border-radius:50%;background:linear-gradient(145deg,#19bd83,#087e62);color:#fff;box-shadow:0 12px 30px #063d3150;display:none;align-items:center;justify-content:center;font-size:28px;cursor:pointer}
+    #platanito-fab.visible{display:flex}
+    #platanito-fab:after{content:"";position:absolute;inset:-5px;border:2px solid #19bd8355;border-radius:50%;animation:platanitoPulse 2s infinite}
+    @keyframes platanitoPulse{50%{transform:scale(1.12);opacity:.35}}
+    #platanito-panel{position:fixed;right:24px;bottom:166px;z-index:901;width:min(390px,calc(100vw - 28px));height:min(560px,calc(100dvh - 190px));display:none;flex-direction:column;overflow:hidden;background:#fff;border:1px solid #dce9e5;border-radius:24px;box-shadow:0 22px 70px #062a3a35}
+    #platanito-panel.open{display:flex}
+    .platanito-head{display:flex;align-items:center;gap:12px;padding:16px 18px;color:#fff;background:linear-gradient(120deg,#062a3a,#0e7c72)}
+    .platanito-avatar{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:14px;background:#ffffff20;font-size:23px}
+    .platanito-head strong{display:block;font-size:15px}.platanito-head small{display:block;margin-top:3px;color:#c8e8df;font-size:11px}
+    .platanito-close{margin-left:auto;width:34px;height:34px;border:0;border-radius:50%;background:#ffffff20;color:#fff;font-size:21px}
+    .platanito-body{flex:1;overflow:auto;padding:16px;background:#f5faf8}
+    .platanito-welcome{padding:13px 14px;margin-bottom:12px;border-radius:16px 16px 16px 5px;background:#fff;color:#244b48;font-size:13px;line-height:1.55;box-shadow:0 3px 12px #0b4b3510}
+    .platanito-note{margin-top:9px;padding:9px 11px;border-radius:10px;background:#fff8e8;color:#80642b;font-size:10px;line-height:1.45}
+    .platanito-msg{max-width:90%;padding:11px 13px;margin:9px 0;border-radius:15px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+    .platanito-msg.user{margin-left:auto;background:#dff5eb;color:#164b3d;border-bottom-right-radius:4px}
+    .platanito-msg.bot{margin-right:auto;background:#fff;color:#244b48;border-bottom-left-radius:4px;box-shadow:0 2px 9px #0b4b350c}
+    .platanito-msg.error{color:#9d3030;border:1px solid #f0d4d4}
+    .platanito-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #e4eeea;background:#fff}
+    #platanito-question{flex:1;min-width:0;resize:none;max-height:90px;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font:13px inherit;outline:none}
+    #platanito-question:focus{border-color:#19a979;box-shadow:0 0 0 3px #19a97918}
+    #platanito-send{width:42px;height:42px;flex:0 0 42px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}
+    #platanito-send:disabled{opacity:.5}
+    .platanito-source{display:block;margin-top:8px;padding-top:8px;border-top:1px solid #e6efeb;font-size:11px;color:#617a80}
+    @media(max-width:600px){#platanito-fab{right:16px;bottom:88px;width:56px;height:56px}#platanito-panel{right:10px;bottom:154px;width:calc(100vw - 20px);height:min(590px,calc(100dvh - 175px));border-radius:21px}}
+  `;
+  document.head.appendChild(style);
+
+  const fab = document.createElement("button");
+  fab.id = "platanito-fab";
+  fab.type = "button";
+  fab.setAttribute("aria-label", "Abrir PLATANITO");
+  fab.title = "Consultar a PLATANITO";
+  fab.textContent = "🍌";
+
+  const panel = document.createElement("section");
+  panel.id = "platanito-panel";
+  panel.setAttribute("aria-label", "Chat PLATANITO");
+  panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO. 🍌<br>Estoy aquí para ayudarte a consultar el Reglamento Interno de Agroindustrias Cayo Blanco.<div class="platanito-note">Mis respuestas se basan únicamente en el Reglamento Interno. Mostraré los apartados encontrados, con su artículo y página. Si no localizo información suficiente, te recomendaré consultar a Recursos Humanos.</div></div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta..." aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
+  document.body.append(fab, panel);
+
+  const body = panel.querySelector("#platanito-messages");
+  const form = panel.querySelector("#platanito-form");
+  const input = panel.querySelector("#platanito-question");
+  const send = panel.querySelector("#platanito-send");
+  const close = () => panel.classList.remove("open");
+
+  function addMessage(text, kind = "bot") {
+    const el = document.createElement("div");
+    el.className = "platanito-msg " + kind;
+    el.textContent = text;
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+    return el;
+  }
+
+  function addMatches(matches) {
+    for (const item of matches || []) {
+      const el = document.createElement("div");
+      el.className = "platanito-msg bot";
+      const heading = document.createElement("strong");
+      const article = item.article_number ? "Artículo " + item.article_number : (item.section_title || "Apartado del Reglamento");
+      heading.textContent = article;
+      const content = document.createElement("div");
+      content.textContent = item.content || "";
+      const source = document.createElement("small");
+      source.className = "platanito-source";
+      source.textContent = (item.section_title ? item.section_title + " · " : "") + "Página " + item.page_number;
+      el.append(heading, content, source);
+      body.appendChild(el);
+    }
+    body.scrollTop = body.scrollHeight;
+  }
+
+  fab.addEventListener("click", () => panel.classList.toggle("open"));
+  panel.querySelector(".platanito-close").addEventListener("click", close);
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const question = input.value.trim();
+    const employee = window.empleadoActual;
+    const code = String(employee?.codigo || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (!code || !/^[A-Z0-9]{6,16}$/.test(code)) {
+      addMessage("Primero debes ingresar al portal con tu código de colaborador.", "error");
+      return;
+    }
+    if (question.length < 3) return;
+
+    addMessage(question, "user");
+    input.value = "";
+    send.disabled = true;
+    send.textContent = "…";
+    const loading = addMessage("Buscando en el Reglamento Interno…");
+    try {
+      const response = await fetch(SUPABASE_URL + "/functions/v1/platanito-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_PUBLISHABLE_KEY
+        },
+        body: JSON.stringify({ question, employee_code: code })
+      });
+      const data = await response.json().catch(() => ({}));
+      loading.remove();
+      if (!response.ok || !data.ok) throw new Error(data.error || "No fue posible consultar el Reglamento.");
+      addMessage(data.message || "Consulta completada.");
+      if (data.matches?.length) addMatches(data.matches);
+    } catch (error) {
+      loading.remove();
+      addMessage(error?.message || "No fue posible conectar con PLATANITO. Inténtalo nuevamente.", "error");
+    } finally {
+      send.disabled = false;
+      send.textContent = "➤";
+      input.focus();
+    }
+  });
+
+  const portal = document.getElementById("pantallaPortal");
+  const access = document.getElementById("pantallaAcceso");
+  function sync() {
+    const authenticated = !!(
+      portal &&
+      portal.classList.contains("active") &&
+      access &&
+      !access.classList.contains("active") &&
+      window.empleadoActual?.codigo
+    );
+    fab.classList.toggle("visible", authenticated);
+    if (!authenticated) close();
+  }
+  if (portal && access) {
+    new MutationObserver(sync).observe(document.querySelector("main") || document.body, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  }
+  document.getElementById("cerrarSesion")?.addEventListener("click", () => {
+    close();
+    fab.classList.remove("visible");
+  });
+  sync();
 })();
