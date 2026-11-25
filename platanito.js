@@ -24,12 +24,15 @@
     .platanito-msg.user{margin-left:auto;background:#dff5eb;color:#164b3d;border-bottom-right-radius:4px}
     .platanito-msg.bot{margin-right:auto;background:#fff;color:#244b48;border-bottom-left-radius:4px;box-shadow:0 2px 9px #0b4b350c}
     .platanito-msg.error{color:#9d3030;border:1px solid #f0d4d4}
-    .platanito-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #e4eeea;background:#fff}
-    #platanito-question{flex:1;min-width:0;resize:none;max-height:90px;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font-size:20px!important;font-family:Arial,sans-serif;line-height:1.45;-webkit-text-size-adjust:100%;text-size-adjust:100%;outline:none;touch-action:manipulation}
+    .platanito-compose{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;padding:10px 12px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #e4eeea;background:#fff}
+    .platanito-status{display:none;flex:0 0 100%;font-size:11px;line-height:1.25;color:#648078;padding:0 2px}
+    .platanito-status.visible{display:block}
+    #platanito-question{display:block;flex:1 1 0%;width:0;min-width:0;min-height:44px;max-height:76px;resize:none;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font-size:16px!important;font-family:Arial,sans-serif;line-height:1.35;-webkit-text-size-adjust:100%;text-size-adjust:100%;outline:none;touch-action:manipulation;box-sizing:border-box}
     #platanito-question:focus{border-color:#19a979;box-shadow:0 0 0 3px #19a97918}
-    #platanito-send{width:42px;height:42px;flex:0 0 42px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}
+    #platanito-question:disabled{opacity:1;background:#f2f7f5;color:#648078;-webkit-text-fill-color:#648078}
+    #platanito-send{width:44px;height:44px;flex:0 0 44px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}
     #platanito-send:disabled{opacity:.5}
-    @media(max-width:600px){#platanito-fab{right:16px;bottom:88px;width:56px;height:56px}#platanito-panel{right:10px;bottom:154px;width:calc(100vw - 20px);height:min(590px,calc(100dvh - 175px));border-radius:21px}}
+    @media(max-width:600px){#platanito-fab{right:16px;bottom:88px;width:56px;height:56px}#platanito-panel{right:8px;left:8px;bottom:10px;width:auto;height:min(650px,calc(100dvh - 20px));max-height:calc(100dvh - 20px);border-radius:21px}.platanito-body{padding:12px}.platanito-welcome{font-size:13px;line-height:1.45}#platanito-question{font-size:16px!important}}
   `;
   document.head.appendChild(style);
 
@@ -47,13 +50,14 @@
   const panel = document.createElement("section");
   panel.id = "platanito-panel";
   panel.setAttribute("aria-label", "Chat PLATANITO");
-  panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Estoy aquí para orientarte sobre el Reglamento Interno de Agroindustrias Cayo Blanco. Escribe tu consulta y recibirás una respuesta clara y breve, con el artículo y la página cuando corresponda.</div></div><form class="platanito-compose" id="platanito-form"><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Consulta a PLATANITO" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
+  panel.innerHTML = '<div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button class="platanito-close" type="button" aria-label="Cerrar">×</button></div><div class="platanito-body" id="platanito-messages"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Te ayudo a entender el Reglamento Interno de Agroindustrias Cayo Blanco con respuestas sencillas y directas.<br><br><strong>Por ejemplo:</strong><br>“¿Cuántos días me dan si fallece mi mamá?”<br>“¿Qué hago si no puedo llegar al trabajo?”<br><br>Escribe como hablas normalmente. No necesitas usar palabras legales.</div></div><form class="platanito-compose" id="platanito-form"><div class="platanito-status" id="platanito-status" role="status" aria-live="polite">Un momento, estoy preparando tu respuesta…</div><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Consulta a PLATANITO" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form>';
   document.body.append(fab, backdrop, panel);
 
   const body = panel.querySelector("#platanito-messages");
   const form = panel.querySelector("#platanito-form");
   const input = panel.querySelector("#platanito-question");
   const send = panel.querySelector("#platanito-send");
+  const status = panel.querySelector("#platanito-status");
   // Historial temporal de esta conversación; se reinicia al recargar o cerrar sesión.
   const conversationHistory = [];
   let lockedScrollY = 0;
@@ -120,7 +124,8 @@
     conversationHistory.push({ role: "user", content: question });
     input.value = "";
     input.disabled = true;
-    input.placeholder = "Espera, se está respondiendo tu mensaje anterior…";
+    input.placeholder = "Respondiendo…";
+    status.classList.add("visible");
     send.disabled = true;
     send.textContent = "…";
 
@@ -159,6 +164,7 @@
       requestInProgress = false;
       input.disabled = false;
       input.placeholder = "Consulta a PLATANITO";
+      status.classList.remove("visible");
       send.disabled = false;
       send.textContent = "➤";
       input.focus();
