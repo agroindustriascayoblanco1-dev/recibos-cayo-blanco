@@ -99,8 +99,8 @@
   fab.addEventListener("click", () => panel.classList.contains("open") ? close() : open());
   panel.querySelector(".platanito-close").addEventListener("click", close);
 
-  // Un solo mensaje a la vez: bloquea la escritura mientras PLATANITO
-  // responde y vuelve a habilitarla inmediatamente al terminar.
+  // Una consulta a la vez, pero el campo permanece siempre editable
+  // para que el colaborador pueda preparar su siguiente pregunta.
   let requestInProgress = false;
 
   form.addEventListener("submit", async (event) => {
@@ -123,11 +123,9 @@
     addMessage(question, "user");
     const loading = addMessage("Consultando el Reglamento Interno…");
     conversationHistory.push({ role: "user", content: question });
+    // El campo permanece editable durante toda la consulta.
+    // Solo se evita enviar otra pregunta hasta que termine la solicitud.
     input.value = "";
-    input.readOnly = true;
-    input.setAttribute("aria-busy", "true");
-    input.placeholder = "Respondiendo…";
-    input.blur();
     status.classList.add("visible");
     send.disabled = true;
     send.textContent = "…";
@@ -165,8 +163,6 @@
       addMessage(message, "error");
     } finally {
       requestInProgress = false;
-      input.readOnly = false;
-      input.removeAttribute("aria-busy");
       input.placeholder = "Consulta a PLATANITO";
       status.classList.remove("visible");
       send.disabled = false;
