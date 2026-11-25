@@ -24,10 +24,10 @@
     .platanito-msg.user{margin-left:auto;background:#dff5eb;color:#164b3d;border-bottom-right-radius:4px}
     .platanito-msg.bot{margin-right:auto;background:#fff;color:#244b48;border-bottom-left-radius:4px;box-shadow:0 2px 9px #0b4b350c}
     .platanito-msg.error{color:#9d3030;border:1px solid #f0d4d4}
-    .platanito-compose{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;padding:10px 12px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #e4eeea;background:#fff}
+    .platanito-compose{position:relative;z-index:902;display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;padding:10px 12px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #e4eeea;background:#fff;pointer-events:auto}
     .platanito-status{display:none;flex:0 0 100%;font-size:11px;line-height:1.25;color:#648078;padding:0 2px}
     .platanito-status.visible{display:block}
-    #platanito-question{display:block;flex:1 1 0%;width:0;min-width:0;min-height:44px;max-height:76px;resize:none;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font-size:16px!important;font-family:Arial,sans-serif;line-height:1.35;-webkit-text-size-adjust:100%;text-size-adjust:100%;outline:none;touch-action:manipulation;box-sizing:border-box}
+    #platanito-question{display:block;position:relative;z-index:902;flex:1 1 0%;width:0;min-width:0;min-height:44px;max-height:76px;resize:none;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font-size:16px!important;font-family:Arial,sans-serif;line-height:1.35;-webkit-text-size-adjust:100%;text-size-adjust:100%;outline:none;touch-action:auto;pointer-events:auto;-webkit-user-select:text;user-select:text;box-sizing:border-box}
     #platanito-question:focus{border-color:#19a979;box-shadow:0 0 0 3px #19a97918}
     #platanito-question:disabled{opacity:1;background:#f2f7f5;color:#648078;-webkit-text-fill-color:#648078}
     #platanito-send{width:44px;height:44px;flex:0 0 44px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}
@@ -83,8 +83,9 @@
     document.body.style.width = "";
     window.scrollTo(0, lockedScrollY);
   }
-  const open = () => { lockBackground(); backdrop.classList.add("open"); panel.classList.add("open"); };
-  const close = () => { panel.classList.remove("open"); backdrop.classList.remove("open"); unlockBackground(); };
+  // En iPhone no fijamos el body: position:fixed y overflow:hidden pueden impedir que Safari abra el teclado del textarea.
+  const open = () => { backdrop.classList.add("open"); panel.classList.add("open"); };
+  const close = () => { panel.classList.remove("open"); backdrop.classList.remove("open"); };
 
   function addMessage(text, kind = "bot") {
     const el = document.createElement("div");
