@@ -354,19 +354,7 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
       <h2>Ingresa a tu portal</h2><p>Escribe tu código de empleado para continuar.</p>
       <label for="codigo">Código de empleado</label>
       <div class="login-row"><input id="codigo" autocomplete="username" autocapitalize="characters" placeholder="Ejemplo: CBEP0000"><button id="buscar">Ingresar</button></div>
-      <label for="contrasena" style="margin-top:14px">Contraseña</label>
-      <input id="contrasena" class="auth-password" type="password" autocomplete="current-password" placeholder="Escribe tu contraseña">
       <div id="mensajeAcceso" class="message"></div>
-      <button id="toggleActivacion" type="button" class="auth-link">¿Primera vez? Activa tu cuenta</button>
-      <div id="activacionCuenta" class="activation-box" hidden>
-        <p>Solicita a Recursos Humanos tu invitación personal antes de activar la cuenta.</p>
-        <label for="tokenInvitacion">Código de invitación</label>
-        <input id="tokenInvitacion" class="auth-password" type="text" autocomplete="off" placeholder="Pega tu invitación privada">
-        <label for="nuevaContrasena" style="margin-top:12px">Crea tu contraseña</label>
-        <input id="nuevaContrasena" class="auth-password" type="password" autocomplete="new-password" minlength="12" placeholder="Mínimo 12 caracteres">
-        <button id="activarCuentaBtn" type="button" class="primary" style="width:100%;margin-top:12px">Activar cuenta</button>
-        <div id="mensajeActivacion" class="message"></div>
-      </div>
     </div>
   </div>
 </section>
@@ -717,11 +705,6 @@ async function acceder(){
   if(!r){msg("El código no fue encontrado en la información dispinible.",true);return}
   empleadoActual={codigo,nombre:obtenerNombre(r.texto),departamento:obtenerCampo(r.texto,"Departamento"),puesto:obtenerCampo(r.texto,"Puesto")};
 
-  if(!verificarPinAdministracion(empleadoActual)){
-   empleadoActual=null;
-   return;
-  }
-
   $("nombreEmpleado").textContent=empleadoActual.nombre;$("codigoEmpleado").textContent=codigo;
   cargarAvatar();cargarCarnet();show("pantallaPortal");
  }catch(e){console.error(e);msg("No se pudo consultar la información. Verifica que los PDF estén disponibles.",true)}
@@ -1034,7 +1017,6 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
 })();
 </script>
 <!-- PLATANITO: interfaz de chat, visible tras iniciar sesión -->
-<script src="platanito.js?v=1" defer></script>
-<script type="module" src="auth.js?v=20261125"></script>
+<script src="platanito.js?v=2" defer></script>
 </body>
 </html>
