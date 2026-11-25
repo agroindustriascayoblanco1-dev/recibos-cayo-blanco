@@ -48,6 +48,8 @@
   const form = panel.querySelector("#platanito-form");
   const input = panel.querySelector("#platanito-question");
   const send = panel.querySelector("#platanito-send");
+  // Historial temporal de esta conversación; se reinicia al recargar o cerrar sesión.
+  const conversationHistory = [];
   const close = () => panel.classList.remove("open");
 
   function addMessage(text, kind = "bot") {
@@ -74,6 +76,7 @@
     if (question.length < 3) return;
 
     addMessage(question, "user");
+    conversationHistory.push({ role: "user", content: question });
     input.value = "";
     send.disabled = true;
     send.textContent = "…";
@@ -85,12 +88,15 @@
           "Content-Type": "application/json",
           "apikey": SUPABASE_PUBLISHABLE_KEY
         },
-        body: JSON.stringify({ question, employee_code: code })
+        body: JSON.stringify({ question, employee_code: code, conversation_history: conversationHistory.slice(-8) })
       });
       const data = await response.json().catch(() => ({}));
       loading.remove();
       if (!response.ok || !data.ok) throw new Error(data.error || "No fue posible consultar el Reglamento.");
-      addMessage(data.message || "Consulta completada.");
+      const reply = data.message || "Consulta completada.";
+      addMessage(reply);
+      conversationHistory.push({ role: "assistant", content: reply });
+      if (conversationHistory.length > 10) conversationHistory.splice(0, conversationHistory.length - 10);
     } catch (error) {
       loading.remove();
       addMessage(error?.message || "No fue posible conectar con PLATANITO. Inténtalo nuevamente.", "error");
@@ -123,6 +129,7 @@
   }
   document.getElementById("cerrarSesion")?.addEventListener("click", () => {
     close();
+    conversationHistory.length = 0;
     fab.classList.remove("visible");
   });
   sync();
