@@ -29,7 +29,7 @@
     .platanito-status.visible{display:block}
     #platanito-question{display:block;position:relative;z-index:902;flex:1 1 0%;width:0;min-width:0;min-height:44px;max-height:76px;resize:none;padding:11px 12px;border:1px solid #d7e6df;border-radius:13px;font-size:16px!important;font-family:Arial,sans-serif;line-height:1.35;-webkit-text-size-adjust:100%;text-size-adjust:100%;outline:none;touch-action:auto;pointer-events:auto;-webkit-user-select:text;user-select:text;box-sizing:border-box}
     #platanito-question:focus{border-color:#19a979;box-shadow:0 0 0 3px #19a97918}
-    #platanito-question:disabled{opacity:1;background:#f2f7f5;color:#648078;-webkit-text-fill-color:#648078}
+    #platanito-question:read-only{opacity:1;background:#f2f7f5;color:#648078;-webkit-text-fill-color:#648078}
     #platanito-send{width:44px;height:44px;flex:0 0 44px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}
     #platanito-send:disabled{opacity:.5}
     @media(max-width:600px){#platanito-fab{right:16px;bottom:88px;width:56px;height:56px}#platanito-panel{right:8px;left:8px;bottom:10px;width:auto;height:min(650px,calc(100dvh - 20px));max-height:calc(100dvh - 20px);border-radius:21px}.platanito-body{padding:12px}.platanito-welcome{font-size:13px;line-height:1.45}#platanito-question{font-size:16px!important}}
@@ -124,8 +124,10 @@
     const loading = addMessage("Consultando el Reglamento Interno…");
     conversationHistory.push({ role: "user", content: question });
     input.value = "";
-    input.disabled = true;
+    input.readOnly = true;
+    input.setAttribute("aria-busy", "true");
     input.placeholder = "Respondiendo…";
+    input.blur();
     status.classList.add("visible");
     send.disabled = true;
     send.textContent = "…";
@@ -163,12 +165,12 @@
       addMessage(message, "error");
     } finally {
       requestInProgress = false;
-      input.disabled = false;
+      input.readOnly = false;
+      input.removeAttribute("aria-busy");
       input.placeholder = "Consulta a PLATANITO";
       status.classList.remove("visible");
       send.disabled = false;
       send.textContent = "➤";
-      input.focus();
     }
   });
 
