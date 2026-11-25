@@ -50,7 +50,31 @@
   const send = panel.querySelector("#platanito-send");
   // Historial temporal de esta conversación; se reinicia al recargar o cerrar sesión.
   const conversationHistory = [];
-  const close = () => panel.classList.remove("open");
+  let lockedScrollY = 0;
+  function lockBackground() {
+    if (document.body.dataset.platanitoLocked === "1") return;
+    lockedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.dataset.platanitoLocked = "1";
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+  function unlockBackground() {
+    if (document.body.dataset.platanitoLocked !== "1") return;
+    document.body.dataset.platanitoLocked = "0";
+    document.documentElement.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, lockedScrollY);
+  }
+  const open = () => { lockBackground(); panel.classList.add("open"); };
+  const close = () => { panel.classList.remove("open"); unlockBackground(); };
 
   function addMessage(text, kind = "bot") {
     const el = document.createElement("div");
@@ -61,7 +85,7 @@
     return el;
   }
 
-  fab.addEventListener("click", () => panel.classList.toggle("open"));
+  fab.addEventListener("click", () => panel.classList.contains("open") ? close() : open());
   panel.querySelector(".platanito-close").addEventListener("click", close);
 
   form.addEventListener("submit", async (event) => {
