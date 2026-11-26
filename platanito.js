@@ -70,13 +70,13 @@
     const el = document.createElement("div");
     el.className = "platanito-msg " + kind;
     // Renderiza **texto** como negrita sin interpretar HTML ni permitir etiquetas externas.
-    const parts = String(text ?? "").split(/(\\*\\*[\\s\\S]+?\\*\\*|https:\\/\\/[^\\s]+)/g);
+    const parts = String(text ?? "").split(/(\*\*[\s\S]+?\*\*|https:\/\/[^\s]+)/g);
     for (const part of parts) {
       if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
         const strong = document.createElement("strong");
         strong.textContent = part.slice(2, -2);
         el.appendChild(strong);
-      } else if (/^https:\\/\\//i.test(part)) {
+      } else if (/^https:\/\//i.test(part)) {
         const link = document.createElement("a");
         link.href = part.replace(/[),.;]+$/, "");
         link.textContent = link.href;
