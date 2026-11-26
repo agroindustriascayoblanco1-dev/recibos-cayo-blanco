@@ -128,7 +128,7 @@
 
     requestInProgress = true;
     addMessage(question, "user");
-    const isReceiptQuestion = /(mi recibo|recibo de pago|recibo|cuanto me pagaron|cuánto me pagaron|cuanto cobre|cuánto cobré|mi sueldo|mi salario|deduccion|deducción|rebajo|me rebajaron|pago de esta quincena|pago de la quincena|salario neto|total pagado|dias pagados|días pagados)/i.test(question);
+    const isReceiptQuestion = /(mi recibo|recibo de pago|recibo|cu[aá]nto (?:recib[ií]|me pagaron|cobr[eé]|me depositaron)|cu[aá]nto (?:me )?(?:pagaron|pagan|est[aá]n pagando)|esta quincena|quincena (?:pasada|anterior|actual)|pago de (?:esta|la) quincena|mi sueldo|mi salario|deducci[oó]n|rebajo|me rebajaron|salario neto|total pagado|total recibido|total devengado|d[ií]as pagados|incapacidad|incapacidades|vacaciones|vacacional|pago de vacaciones|pago por incapacidad|me pagaron por|me pagan por|desglose de pago|detalle de pago)/i.test(question);
     const loading = addMessage(isReceiptQuestion ? "Verificando tu recibo de pago de esta sesión…" : "Revisando el Reglamento y la información del portal…");
     conversationHistory.push({ role: "user", content: question });
     input.value = "";
