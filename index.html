@@ -730,12 +730,21 @@ window.obtenerRecibosDeSesionParaPlatanito = async function(codigoSesion){
  if(!empleadoActual||!codigoActivo||normalizar(codigoSesion||"")!==codigoActivo)
   throw new Error("La sesión no coincide con el colaborador activo. Vuelve a ingresar al portal.");
  const recibos=[];
+ const meses={enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,setiembre:8,octubre:9,noviembre:10,diciembre:11};
+ const fechaFinal=texto=>{
+  const m=String(texto||"").match(/\\bal\\s+(\\d{1,2})\\s+de\\s+([a-záéíóúñ]+)\\s+del?\\s+(\\d{4})/i);
+  if(!m)return 0;
+  const mes=meses[m[2].toLocaleLowerCase("es")];
+  return mes===undefined?0:new Date(Number(m[3]),mes,Number(m[1])).getTime();
+ };
  for(const key of ["q1","q2"]){
   const periodo=PERIODOS[key], encontrado=await buscarEmpleado(periodo,codigoActivo);
   if(!encontrado||!normalizar(encontrado.texto||"").includes(codigoActivo)) continue;
-  recibos.push({period:periodo.nombre+" · "+periodo.mes,text:String(encontrado.texto||"").slice(0,12000)});
+  recibos.push({period:periodo.nombre+" · "+periodo.mes,text:String(encontrado.texto||"").slice(0,12000),fechaOrden:fechaFinal(periodo.mes)});
  }
- return recibos;
+ // Ordena por la fecha final del período: el recibo más reciente siempre es "esta quincena".
+ recibos.sort((a,b)=>b.fechaOrden-a.fechaOrden);
+ return recibos.map((r,i)=>({period:(i===0?"ESTA QUINCENA — RECIBO MÁS RECIENTE":"QUINCENA PASADA — RECIBO ANTERIOR")+" · "+r.period,text:r.text}));
 };
 async function abrirRecibo(key){
  if(!empleadoActual)return;quincenaActual=key;const periodo=PERIODOS[key];show("pantallaRecibo");$("visorTitulo").textContent=`${periodo.nombre} · ${periodo.mes}`;
@@ -1040,6 +1049,6 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
 })();
 </script>
 <!-- PLATANITO: interfaz de chat, visible tras iniciar sesión -->
-<script src="platanito.js?v=29" defer></script>
+<script src="platanito.js?v=30" defer></script>
 </body>
 </html>
