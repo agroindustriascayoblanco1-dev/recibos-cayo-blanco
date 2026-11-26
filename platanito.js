@@ -11,7 +11,7 @@
     "body.platanito-fullscreen{overflow:hidden;background:#f7fbf9}",
     "body.platanito-fullscreen .topbar,body.platanito-fullscreen #dock,body.platanito-fullscreen footer{display:none!important}",
     "body.platanito-fullscreen main.container{width:100%;max-width:none;margin:0;padding:0}",
-    "body.platanito-fullscreen #pantallaPlatanito{display:flex;flex-direction:column;width:100%;height:100dvh;height:100svh;min-height:0;overflow:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);background:#f7fbf9}",
+    "body.platanito-fullscreen #pantallaPlatanito{display:flex;flex-direction:column;width:100%;height:100svh;height:100dvh;min-height:0;overflow:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);background:#f7fbf9}",
     "body.platanito-fullscreen #platanito-mount{display:flex;flex:1;min-height:0;width:100%}",
     ".platanito-head{min-height:68px;padding:12px 16px;flex:0 0 auto}",
     ".platanito-back{width:38px;height:38px;display:grid;place-items:center;flex:0 0 38px;border:1px solid #ffffff35;border-radius:12px;background:#ffffff18;color:#fff;font-size:22px}",
