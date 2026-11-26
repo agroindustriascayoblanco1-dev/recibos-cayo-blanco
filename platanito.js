@@ -70,12 +70,21 @@
     const el = document.createElement("div");
     el.className = "platanito-msg " + kind;
     // Renderiza **texto** como negrita sin interpretar HTML ni permitir etiquetas externas.
-    const parts = String(text ?? "").split(/(\*\*[\s\S]+?\*\*)/g);
+    const parts = String(text ?? "").split(/(\\*\\*[\\s\\S]+?\\*\\*|https:\\/\\/[^\\s]+)/g);
     for (const part of parts) {
       if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
         const strong = document.createElement("strong");
         strong.textContent = part.slice(2, -2);
         el.appendChild(strong);
+      } else if (/^https:\\/\\//i.test(part)) {
+        const link = document.createElement("a");
+        link.href = part.replace(/[),.;]+$/, "");
+        link.textContent = link.href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.style.color = "#087a59";
+        link.style.textDecoration = "underline";
+        el.appendChild(link);
       } else if (part) {
         el.appendChild(document.createTextNode(part));
       }
@@ -111,7 +120,7 @@
         method: "POST",
         headers: { "Content-Type": "application/json", "apikey": SUPABASE_PUBLISHABLE_KEY },
         body: JSON.stringify({ question, employee_code: code, conversation_history: conversationHistory.slice(-8) }),
-        signal: AbortSignal.timeout(18000)
+        signal: AbortSignal.timeout(45000)
       });
       const data = await response.json().catch(() => ({}));
       loading.remove();
