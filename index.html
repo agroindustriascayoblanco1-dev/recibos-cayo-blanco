@@ -732,7 +732,7 @@ window.obtenerRecibosDeSesionParaPlatanito = async function(codigoSesion){
  const recibos=[];
  const meses={enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,setiembre:8,octubre:9,noviembre:10,diciembre:11};
  const fechaFinal=texto=>{
-  const m=String(texto||"").match(/\\bal\\s+(\\d{1,2})\\s+de\\s+([a-záéíóúñ]+)\\s+del?\\s+(\\d{4})/i);
+  const m=String(texto||"").match(/\bal\s+(\d{1,2})\s+de\s+([a-záéíóúñ]+)\s+del?\s+(\d{4})/i);
   if(!m)return 0;
   const mes=meses[m[2].toLocaleLowerCase("es")];
   return mes===undefined?0:new Date(Number(m[3]),mes,Number(m[1])).getTime();
