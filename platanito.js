@@ -35,6 +35,7 @@
     ".platanito-quick button{padding:8px 11px;border:1px solid #cfe9dc;border-radius:999px;background:#effaf4;color:#17624d;font-size:12px;font-weight:700;touch-action:manipulation}",
     ".platanito-quick button:active{background:#d9f3e6;transform:scale(.98)}",
     ".platanito-msg{font-size:14px;line-height:1.6}",
+    ".platanito-msg strong{font-weight:800;color:inherit}",
     ".platanito-msg{max-width:90%;padding:11px 13px;margin:9px 0;border-radius:15px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}",
     ".platanito-msg.user{margin-left:auto;background:#dff5eb;color:#164b3d;border-bottom-right-radius:4px}.platanito-msg.bot{margin-right:auto;background:#fff;color:#244b48;border-bottom-left-radius:4px;box-shadow:0 2px 9px #0b4b350c}",
     ".platanito-msg.error{color:#9d3030;border:1px solid #f0d4d4}",
@@ -68,7 +69,17 @@
   function addMessage(text, kind = "bot") {
     const el = document.createElement("div");
     el.className = "platanito-msg " + kind;
-    el.textContent = text;
+    // Renderiza **texto** como negrita sin interpretar HTML ni permitir etiquetas externas.
+    const parts = String(text ?? "").split(/(\\*\\*[\\s\\S]+?\\*\\*)/g);
+    for (const part of parts) {
+      if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
+        const strong = document.createElement("strong");
+        strong.textContent = part.slice(2, -2);
+        el.appendChild(strong);
+      } else if (part) {
+        el.appendChild(document.createTextNode(part));
+      }
+    }
     body.appendChild(el);
     body.scrollTop = body.scrollHeight;
     return el;
