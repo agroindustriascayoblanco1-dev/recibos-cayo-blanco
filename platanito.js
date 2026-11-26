@@ -12,7 +12,11 @@
     ".platanito-avatar{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:14px;background:#ffffff20;font-size:23px}",
     ".platanito-head strong{display:block;font-size:15px}.platanito-head small{display:block;margin-top:3px;color:#c8e8df;font-size:11px}",
     ".platanito-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px;background:#f5faf8;-webkit-overflow-scrolling:touch}",
-    ".platanito-welcome{padding:13px 14px;margin-bottom:12px;border-radius:16px 16px 16px 5px;background:#fff;color:#244b48;font-size:13px;line-height:1.55;box-shadow:0 3px 12px #0b4b3510}",
+    ".platanito-welcome{padding:15px;margin-bottom:12px;border-radius:16px 16px 16px 5px;background:#fff;color:#244b48;font-size:13px;line-height:1.6;box-shadow:0 3px 12px #0b4b3510}",
+    ".platanito-quick{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}",
+    ".platanito-quick button{padding:8px 11px;border:1px solid #cfe9dc;border-radius:999px;background:#effaf4;color:#17624d;font-size:12px;font-weight:700;touch-action:manipulation}",
+    ".platanito-quick button:active{background:#d9f3e6;transform:scale(.98)}",
+    ".platanito-msg{font-size:14px;line-height:1.6}",
     ".platanito-msg{max-width:90%;padding:11px 13px;margin:9px 0;border-radius:15px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}",
     ".platanito-msg.user{margin-left:auto;background:#dff5eb;color:#164b3d;border-bottom-right-radius:4px}.platanito-msg.bot{margin-right:auto;background:#fff;color:#244b48;border-bottom-left-radius:4px;box-shadow:0 2px 9px #0b4b350c}",
     ".platanito-msg.error{color:#9d3030;border:1px solid #f0d4d4}",
@@ -24,13 +28,20 @@
   ].join("\n");
   document.head.appendChild(style);
 
-  mount.innerHTML = '<section id="platanito-app" aria-label="Asistente PLATANITO"><div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div></div><div class="platanito-body" id="platanito-messages" aria-live="polite"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Te ayudo a entender el Reglamento Interno de Agroindustrias Cayo Blanco con respuestas sencillas y directas.<br><br><strong>Por ejemplo:</strong><br>“¿Cuántos días me dan si fallece mi mamá?”<br>“¿Qué hago si no puedo llegar al trabajo?”<br><br>Escribe como hablas normalmente. No necesitas usar palabras legales.</div></div><form class="platanito-compose" id="platanito-form"><div class="platanito-status" id="platanito-status" role="status" aria-live="polite">Un momento, estoy preparando tu respuesta…</div><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta aquí…" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form></section>';
+  mount.innerHTML = '<section id="platanito-app" aria-label="Asistente PLATANITO"><div class="platanito-head"><div class="platanito-avatar">🍌</div><div><strong>PLATANITO</strong><small>Respuestas basadas en el Reglamento Interno</small></div></div><div class="platanito-body" id="platanito-messages" aria-live="polite"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Te ayudo a consultar tus permisos, horarios, vacaciones y otras normas de trabajo. Respondo con palabras sencillas e indico el artículo y la página cuando encuentro la información.<br><br><strong>Prueba una consulta:</strong><div class="platanito-quick"><button type="button" data-question="¿Cuáles permisos son con goce de sueldo?">Permisos con sueldo</button><button type="button" data-question="¿Qué pasa si llego tarde?">Llegadas tarde</button><button type="button" data-question="¿Cuántos días de vacaciones me corresponden?">Vacaciones</button><button type="button" data-question="¿Cuántos días me dan si fallece un familiar?">Fallecimiento familiar</button></div><br>También puedes escribir tu pregunta como hablas normalmente; no necesitas usar palabras legales.</div></div><form class="platanito-compose" id="platanito-form"><div class="platanito-status" id="platanito-status" role="status" aria-live="polite">Un momento, estoy preparando tu respuesta…</div><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta aquí…" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form></section>';
 
   const body = mount.querySelector("#platanito-messages");
   const form = mount.querySelector("#platanito-form");
   const input = mount.querySelector("#platanito-question");
   const send = mount.querySelector("#platanito-send");
   const status = mount.querySelector("#platanito-status");
+
+  mount.querySelectorAll("[data-question]").forEach((button) => {
+    button.addEventListener("click", () => {
+      input.value = button.dataset.question || "";
+      input.focus({ preventScroll: true });
+    });
+  });
   const conversationHistory = [];
   let requestInProgress = false;
 
