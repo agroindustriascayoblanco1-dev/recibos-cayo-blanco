@@ -128,7 +128,8 @@
 
     requestInProgress = true;
     addMessage(question, "user");
-    const loading = addMessage("Revisando el Reglamento y la información del portal…");
+    const isReceiptQuestion = /(mi recibo|recibo de pago|recibo|cuanto me pagaron|cuánto me pagaron|cuanto cobre|cuánto cobré|mi sueldo|mi salario|deduccion|deducción|rebajo|me rebajaron|pago de esta quincena|pago de la quincena|salario neto|total pagado|dias pagados|días pagados)/i.test(question);
+    const loading = addMessage(isReceiptQuestion ? "Verificando tu recibo de pago de esta sesión…" : "Revisando el Reglamento y la información del portal…");
     conversationHistory.push({ role: "user", content: question });
     input.value = "";
     status.classList.add("visible");
@@ -136,10 +137,19 @@
     send.textContent = "…";
 
     try {
+      let receiptContext = [];
+      if (isReceiptQuestion) {
+        const sessionCode = String(window.empleadoActual?.codigo || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        if (!sessionCode || typeof window.obtenerRecibosDeSesionParaPlatanito !== "function") {
+          throw new Error("No pude verificar tu sesión para consultar el recibo. Sal del portal e ingresa nuevamente.");
+        }
+        receiptContext = await window.obtenerRecibosDeSesionParaPlatanito(sessionCode);
+        if (!receiptContext.length) throw new Error("No encontré un recibo disponible para tu código en los períodos publicados.");
+      }
       const response = await fetch(SUPABASE_URL + "/functions/v1/platanito-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json", "apikey": SUPABASE_PUBLISHABLE_KEY },
-        body: JSON.stringify({ question, employee_code: code, conversation_history: conversationHistory.slice(-8) }),
+        body: JSON.stringify({ question, employee_code: code, conversation_history: conversationHistory.slice(-8), receipt_context: receiptContext }),
         signal: AbortSignal.timeout(45000)
       });
       const data = await response.json().catch(() => ({}));
