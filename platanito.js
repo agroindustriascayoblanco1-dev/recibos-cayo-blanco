@@ -47,7 +47,7 @@
   ].join("\n");
   document.head.appendChild(style);
 
-  mount.innerHTML = '<section id="platanito-app" aria-label="Asistente PLATANITO"><div class="platanito-head"><button type="button" class="platanito-back" id="platanito-back" aria-label="Regresar al portal">← Regresar</button><div class="platanito-avatar">🍌</div><div class="platanito-head-copy"><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div></div><div class="platanito-body" id="platanito-messages" aria-live="polite"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Te ayudo a consultar tus permisos, horarios, vacaciones y otras normas de trabajo. Respondo con palabras sencillas e indico el artículo y la página cuando encuentro la información.<br><br><strong>Prueba una consulta:</strong><div class="platanito-quick"><button type="button" data-question="¿Cuáles permisos son con goce de sueldo?">Permisos con sueldo</button><button type="button" data-question="¿Qué pasa si llego tarde?">Llegadas tarde</button><button type="button" data-question="¿Cuántos días de vacaciones me corresponden?">Vacaciones</button><button type="button" data-question="¿Cuántos días me dan si fallece un familiar?">Fallecimiento familiar</button></div><br>También puedes escribir tu pregunta como hablas normalmente; no necesitas usar palabras legales.</div></div><form class="platanito-compose" id="platanito-form"><div class="platanito-status" id="platanito-status" role="status" aria-live="polite">Un momento, estoy preparando tu respuesta…</div><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta aquí…" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form></section>';
+  mount.innerHTML = '<section id="platanito-app" aria-label="Asistente PLATANITO"><div class="platanito-head"><button type="button" class="platanito-back" id="platanito-back" aria-label="Regresar al portal">← Regresar</button><div class="platanito-avatar">🍌</div><div class="platanito-head-copy"><strong>PLATANITO</strong><small>Tu asistente virtual de Recursos Humanos</small></div></div><div class="platanito-body" id="platanito-messages" aria-live="polite"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Tu asistente virtual de Recursos Humanos. Puedo orientarte sobre el Reglamento Interno, tus derechos y obligaciones laborales, permisos, horarios, salarios, vacaciones y legislación laboral vigente en Honduras. Te indicaré cuándo la información proviene del Reglamento y cuándo corresponde a fuentes externas verificables.<br><br><strong>Prueba una consulta:</strong><div class="platanito-quick"><button type="button" data-question="¿Cuáles permisos son con goce de sueldo?">Permisos con sueldo</button><button type="button" data-question="¿Qué pasa si llego tarde?">Llegadas tarde</button><button type="button" data-question="¿Cuántos días de vacaciones me corresponden?">Vacaciones</button><button type="button" data-question="¿Cuántos días me dan si fallece un familiar?">Fallecimiento familiar</button></div><br>También puedes escribir tu pregunta como hablas normalmente; no necesitas usar palabras legales.</div></div><form class="platanito-compose" id="platanito-form"><div class="platanito-status" id="platanito-status" role="status" aria-live="polite">Un momento, estoy preparando tu respuesta…</div><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta aquí…" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form></section>';
 
   const body = mount.querySelector("#platanito-messages");
   const form = mount.querySelector("#platanito-form");
@@ -99,7 +99,7 @@
 
     requestInProgress = true;
     addMessage(question, "user");
-    const loading = addMessage("Consultando el Reglamento Interno…");
+    const loading = addMessage("Revisando el Reglamento y las fuentes laborales disponibles…");
     conversationHistory.push({ role: "user", content: question });
     input.value = "";
     status.classList.add("visible");
@@ -115,7 +115,7 @@
       });
       const data = await response.json().catch(() => ({}));
       loading.remove();
-      if (!response.ok || !data.ok) throw new Error(data.error || "No fue posible consultar el Reglamento.");
+      if (!response.ok || !data.ok) throw new Error(data.error || "No fue posible completar la consulta de Recursos Humanos.");
       const reply = data.message || "Consulta completada.";
       addMessage(reply);
       conversationHistory.push({ role: "assistant", content: reply });
