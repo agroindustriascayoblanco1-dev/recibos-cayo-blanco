@@ -70,7 +70,7 @@
     const el = document.createElement("div");
     el.className = "platanito-msg " + kind;
     // Renderiza **texto** como negrita sin interpretar HTML ni permitir etiquetas externas.
-    const parts = String(text ?? "").split(/(\\*\\*[\\s\\S]+?\\*\\*)/g);
+    const parts = String(text ?? "").split(/(\*\*[\s\S]+?\*\*)/g);
     for (const part of parts) {
       if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
         const strong = document.createElement("strong");
