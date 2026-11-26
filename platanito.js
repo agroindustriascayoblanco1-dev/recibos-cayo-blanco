@@ -22,7 +22,7 @@
     ".platanito-compose{padding:12px max(14px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));gap:10px}",
     "#platanito-question{min-height:52px;max-height:140px;border-radius:16px;padding:14px 16px}",
     "#platanito-send{width:52px;height:52px;flex-basis:52px;border-radius:16px;font-size:21px}",
-    "@media(max-width:640px){.platanito-head{min-height:64px;padding:10px 13px}.platanito-body{padding:12px}.platanito-msg{max-width:88%;font-size:14px}.platanito-compose{padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom))}}"
+    "@media(max-width:640px){.platanito-head{min-height:64px;padding:10px 13px}.platanito-body{padding:12px}.platanito-msg{max-width:88%;font-size:14px}.platanito-compose{padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom))}}",
     ".platanito-head{display:flex;align-items:center;gap:12px;padding:15px 18px;color:#fff;background:linear-gradient(120deg,#062a3a,#0e7c72)}",
     ".platanito-avatar{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:14px;background:#ffffff20;font-size:23px}",
     ".platanito-head strong{display:block;font-size:15px}.platanito-head small{display:block;margin-top:3px;color:#c8e8df;font-size:11px}",
@@ -39,7 +39,7 @@
     ".platanito-status{display:none;flex:0 0 100%;font-size:11px;line-height:1.25;color:#648078;padding:0 2px}.platanito-status.visible{display:block}",
     "#platanito-question{display:block;flex:1 1 0%;width:0;min-width:0;min-height:46px;max-height:110px;resize:vertical;padding:12px;border:1px solid #d7e6df;border-radius:13px;font-size:16px!important;line-height:1.35;outline:none;touch-action:pan-y;pointer-events:auto;-webkit-user-select:text;user-select:text;box-sizing:border-box;background:#fff;color:#173d38}",
     "#platanito-question:focus{border-color:#19a979;box-shadow:0 0 0 3px #19a97918}#platanito-send{width:46px;height:46px;flex:0 0 46px;border:0;border-radius:13px;background:#0b956b;color:#fff;font-size:18px}#platanito-send:disabled{opacity:.5}",
-    "@media(max-width:640px){#platanito-app{height:calc(100dvh - 255px);min-height:390px;border-radius:20px}.platanito-body{padding:12px}.platanito-compose{padding-bottom:calc(12px + env(safe-area-inset-bottom))}}"
+    "@media(max-width:640px){#platanito-app{height:100%;min-height:0;border-radius:0}.platanito-body{padding:12px}.platanito-compose{padding-bottom:calc(10px + env(safe-area-inset-bottom))}}"
   ].join("\n");
   document.head.appendChild(style);
 
