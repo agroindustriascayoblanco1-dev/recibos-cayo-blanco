@@ -128,7 +128,7 @@
 
     requestInProgress = true;
     addMessage(question, "user");
-    const normalizedReceiptQuestion = question.toLocaleLowerCase("es").normalize("NFD").replace(/\\p{Diacritic}/gu, "");
+    const normalizedReceiptQuestion = question.toLocaleLowerCase("es").normalize("NFD").replace(/\p{Diacritic}/gu, "");
     // Detecta intención de consultar pagos aunque existan errores comunes al escribir desde el teléfono.
     const isReceiptQuestion = /(mi recibo|recibo de pago|recibo|cu[a-z]*nto|cu[a-z]*nt[a-z]*|quincen[a-z]*|salari[a-z]*|sueld[a-z]*|deduccion|rebaj[a-z]*|pag[a-z]*|deposit[a-z]*|devengad[a-z]*|neto|incapacidad|incapacidades|vacacion[a-z]*|vacacional|desglose|detalle de pago)/i.test(normalizedReceiptQuestion);
     const loading = addMessage(isReceiptQuestion ? "Verificando tu recibo de pago de esta sesión…" : "Revisando el Reglamento y la información del portal…");
