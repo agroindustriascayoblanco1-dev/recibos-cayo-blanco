@@ -16,6 +16,8 @@
     ".platanito-head{min-height:68px;padding:12px 16px;flex:0 0 auto}",
     ".platanito-back{width:38px;height:38px;display:grid;place-items:center;flex:0 0 38px;border:1px solid #ffffff35;border-radius:12px;background:#ffffff18;color:#fff;font-size:22px}",
     ".platanito-head-copy{flex:1;min-width:0}",
+    ".platanito-logout{flex:0 0 auto;border:1px solid #ffffff55;border-radius:999px;padding:8px 13px;background:#ffffff18;color:#fff;font-size:12px;font-weight:700;touch-action:manipulation}",
+    ".platanito-logout:active{background:#ffffff35}",
     ".platanito-body{padding:18px clamp(14px,4vw,28px)}",
     ".platanito-welcome{max-width:780px;margin:12px auto 18px;padding:18px;border-radius:18px;line-height:1.65;font-size:14px}",
     ".platanito-msg{max-width:min(82%,760px);padding:13px 16px;font-size:14px;line-height:1.6}",
@@ -43,7 +45,7 @@
   ].join("\n");
   document.head.appendChild(style);
 
-  mount.innerHTML = '<section id="platanito-app" aria-label="Asistente PLATANITO"><div class="platanito-head"><button type="button" class="platanito-back" id="platanito-back" aria-label="Volver al portal">‹</button><div class="platanito-avatar">🍌</div><div class="platanito-head-copy"><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div></div><div class="platanito-body" id="platanito-messages" aria-live="polite"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Te ayudo a consultar tus permisos, horarios, vacaciones y otras normas de trabajo. Respondo con palabras sencillas e indico el artículo y la página cuando encuentro la información.<br><br><strong>Prueba una consulta:</strong><div class="platanito-quick"><button type="button" data-question="¿Cuáles permisos son con goce de sueldo?">Permisos con sueldo</button><button type="button" data-question="¿Qué pasa si llego tarde?">Llegadas tarde</button><button type="button" data-question="¿Cuántos días de vacaciones me corresponden?">Vacaciones</button><button type="button" data-question="¿Cuántos días me dan si fallece un familiar?">Fallecimiento familiar</button></div><br>También puedes escribir tu pregunta como hablas normalmente; no necesitas usar palabras legales.</div></div><form class="platanito-compose" id="platanito-form"><div class="platanito-status" id="platanito-status" role="status" aria-live="polite">Un momento, estoy preparando tu respuesta…</div><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta aquí…" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form></section>';
+  mount.innerHTML = '<section id="platanito-app" aria-label="Asistente PLATANITO"><div class="platanito-head"><button type="button" class="platanito-back" id="platanito-back" aria-label="Volver al portal">‹</button><div class="platanito-avatar">🍌</div><div class="platanito-head-copy"><strong>PLATANITO</strong><small>Asistente del Reglamento Interno</small></div><button type="button" class="platanito-logout" id="platanito-logout">Salir</button></div><div class="platanito-body" id="platanito-messages" aria-live="polite"><div class="platanito-welcome">¡Hola! Soy PLATANITO 🍌<br>Te ayudo a consultar tus permisos, horarios, vacaciones y otras normas de trabajo. Respondo con palabras sencillas e indico el artículo y la página cuando encuentro la información.<br><br><strong>Prueba una consulta:</strong><div class="platanito-quick"><button type="button" data-question="¿Cuáles permisos son con goce de sueldo?">Permisos con sueldo</button><button type="button" data-question="¿Qué pasa si llego tarde?">Llegadas tarde</button><button type="button" data-question="¿Cuántos días de vacaciones me corresponden?">Vacaciones</button><button type="button" data-question="¿Cuántos días me dan si fallece un familiar?">Fallecimiento familiar</button></div><br>También puedes escribir tu pregunta como hablas normalmente; no necesitas usar palabras legales.</div></div><form class="platanito-compose" id="platanito-form"><div class="platanito-status" id="platanito-status" role="status" aria-live="polite">Un momento, estoy preparando tu respuesta…</div><textarea id="platanito-question" rows="1" maxlength="500" placeholder="Escribe tu pregunta aquí…" aria-label="Escribe tu pregunta" required></textarea><button id="platanito-send" type="submit" aria-label="Enviar pregunta">➤</button></form></section>';
 
   const body = mount.querySelector("#platanito-messages");
   const form = mount.querySelector("#platanito-form");
@@ -51,6 +53,7 @@
   const send = mount.querySelector("#platanito-send");
   const status = mount.querySelector("#platanito-status");
   mount.querySelector("#platanito-back")?.addEventListener("click", () => window.show?.("pantallaPortal"));
+  mount.querySelector("#platanito-logout")?.addEventListener("click", () => { if (typeof window.logout === "function") window.logout(); });
 
   mount.querySelectorAll("[data-question]").forEach((button) => {
     button.addEventListener("click", () => {
