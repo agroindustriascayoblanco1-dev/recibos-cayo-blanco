@@ -723,6 +723,20 @@ async function buscarEmpleado(periodo,codigo){
  for(let n=1;n<=pdf.numPages;n++){const p=await pdf.getPage(n),c=await p.getTextContent(),texto=c.items.map(x=>x.str||"").join(" ");if(normalizar(texto).includes(normalizar(codigo)))return{pdf,pagina:n,texto}}
  return null;
 }
+
+// Extrae exclusivamente la página del recibo que coincide con el código de la sesión activa.
+window.obtenerRecibosDeSesionParaPlatanito = async function(codigoSesion){
+ const codigoActivo=normalizar(empleadoActual?.codigo||"");
+ if(!empleadoActual||!codigoActivo||normalizar(codigoSesion||"")!==codigoActivo)
+  throw new Error("La sesión no coincide con el colaborador activo. Vuelve a ingresar al portal.");
+ const recibos=[];
+ for(const key of ["q1","q2"]){
+  const periodo=PERIODOS[key], encontrado=await buscarEmpleado(periodo,codigoActivo);
+  if(!encontrado||!normalizar(encontrado.texto||"").includes(codigoActivo)) continue;
+  recibos.push({period:periodo.nombre+" · "+periodo.mes,text:String(encontrado.texto||"").slice(0,12000)});
+ }
+ return recibos;
+};
 async function abrirRecibo(key){
  if(!empleadoActual)return;quincenaActual=key;const periodo=PERIODOS[key];show("pantallaRecibo");$("visorTitulo").textContent=`${periodo.nombre} · ${periodo.mes}`;
  const v=document.querySelector(".pdf-viewer");v.innerHTML='<div class="viewer-message">🔄 Buscando tu recibo...</div>';
@@ -1026,6 +1040,6 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
 })();
 </script>
 <!-- PLATANITO: interfaz de chat, visible tras iniciar sesión -->
-<script src="platanito.js?v=26" defer></script>
+<script src="platanito.js?v=27" defer></script>
 </body>
 </html>
