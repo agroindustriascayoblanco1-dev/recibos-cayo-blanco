@@ -462,8 +462,7 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
 </section>
 
 
-<section id="pantallaPlatanito" class="screen">
-  <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">ASISTENTE DE RECURSOS HUMANOS</span><h2>PLATANITO 🍌</h2><p>Consulta el Reglamento Interno con respuestas sencillas y directas.</p></div></div>
+<section id="pantallaPlatanito" class="screen platanito-screen">
   <div id="platanito-mount"></div>
 </section>
 
@@ -695,7 +694,9 @@ document.addEventListener("keydown",e=>{
 
 function show(id){
  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
- $(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});
+ $(id).classList.add("active");
+ document.body.classList.toggle("platanito-fullscreen",id==="pantallaPlatanito");
+ window.scrollTo({top:0,behavior:"instant"});
  if(id==="pantallaDocumentos")cargarDocumentos();
 }
 function msg(t,error=false){$("mensajeAcceso").textContent=t;$("mensajeAcceso").className="message"+(error?" error":"")}
@@ -1025,6 +1026,6 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
 })();
 </script>
 <!-- PLATANITO: interfaz de chat, visible tras iniciar sesión -->
-<script src="platanito.js?v=13" defer></script>
+<script src="platanito.js?v=14" defer></script>
 </body>
 </html>
