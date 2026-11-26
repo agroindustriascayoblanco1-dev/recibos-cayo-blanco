@@ -246,7 +246,7 @@ body.logged .container{margin-bottom:110px}
 .sheet-open-link,.sheet-action{display:inline-flex;margin-top:14px;padding:13px 20px;font-size:13.5px;font-weight:800;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:13px}
 
 /* ===== DOCK DE NAVEGACIÓN ===== */
-.dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:60;display:flex;gap:4px;width:min(440px,calc(100% - 24px));padding:7px;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:26px;box-shadow:0 14px 40px rgba(6,42,58,.28);transform:translate(-50%,0);transition:transform .4s var(--ease),opacity .3s}
+.dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:60;display:flex;gap:4px;width:min(520px,calc(100% - 16px));padding:7px;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:26px;box-shadow:0 14px 40px rgba(6,42,58,.28);transform:translate(-50%,0);transition:transform .4s var(--ease),opacity .3s}
 .dock[hidden]{display:flex;transform:translate(-50%,140%);opacity:0;pointer-events:none}
 .dock button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 7px;font-size:10.5px;font-weight:700;color:#6b8790;background:none;border:0;border-radius:19px;transition:.25s var(--ease)}
 .dock button .i{width:22px;height:22px}
@@ -461,6 +461,12 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
   </div>
 </section>
 
+
+<section id="pantallaPlatanito" class="screen">
+  <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">ASISTENTE DE RECURSOS HUMANOS</span><h2>PLATANITO 🍌</h2><p>Consulta el Reglamento Interno con respuestas sencillas y directas.</p></div></div>
+  <div id="platanito-mount"></div>
+</section>
+
 <section id="pantallaInformacion" class="screen">
   <div class="subhead"><button class="back" data-screen="pantallaPortal">← Volver</button><div><span class="eyebrow">INFORMACIÓN PARA EMPLEADOS</span><h2>Información importante</h2><p>Conoce instituciones y canales que pueden ayudarte.</p></div></div>
   <div class="info-grid">
@@ -478,6 +484,7 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
   <button data-nav="recibos"><svg class="i"><use href="#i-receipt"/></svg>Recibos</button>
   <button data-nav="carnet"><svg class="i"><use href="#i-id"/></svg>Carné</button>
   <button data-nav="docs"><svg class="i"><use href="#i-docs"/></svg>Docs</button>
+  <button data-nav="platanito" aria-label="Abrir PLATANITO"><span aria-hidden="true" style="font-size:21px;line-height:22px">🍌</span>PLATANITO</button>
   <button data-nav="mas"><svg class="i"><use href="#i-grid"/></svg>Más</button>
 </nav>
 
@@ -980,7 +987,7 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
 
   // Dock de navegación
   const dock=$("dock");
-  const mapa={pantallaPortal:"inicio",pantallaRecibos:"recibos",pantallaRecibo:"recibos",pantallaCarnet:"carnet",pantallaDocumentos:"docs"};
+  const mapa={pantallaPortal:"inicio",pantallaRecibos:"recibos",pantallaRecibo:"recibos",pantallaCarnet:"carnet",pantallaDocumentos:"docs",pantallaPlatanito:"platanito"};
   function sync(){
     const a=document.querySelector(".screen.active");
     const logged=!!a && a.id!=="pantallaAcceso";
@@ -998,6 +1005,7 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
     else if(k==="recibos") $("btnRecibos").click();
     else if(k==="carnet") $("btnCarnet").click();
     else if(k==="docs") show("pantallaDocumentos");
+    else if(k==="platanito") show("pantallaPlatanito");
     else show("pantallaInformacion");
   });
   sync();
