@@ -108,7 +108,7 @@
 
     requestInProgress = true;
     addMessage(question, "user");
-    const loading = addMessage("Revisando el Reglamento y las fuentes laborales disponibles…");
+    const loading = addMessage("Revisando el Reglamento y la información del portal…");
     conversationHistory.push({ role: "user", content: question });
     input.value = "";
     status.classList.add("visible");
