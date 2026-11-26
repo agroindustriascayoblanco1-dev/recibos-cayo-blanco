@@ -315,7 +315,7 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
 .activation-box p{margin:0 0 12px;font-size:12px;line-height:1.5;color:#4f6770}
 .activation-box label{margin-bottom:6px}
 
-</style>
+.dock-platanito-icon{width:27px;height:27px;object-fit:contain;vertical-align:middle;margin-right:4px}\n</style>
 </head>
 <body>
 
@@ -483,7 +483,7 @@ footer{padding:0 20px calc(26px + env(safe-area-inset-bottom));text-align:center
   <button data-nav="recibos"><svg class="i"><use href="#i-receipt"/></svg>Recibos</button>
   <button data-nav="carnet"><svg class="i"><use href="#i-id"/></svg>Carné</button>
   <button data-nav="docs"><svg class="i"><use href="#i-docs"/></svg>Docs</button>
-  <button data-nav="platanito" aria-label="Abrir PLATANITO"><span aria-hidden="true" style="font-size:21px;line-height:22px">🍌</span>PLATANITO</button>
+  <button data-nav="platanito" aria-label="Abrir PLATANITO"><img class="dock-platanito-icon" src="platanito.png?v=1" alt="">PLATANITO</button>
   <button data-nav="mas"><svg class="i"><use href="#i-grid"/></svg>Más</button>
 </nav>
 
@@ -1026,6 +1026,6 @@ function logout(){empleadoActual=null;pdfActual=null;paginaEncontrada=null;$("co
 })();
 </script>
 <!-- PLATANITO: interfaz de chat, visible tras iniciar sesión -->
-<script src="platanito.js?v=22" defer></script>
+<script src="platanito.js?v=23" defer></script>
 </body>
 </html>
